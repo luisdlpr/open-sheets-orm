@@ -1,0 +1,56 @@
+{
+  "name": "open-sheets-orm",
+  "version": "0.1.0",
+  "description": "A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.",
+  "author": "luisdlpr",
+  "license": "MIT",
+  "homepage": "https://github.com/<your-username>/sheetorm",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<your-username>/sheetorm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/<your-username>/sheetorm/issues"
+  },
+  "keywords": [
+    "google-sheets",
+    "orm",
+    "typescript",
+    "database",
+    "prisma",
+    "google-workspace",
+    "spreadsheet"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "lint": "eslint .",
+    "prepublishOnly": "pnpm build"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.13.1",
+      "onFail": "download"
+    }
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.1.1",
+    "eslint": "^10.7.0",
+    "prettier": "^3.9.5",
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.64.0",
+    "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "googleapis": "^173.0.0"
+  }
+}
