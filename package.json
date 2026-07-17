@@ -35,6 +35,7 @@
       "onFail": "download"
     }
   },
+  "packageManager": "pnpm@11.13.1",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
