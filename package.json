@@ -1,16 +1,16 @@
 {
   "name": "open-sheets-orm",
-  "version": "0.1.0",
-  "description": "A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.",
+  "version": "0.0.0",
+  "description": "reserved-placeholder: A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.",
   "author": "luisdlpr",
   "license": "MIT",
-  "homepage": "https://github.com/<your-username>/sheetorm",
+  "homepage": "https://github.com/luisdlpr/open-sheets-orm",
   "repository": {
     "type": "git",
-    "url": "https://github.com/<your-username>/sheetorm.git"
+    "url": "https://github.com/luisdlpr/open-sheets-orm.git"
   },
   "bugs": {
-    "url": "https://github.com/<your-username>/sheetorm/issues"
+    "url": "https://github.com/luisdlpr/open-sheets-orm/issues"
   },
   "keywords": [
     "google-sheets",
