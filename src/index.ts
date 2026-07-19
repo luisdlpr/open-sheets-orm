@@ -1,7 +1,30 @@
-import { GoogleSheetsAdapter } from './adapters/GoogleSheetsAdapter';
-import credentials from '../.keys/open-sheets-orm-447e9f38f287.json';
+/**
+ * @file Public API barrel export for open-sheets-orm.
+ * @module open-sheets-orm
+ */
 
-export * from './adapters/GoogleSheetsAdapter';
+export { SheetsAdapter } from './adapters/SheetsAdapter';
+export { GoogleSheetsAdapter } from './adapters/GoogleSheetsAdapter';
 
-const adapter = new GoogleSheetsAdapter(credentials);
-adapter.main();
+export type { SheetConfig, SpreadsheetInfo, SheetInfo } from './types';
+
+export {
+  SheetsError,
+  ConnectionError,
+  SheetNotFoundError,
+  RowNotFoundError,
+} from './errors';
+
+export {
+  GOOGLE_SHEETS_VERSION,
+  GOOGLE_SHEETS_SCOPES,
+  GOOGLE_SHEETS_BASE_URL,
+  VALUE_INPUT_OPTION_RAW,
+  INSERT_DATA_OPTION_INSERT_ROWS,
+  DIMENSION_ROWS,
+  HEADER_ROW_RANGE,
+  DATA_START_RANGE,
+  FULL_COLUMN_RANGE,
+  FIELDS_PROPERTIES,
+  FIELDS_SHEET_TITLES,
+} from './constants';
