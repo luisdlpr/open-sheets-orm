@@ -38,3 +38,6 @@ yarn-error.log*
 
 # keys
 .keys/
+
+# review checklists
+REVIEW.md
