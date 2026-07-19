@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { google } from 'googleapis';
 
 export interface GoogleCredentials {
   type: string;
@@ -25,22 +25,22 @@ export class GoogleSheetsAdapter {
     const auth = new google.auth.GoogleAuth({
       credentials: this.credentials,
       scopes: [
-        "https://www.googleapis.com/auth/spreadsheets" // TODO: some enum config file or constants
-      ]
+        'https://www.googleapis.com/auth/spreadsheets', // TODO: some enum config file or constants
+      ],
     });
 
     const sheets = google.sheets({
-      version: "v4",
-      auth
-    })
-
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: "1p3FMsiVMQaLeZSOUrNQJe1HD50uAp821KMrxH7_Qi9g",
-      range: "Sheet1!A:B"
+      version: 'v4',
+      auth,
     });
 
-    console.log(response)
-    console.log(response.data.values)
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: '1p3FMsiVMQaLeZSOUrNQJe1HD50uAp821KMrxH7_Qi9g',
+      range: 'Sheet1!A:B',
+    });
+
+    console.log(response);
+    console.log(response.data.values);
   }
 }
 

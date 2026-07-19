@@ -26,6 +26,8 @@
     "dev": "tsup --watch",
     "test": "vitest",
     "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepublishOnly": "pnpm build"
   },
   "devEngines": {

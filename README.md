@@ -15,7 +15,7 @@ Also available via npm and yarn.
 ## Setup
 
 ```ts
-import { GoogleSheetsAdapter } from "open-sheets-orm";
+import { GoogleSheetsAdapter } from 'open-sheets-orm';
 
 const adapter = new GoogleSheetsAdapter({
   // Google Sheets API credentials

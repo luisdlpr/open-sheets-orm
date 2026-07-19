@@ -17,13 +17,13 @@ Do not stage, commit, amend, or push changes. Leave all git operations to the us
 
 ## Dev Commands
 
-| Command | What it does |
-|---|---|
-| `pnpm install` | Install dependencies |
-| `pnpm build` | Build to `dist/` (esm + cjs + types) |
-| `pnpm dev` | Watch build (`tsup --watch`) |
-| `pnpm test` | Run all tests (watch mode in TTY, run mode in CI) |
-| `pnpm lint` | Lint with ESLint (flat config, v9+) |
+| Command        | What it does                                      |
+| -------------- | ------------------------------------------------- |
+| `pnpm install` | Install dependencies                              |
+| `pnpm build`   | Build to `dist/` (esm + cjs + types)              |
+| `pnpm dev`     | Watch build (`tsup --watch`)                      |
+| `pnpm test`    | Run all tests (watch mode in TTY, run mode in CI) |
+| `pnpm lint`    | Lint with ESLint (flat config, v9+)               |
 
 **No `typecheck` script exists.** Type checking happens implicitly via `dts: true` in tsup during `pnpm build`. There is no `tsc --noEmit` shortcut.
 
@@ -45,7 +45,7 @@ Do not stage, commit, amend, or push changes. Leave all git operations to the us
 - Test files live in `tests/` (top-level), not co-located with source
 - Use explicit Vitest imports — globals are not configured:
   ```ts
-  import { describe, it, expect } from "vitest"
+  import { describe, it, expect } from 'vitest';
   ```
 - Run a single file: `pnpm vitest run tests/example.test.ts`
 - Run all tests (non-watch): `pnpm vitest run`
@@ -73,6 +73,7 @@ Do not stage, commit, amend, or push changes. Leave all git operations to the us
 ## CI (`.github/workflows/ci.yml`)
 
 Steps run in this order on push/PR to `main`:
+
 1. `pnpm install --frozen-lockfile`
 2. `pnpm build`
 3. `pnpm test`
