@@ -1,6 +1,15 @@
 /**
  * @file Public factory for creating field builders.
  * @module open-sheets-orm/schema
+ *
+ * @example
+ * ```ts
+ * field.string().primaryKey()
+ * field.number().optional().default(0)
+ * field.boolean().default(false)
+ * field.date()
+ * field.json().optional().default([])
+ * ```
  */
 
 import { FieldBuilder } from './FieldBuilder';

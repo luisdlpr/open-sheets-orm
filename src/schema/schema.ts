@@ -13,6 +13,18 @@ import { validateSchema } from './validation';
  * @param definitions - Raw model definitions from user code.
  * @returns The compiled schema metadata.
  * @throws {SchemaValidationError} When the definition violates validation rules.
+ *
+ * @example
+ * ```ts
+ * const meta = schema({
+ *   User: {
+ *     id:    field.string().primaryKey(),
+ *     email: field.string().unique(),
+ *     name:  field.string().optional(),
+ *     age:   field.number().optional().default(0),
+ *   },
+ * });
+ * ```
  */
 export function schema(
   definitions: Record<string, Record<string, FieldBuilder>>,
