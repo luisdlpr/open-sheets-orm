@@ -28,3 +28,11 @@ export {
   FIELDS_PROPERTIES,
   FIELDS_SHEET_TITLES,
 } from './constants';
+
+export { schema, field, SchemaValidationError } from './schema';
+export type {
+  FieldMetadata,
+  ModelMetadata,
+  SchemaMetadata,
+  SupportedFieldType,
+} from './schema';
