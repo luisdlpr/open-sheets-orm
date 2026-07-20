@@ -3,6 +3,8 @@ import { SchemaValidationError } from '../src/schema/errors';
 import { FieldBuilder } from '../src/schema/FieldBuilder';
 import { field } from '../src/schema/field';
 import { validateSchema } from '../src/schema/validation';
+import { schema } from '../src/schema/schema';
+import type { SchemaMetadata } from '../src/schema/types';
 
 describe('SchemaValidationError', () => {
   it('has correct name and message', () => {
@@ -560,6 +562,259 @@ describe('field factory', () => {
       primaryKey: true,
       unique: true,
       optional: true,
+    });
+  });
+});
+
+describe('schema', () => {
+  describe('smoke tests', () => {
+    it('returns a SchemaMetadata object', () => {
+      const result = schema({ User: { id: field.string() } });
+      expect(result).toHaveProperty('models');
+    });
+
+    it('returns an object containing the defined models', () => {
+      const result = schema({ User: { id: field.string() } });
+      expect(result.models).toHaveProperty('User');
+    });
+
+    it('supports multiple models', () => {
+      const result = schema({
+        User: { id: field.string() },
+        Post: { title: field.string() },
+      });
+      expect(Object.keys(result.models)).toEqual(['User', 'Post']);
+    });
+  });
+
+  describe('model metadata shape', () => {
+    it('includes name and fields on each model', () => {
+      const result = schema({ User: { id: field.string() } });
+      expect(result.models.User).toHaveProperty('name');
+      expect(result.models.User).toHaveProperty('fields');
+    });
+
+    it('sets model name to the definition key', () => {
+      const result = schema({ User: { id: field.string() } });
+      expect(result.models.User.name).toBe('User');
+    });
+  });
+
+  describe('field metadata shape', () => {
+    it('includes type, primaryKey, unique, optional for each field', () => {
+      const result = schema({ User: { id: field.string() } });
+      const fieldMeta = result.models.User.fields.id;
+      expect(fieldMeta).toHaveProperty('type');
+      expect(fieldMeta).toHaveProperty('primaryKey');
+      expect(fieldMeta).toHaveProperty('unique');
+      expect(fieldMeta).toHaveProperty('optional');
+    });
+
+    it('sets correct type for field.string()', () => {
+      const result = schema({ User: { name: field.string() } });
+      expect(result.models.User.fields.name.type).toBe('string');
+    });
+
+    it('sets correct type for field.number()', () => {
+      const result = schema({ User: { age: field.number() } });
+      expect(result.models.User.fields.age.type).toBe('number');
+    });
+
+    it('sets correct type for field.boolean()', () => {
+      const result = schema({ User: { active: field.boolean() } });
+      expect(result.models.User.fields.active.type).toBe('boolean');
+    });
+
+    it('sets correct type for field.date()', () => {
+      const result = schema({ User: { createdAt: field.date() } });
+      expect(result.models.User.fields.createdAt.type).toBe('date');
+    });
+
+    it('sets correct type for field.json()', () => {
+      const result = schema({ User: { meta: field.json() } });
+      expect(result.models.User.fields.meta.type).toBe('json');
+    });
+
+    it('reflects primaryKey() modifier', () => {
+      const result = schema({ User: { id: field.string().primaryKey() } });
+      expect(result.models.User.fields.id.primaryKey).toBe(true);
+    });
+
+    it('reflects unique() modifier', () => {
+      const result = schema({ User: { email: field.string().unique() } });
+      expect(result.models.User.fields.email.unique).toBe(true);
+    });
+
+    it('reflects optional() modifier', () => {
+      const result = schema({ User: { name: field.string().optional() } });
+      expect(result.models.User.fields.name.optional).toBe(true);
+    });
+
+    it('reflects default() modifier', () => {
+      const result = schema({
+        User: { name: field.string().default('Alice') },
+      });
+      expect(result.models.User.fields.name.defaultValue).toBe('Alice');
+    });
+
+    it('omits defaultValue when not set', () => {
+      const result = schema({ User: { name: field.string() } });
+      expect('defaultValue' in result.models.User.fields.name).toBe(false);
+    });
+
+    it('primaryKey defaults to false', () => {
+      const result = schema({ User: { id: field.string() } });
+      expect(result.models.User.fields.id.primaryKey).toBe(false);
+    });
+
+    it('unique defaults to false', () => {
+      const result = schema({ User: { id: field.string() } });
+      expect(result.models.User.fields.id.unique).toBe(false);
+    });
+
+    it('optional defaults to false', () => {
+      const result = schema({ User: { id: field.string() } });
+      expect(result.models.User.fields.id.optional).toBe(false);
+    });
+  });
+
+  describe('exact output shape', () => {
+    it('matches the expected metadata structure', () => {
+      const result = schema({
+        User: {
+          id: field.string().primaryKey(),
+          email: field.string().unique(),
+          name: field.string(),
+          age: field.number(),
+        },
+      });
+
+      const expected: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: {
+              id: {
+                type: 'string',
+                primaryKey: true,
+                unique: false,
+                optional: false,
+              },
+              email: {
+                type: 'string',
+                primaryKey: false,
+                unique: true,
+                optional: false,
+              },
+              name: {
+                type: 'string',
+                primaryKey: false,
+                unique: false,
+                optional: false,
+              },
+              age: {
+                type: 'number',
+                primaryKey: false,
+                unique: false,
+                optional: false,
+              },
+            },
+          },
+        },
+      };
+
+      expect(result).toEqual(expected);
+    });
+
+    it('includes all modifiers in the output when set', () => {
+      const result = schema({
+        Task: {
+          id: field.string().primaryKey(),
+          title: field.string().unique().default('Untitled'),
+          count: field.number().optional().default(0),
+          tags: field.json().optional().default([]),
+          completed: field.boolean().default(false),
+        },
+      });
+
+      expect(result.models.Task.fields.id).toEqual({
+        type: 'string',
+        primaryKey: true,
+        unique: false,
+        optional: false,
+      });
+
+      expect(result.models.Task.fields.title).toEqual({
+        type: 'string',
+        primaryKey: false,
+        unique: true,
+        optional: false,
+        defaultValue: 'Untitled',
+      });
+
+      expect(result.models.Task.fields.count).toEqual({
+        type: 'number',
+        primaryKey: false,
+        unique: false,
+        optional: true,
+        defaultValue: 0,
+      });
+
+      expect(result.models.Task.fields.tags).toEqual({
+        type: 'json',
+        primaryKey: false,
+        unique: false,
+        optional: true,
+        defaultValue: [],
+      });
+
+      expect(result.models.Task.fields.completed).toEqual({
+        type: 'boolean',
+        primaryKey: false,
+        unique: false,
+        optional: false,
+        defaultValue: false,
+      });
+    });
+  });
+
+  describe('validation integration', () => {
+    it('throws SchemaValidationError for an empty model name', () => {
+      expect(() => schema({ '': { id: field.string() } })).toThrow(
+        SchemaValidationError,
+      );
+    });
+
+    it('throws SchemaValidationError for a model with no fields', () => {
+      expect(() => schema({ User: {} })).toThrow(SchemaValidationError);
+    });
+
+    it('throws SchemaValidationError for multiple primary keys', () => {
+      expect(() =>
+        schema({
+          User: {
+            a: field.string().primaryKey(),
+            b: field.string().primaryKey(),
+          },
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+
+    it('throws SchemaValidationError for mismatched default type', () => {
+      expect(() =>
+        schema({ User: { age: field.string().default(42) } }),
+      ).toThrow(SchemaValidationError);
+    });
+  });
+
+  describe('immutability', () => {
+    it('returns a fresh metadata object on each call', () => {
+      const definitions = { User: { id: field.string() } };
+      const a = schema(definitions);
+      const b = schema(definitions);
+      expect(a).toEqual(b);
+      expect(a).not.toBe(b);
+      expect(a.models).not.toBe(b.models);
     });
   });
 });
