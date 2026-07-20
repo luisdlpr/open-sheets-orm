@@ -3,8 +3,9 @@
  * @module open-sheets-orm/schema
  */
 
-import type { FieldBuilder } from './FieldBuilder';
-import type { SchemaMetadata } from './types';
+import { FieldBuilder } from './FieldBuilder';
+import type { FieldMetadata, SchemaMetadata } from './types';
+import { validateSchema } from './validation';
 
 /**
  * Compiles a schema definition into a normalized metadata object.
@@ -16,5 +17,25 @@ import type { SchemaMetadata } from './types';
 export function schema(
   definitions: Record<string, Record<string, FieldBuilder>>,
 ): SchemaMetadata {
-  return { models: {} };
+  validateSchema(definitions);
+
+  const models: Record<
+    string,
+    { name: string; fields: Record<string, FieldMetadata> }
+  > = {};
+
+  for (const [modelName, fieldBuilders] of Object.entries(definitions)) {
+    const fields: Record<string, FieldMetadata> = {};
+
+    for (const [fieldName, builder] of Object.entries(fieldBuilders)) {
+      fields[fieldName] = builder.build();
+    }
+
+    models[modelName] = {
+      name: modelName,
+      fields,
+    };
+  }
+
+  return { models };
 }
