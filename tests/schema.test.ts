@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { SchemaValidationError } from '../src/schema/errors';
 import { FieldBuilder } from '../src/schema/FieldBuilder';
 import { field } from '../src/schema/field';
+import { validateSchema } from '../src/schema/validation';
 
 describe('SchemaValidationError', () => {
   it('has correct name and message', () => {
@@ -161,6 +162,366 @@ describe('FieldBuilder', () => {
       const b = new FieldBuilder('string').build();
       expect(a.primaryKey).toBe(true);
       expect(b.primaryKey).toBe(false);
+    });
+  });
+});
+
+describe('validateSchema', () => {
+  describe('model name', () => {
+    it('throws for empty model name', () => {
+      expect(() =>
+        validateSchema({
+          '': { id: field.string() },
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+
+    it('throws for empty model name with informative message', () => {
+      expect(() =>
+        validateSchema({
+          '': { id: field.string() },
+        }),
+      ).toThrow(/model name/i);
+    });
+
+    it('accepts a valid model name', () => {
+      expect(() =>
+        validateSchema({
+          User: { id: field.string() },
+        }),
+      ).not.toThrow();
+    });
+  });
+
+  describe('field name', () => {
+    it('throws for empty field name', () => {
+      expect(() =>
+        validateSchema({
+          User: { '': field.string() },
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+
+    it('throws for empty field name with informative message', () => {
+      expect(() =>
+        validateSchema({
+          User: { '': field.string() },
+        }),
+      ).toThrow(/field name/i);
+    });
+
+    it('accepts a valid field name', () => {
+      expect(() =>
+        validateSchema({
+          User: { id: field.string() },
+        }),
+      ).not.toThrow();
+    });
+  });
+
+  describe('model must have at least one field', () => {
+    it('throws for a model with no fields', () => {
+      expect(() =>
+        validateSchema({
+          User: {},
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+
+    it('throws for empty model with informative message', () => {
+      expect(() =>
+        validateSchema({
+          User: {},
+        }),
+      ).toThrow(/at least one field/i);
+    });
+  });
+
+  describe('primary key uniqueness', () => {
+    it('accepts a model with no primary key', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string(),
+            email: field.string().unique(),
+          },
+        }),
+      ).not.toThrow();
+    });
+
+    it('accepts a model with exactly one primary key', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey(),
+            email: field.string().unique(),
+          },
+        }),
+      ).not.toThrow();
+    });
+
+    it('throws for a model with multiple primary keys', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey(),
+            email: field.string().primaryKey(),
+          },
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+
+    it('throws for multiple primary keys with informative message', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            a: field.string().primaryKey(),
+            b: field.string().primaryKey(),
+          },
+        }),
+      ).toThrow(/multiple primary key/i);
+    });
+
+    it('throws for multiple primary keys across many fields', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            a: field.string().primaryKey(),
+            b: field.string(),
+            c: field.number().primaryKey(),
+          },
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+  });
+
+  describe('default value type matching', () => {
+    describe('string type', () => {
+      it('accepts a string default', () => {
+        expect(() =>
+          validateSchema({
+            User: { name: field.string().default('Alice') },
+          }),
+        ).not.toThrow();
+      });
+
+      it('rejects a number default', () => {
+        expect(() =>
+          validateSchema({
+            User: { name: field.string().default(42) },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+
+      it('rejects a boolean default', () => {
+        expect(() =>
+          validateSchema({
+            User: { name: field.string().default(true) },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+    });
+
+    describe('number type', () => {
+      it('accepts a number default', () => {
+        expect(() =>
+          validateSchema({
+            User: { age: field.number().default(25) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts zero as a number default', () => {
+        expect(() =>
+          validateSchema({
+            User: { count: field.number().default(0) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('rejects a string default', () => {
+        expect(() =>
+          validateSchema({
+            User: { age: field.number().default('twenty') },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+
+      it('rejects a boolean default', () => {
+        expect(() =>
+          validateSchema({
+            User: { age: field.number().default(true) },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+    });
+
+    describe('boolean type', () => {
+      it('accepts a boolean default', () => {
+        expect(() =>
+          validateSchema({
+            User: { active: field.boolean().default(true) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts false as a boolean default', () => {
+        expect(() =>
+          validateSchema({
+            User: { active: field.boolean().default(false) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('rejects a string default', () => {
+        expect(() =>
+          validateSchema({
+            User: { active: field.boolean().default('yes') },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+
+      it('rejects a number default', () => {
+        expect(() =>
+          validateSchema({
+            User: { active: field.boolean().default(1) },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+    });
+
+    describe('date type', () => {
+      it('accepts a Date instance as default', () => {
+        expect(() =>
+          validateSchema({
+            User: { createdAt: field.date().default(new Date('2025-01-01')) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts an ISO date string as default', () => {
+        expect(() =>
+          validateSchema({
+            User: { createdAt: field.date().default('2025-01-01') },
+          }),
+        ).not.toThrow();
+      });
+
+      it('rejects a number default', () => {
+        expect(() =>
+          validateSchema({
+            User: { createdAt: field.date().default(123) },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+
+      it('rejects a boolean default', () => {
+        expect(() =>
+          validateSchema({
+            User: { createdAt: field.date().default(true) },
+          }),
+        ).toThrow(SchemaValidationError);
+      });
+    });
+
+    describe('json type', () => {
+      it('accepts an object default', () => {
+        expect(() =>
+          validateSchema({
+            User: { meta: field.json().default({ key: 'val' }) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts an array default', () => {
+        expect(() =>
+          validateSchema({
+            User: { tags: field.json().default([1, 2, 3]) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts a string default', () => {
+        expect(() =>
+          validateSchema({
+            User: { data: field.json().default('raw') },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts a number default', () => {
+        expect(() =>
+          validateSchema({
+            User: { data: field.json().default(42) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts a boolean default', () => {
+        expect(() =>
+          validateSchema({
+            User: { data: field.json().default(false) },
+          }),
+        ).not.toThrow();
+      });
+
+      it('accepts null default', () => {
+        expect(() =>
+          validateSchema({
+            User: { data: field.json().default(null) },
+          }),
+        ).not.toThrow();
+      });
+    });
+
+    describe('error message clarity', () => {
+      it('includes field name in default type mismatch error', () => {
+        expect(() =>
+          validateSchema({
+            User: { age: field.string().default(42) },
+          }),
+        ).toThrow(/age/i);
+      });
+
+      it('includes model name in default type mismatch error', () => {
+        expect(() =>
+          validateSchema({
+            Profile: { age: field.string().default(42) },
+          }),
+        ).toThrow(/Profile/i);
+      });
+    });
+  });
+
+  describe('multiple models', () => {
+    it('validates all models and passes', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey(),
+            name: field.string(),
+          },
+          Post: {
+            id: field.string().primaryKey(),
+            title: field.string().default('Untitled'),
+            published: field.boolean().default(false),
+          },
+        }),
+      ).not.toThrow();
+    });
+
+    it('reports error on the first invalid model', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey(),
+          },
+          Post: {
+            a: field.string().primaryKey(),
+            b: field.string().primaryKey(),
+          },
+        }),
+      ).toThrow(/Post/i);
     });
   });
 });
