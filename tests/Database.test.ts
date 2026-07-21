@@ -166,6 +166,75 @@ describe('Database - findMany', () => {
   });
 });
 
+describe('Database - findUnique', () => {
+  let adapter: SheetsAdapter;
+  let db: Database;
+
+  beforeEach(() => {
+    adapter = mockAdapter();
+    db = new Database(userSchema, adapter);
+  });
+
+  it('throws ModelNotFoundError when the model does not exist in schema', async () => {
+    await expect(db.findUnique('UnknownModel', { id: '1' })).rejects.toThrow(
+      ModelNotFoundError,
+    );
+  });
+
+  it('calls adapter.readSheet with the model name as the sheet name', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    await expect(db.findUnique('User', { id: '1' })).rejects.toThrow(
+      RecordNotFoundError,
+    );
+    expect(adapter.readSheet).toHaveBeenCalledWith('User');
+  });
+
+  it('returns the matching record when a record matches the where clause', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', age: '30' },
+      { id: '2', name: 'Bob', age: '25' },
+    ]);
+    const result = await db.findUnique('User', { id: '1' });
+    expect(result.name).toBe('Alice');
+    expect(result.age).toBe(30);
+  });
+
+  it('throws RecordNotFoundError when no record matches the where clause', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice' },
+    ]);
+    await expect(db.findUnique('User', { id: '99' })).rejects.toThrow(
+      RecordNotFoundError,
+    );
+  });
+
+  it('matches on number fields in the where clause', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', age: '30' },
+      { id: '2', name: 'Bob', age: '25' },
+    ]);
+    const result = await db.findUnique('User', { age: 30 });
+    expect(result.name).toBe('Alice');
+  });
+
+  it('matches only when ALL where conditions are satisfied', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', age: '30' },
+      { id: '2', name: 'Alice', age: '25' },
+    ]);
+    await expect(
+      db.findUnique('User', { name: 'Alice', age: 25 }),
+    ).resolves.toMatchObject({ id: '2' });
+  });
+
+  it('throws RecordNotFoundError when the sheet has no data', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    await expect(db.findUnique('User', { id: '1' })).rejects.toThrow(
+      RecordNotFoundError,
+    );
+  });
+});
+
 describe('ModelNotFoundError', () => {
   it('formats the error message with model name', () => {
     const error = new ModelNotFoundError('User');

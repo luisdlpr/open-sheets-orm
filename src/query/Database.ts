@@ -6,7 +6,7 @@
 import type { SchemaMetadata, FieldMetadata } from '../schema';
 import type { SheetsAdapter } from '../adapters/SheetsAdapter';
 import type { WhereClause } from './types';
-import { ModelNotFoundError } from './errors';
+import { ModelNotFoundError, RecordNotFoundError } from './errors';
 
 /**
  * High-level query engine that translates ORM-style operations into
@@ -61,9 +61,22 @@ export class Database {
     modelName: string,
     where: WhereClause,
   ): Promise<Record<string, unknown>> {
-    void modelName;
-    void where;
-    throw new Error('Not implemented');
+    const model = this.schema.models[modelName];
+    if (!model) {
+      throw new ModelNotFoundError(modelName);
+    }
+
+    const rawRows = await this.adapter.readSheet(modelName);
+    const parsedRows = rawRows.map((rawRow) =>
+      this.parseRow(model.fields, rawRow),
+    );
+
+    const match = parsedRows.find((row) => this.matchesWhere(row, where));
+    if (!match) {
+      throw new RecordNotFoundError(modelName, where);
+    }
+
+    return match;
   }
 
   /**
@@ -159,5 +172,21 @@ export class Database {
       case 'json':
         return JSON.parse(rawValue);
     }
+  }
+
+  /**
+   * Checks whether a parsed row satisfies all conditions in the where clause.
+   *
+   * @param row - The parsed row to test.
+   * @param where - The conditions to match.
+   * @returns True if all where conditions match the row.
+   */
+  private matchesWhere(
+    row: Record<string, unknown>,
+    where: WhereClause,
+  ): boolean {
+    return Object.entries(where).every(
+      ([key, value]) => key in row && row[key] === value,
+    );
   }
 }
