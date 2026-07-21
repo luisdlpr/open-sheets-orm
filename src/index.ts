@@ -29,6 +29,10 @@ export {
   FIELDS_SHEET_TITLES,
 } from './constants';
 
+export { Database } from './query';
+export { ModelNotFoundError, RecordNotFoundError } from './query';
+export type { WhereClause } from './query';
+
 export { schema, field, SchemaValidationError } from './schema';
 export type {
   FieldMetadata,
