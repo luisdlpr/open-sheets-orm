@@ -90,9 +90,33 @@ export class Database {
     modelName: string,
     data: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
-    void modelName;
-    void data;
-    throw new Error('Not implemented');
+    const model = this.schema.models[modelName];
+    if (!model) {
+      throw new ModelNotFoundError(modelName);
+    }
+
+    const headers = await this.adapter.getHeaders(modelName);
+
+    const row: unknown[] = headers.map((header) => {
+      if (header in data) {
+        return data[header];
+      }
+      const field = model.fields[header];
+      if (field?.defaultValue !== undefined) {
+        return field.defaultValue;
+      }
+      return '';
+    });
+
+    await this.adapter.appendRow(row, modelName);
+
+    const record: Record<string, unknown> = { ...data };
+    for (const [fieldName, field] of Object.entries(model.fields)) {
+      if (!(fieldName in record) && field.defaultValue !== undefined) {
+        record[fieldName] = field.defaultValue;
+      }
+    }
+    return record;
   }
 
   /**
@@ -109,10 +133,35 @@ export class Database {
     where: WhereClause,
     data: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
-    void modelName;
-    void where;
-    void data;
-    throw new Error('Not implemented');
+    const model = this.schema.models[modelName];
+    if (!model) {
+      throw new ModelNotFoundError(modelName);
+    }
+
+    const rawRows = await this.adapter.readSheet(modelName);
+    const indexedRows = rawRows.map((rawRow, i) => ({
+      row: this.parseRow(model.fields, rawRow),
+      rawData: rawRow,
+      index: i,
+    }));
+
+    const match = indexedRows.find((r) => this.matchesWhere(r.row, where));
+    if (!match) {
+      throw new RecordNotFoundError(modelName, where);
+    }
+
+    const headers = await this.adapter.getHeaders(modelName);
+
+    const mergedRow: unknown[] = headers.map((header) => {
+      if (header in data) {
+        return data[header];
+      }
+      return match.rawData[header] ?? '';
+    });
+
+    await this.adapter.updateRow(match.index, mergedRow, modelName);
+
+    return { ...match.row, ...data };
   }
 
   /**
@@ -123,9 +172,23 @@ export class Database {
    * @throws {RecordNotFoundError} If no record matches the where clause.
    */
   async delete(modelName: string, where: WhereClause): Promise<void> {
-    void modelName;
-    void where;
-    throw new Error('Not implemented');
+    const model = this.schema.models[modelName];
+    if (!model) {
+      throw new ModelNotFoundError(modelName);
+    }
+
+    const rawRows = await this.adapter.readSheet(modelName);
+    const indexedRows = rawRows.map((rawRow, i) => ({
+      row: this.parseRow(model.fields, rawRow),
+      index: i,
+    }));
+
+    const match = indexedRows.find((r) => this.matchesWhere(r.row, where));
+    if (!match) {
+      throw new RecordNotFoundError(modelName, where);
+    }
+
+    await this.adapter.deleteRow(match.index, modelName);
   }
 
   /**

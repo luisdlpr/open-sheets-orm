@@ -277,7 +277,7 @@ describe('Database - create', () => {
         },
       },
     };
-    const db2 = new Database(schema, new MockAdapter());
+    const db2 = new Database(schema, adapter);
     adapter.setData('Task', ['title', 'done'], []);
     await db2.create('Task', { title: 'Test' });
     const tasks = await db2.findMany('Task');
@@ -296,7 +296,7 @@ describe('Database - create', () => {
         },
       },
     };
-    const db2 = new Database(schema, new MockAdapter());
+    const db2 = new Database(schema, adapter);
     adapter.setData('Task', ['title', 'done'], []);
     await db2.create('Task', { title: 'Test', done: true });
     const tasks = await db2.findMany('Task');
@@ -315,7 +315,7 @@ describe('Database - create', () => {
         },
       },
     };
-    const db2 = new Database(schema, new MockAdapter());
+    const db2 = new Database(schema, adapter);
     adapter.setData('Task', ['title', 'done'], []);
     const result = await db2.create('Task', { title: 'Test' });
     expect(result).toMatchObject({ title: 'Test', done: false });
