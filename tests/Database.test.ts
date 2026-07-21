@@ -1,76 +1,168 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   Database,
   ModelNotFoundError,
   RecordNotFoundError,
 } from '../src/query';
-import type { SchemaMetadata } from '../src/schema';
+import type { SchemaMetadata, FieldMetadata } from '../src/schema';
 import type { SheetsAdapter } from '../src/adapters/SheetsAdapter';
 
-describe('Database', () => {
-  const mockSchema: SchemaMetadata = { models: {} };
-  const mockAdapter = {} as unknown as SheetsAdapter;
+/**
+ * Builds a FieldMetadata quickly for test schemas.
+ */
+function field(
+  type: FieldMetadata['type'],
+  overrides: Partial<FieldMetadata> = {},
+): FieldMetadata {
+  return {
+    type,
+    primaryKey: false,
+    unique: false,
+    optional: false,
+    ...overrides,
+  };
+}
 
+const userSchema: SchemaMetadata = {
+  models: {
+    User: {
+      name: 'User',
+      fields: {
+        id: field('string', { primaryKey: true, unique: true }),
+        name: field('string'),
+        age: field('number', { optional: true }),
+        active: field('boolean', { optional: true }),
+        joined: field('date', { optional: true }),
+        metadata: field('json', { optional: true }),
+      },
+    },
+  },
+};
+
+function mockAdapter(): SheetsAdapter {
+  return {
+    connect: vi.fn(),
+    disconnect: vi.fn(),
+    getSpreadsheet: vi.fn(),
+    createSheet: vi.fn(),
+    deleteSheet: vi.fn(),
+    getHeaders: vi.fn(),
+    writeHeaders: vi.fn(),
+    readSheet: vi.fn(),
+    appendRow: vi.fn(),
+    updateRow: vi.fn(),
+    deleteRow: vi.fn(),
+  } as unknown as SheetsAdapter;
+}
+
+describe('Database', () => {
   it('constructs without error', () => {
-    expect(() => new Database(mockSchema, mockAdapter)).not.toThrow();
+    expect(() => new Database({ models: {} }, mockAdapter())).not.toThrow();
   });
 
   it('has findMany method', () => {
-    const db = new Database(mockSchema, mockAdapter);
+    const db = new Database({ models: {} }, mockAdapter());
     expect(typeof db.findMany).toBe('function');
   });
 
   it('has findUnique method', () => {
-    const db = new Database(mockSchema, mockAdapter);
+    const db = new Database({ models: {} }, mockAdapter());
     expect(typeof db.findUnique).toBe('function');
   });
 
   it('has create method', () => {
-    const db = new Database(mockSchema, mockAdapter);
+    const db = new Database({ models: {} }, mockAdapter());
     expect(typeof db.create).toBe('function');
   });
 
   it('has update method', () => {
-    const db = new Database(mockSchema, mockAdapter);
+    const db = new Database({ models: {} }, mockAdapter());
     expect(typeof db.update).toBe('function');
   });
 
   it('has delete method', () => {
-    const db = new Database(mockSchema, mockAdapter);
+    const db = new Database({ models: {} }, mockAdapter());
     expect(typeof db.delete).toBe('function');
   });
+});
 
-  it('findMany returns a Promise', async () => {
-    const db = new Database(mockSchema, mockAdapter);
-    await expect(db.findMany('User')).rejects.toThrow('Not implemented');
+describe('Database - findMany', () => {
+  let adapter: SheetsAdapter;
+  let db: Database;
+
+  beforeEach(() => {
+    adapter = mockAdapter();
+    db = new Database(userSchema, adapter);
   });
 
-  it('findUnique returns a Promise', async () => {
-    const db = new Database(mockSchema, mockAdapter);
-    await expect(db.findUnique('User', { id: '1' })).rejects.toThrow(
-      'Not implemented',
+  it('throws ModelNotFoundError when the model does not exist in schema', async () => {
+    await expect(db.findMany('UnknownModel')).rejects.toThrow(
+      ModelNotFoundError,
     );
   });
 
-  it('create returns a Promise', async () => {
-    const db = new Database(mockSchema, mockAdapter);
-    await expect(db.create('User', { name: 'Alice' })).rejects.toThrow(
-      'Not implemented',
-    );
+  it('calls adapter.readSheet with the model name as the sheet name', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    await db.findMany('User');
+    expect(adapter.readSheet).toHaveBeenCalledWith('User');
   });
 
-  it('update returns a Promise', async () => {
-    const db = new Database(mockSchema, mockAdapter);
-    await expect(
-      db.update('User', { id: '1' }, { name: 'Bob' }),
-    ).rejects.toThrow('Not implemented');
+  it('returns an empty array when the sheet has no data rows', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    const result = await db.findMany('User');
+    expect(result).toEqual([]);
   });
 
-  it('delete returns a Promise', async () => {
-    const db = new Database(mockSchema, mockAdapter);
-    await expect(db.delete('User', { id: '1' })).rejects.toThrow(
-      'Not implemented',
-    );
+  it('parses string fields as strings', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice' },
+    ]);
+    const result = await db.findMany('User');
+    expect(result[0].id).toBe('1');
+    expect(result[0].name).toBe('Alice');
+  });
+
+  it('parses number fields as numbers', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', age: '30' },
+    ]);
+    const result = await db.findMany('User');
+    expect(result[0].age).toBe(30);
+  });
+
+  it('parses boolean fields as booleans', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', active: 'true' },
+    ]);
+    const result = await db.findMany('User');
+    expect(result[0].active).toBe(true);
+  });
+
+  it('parses date fields as Date objects', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', joined: '2024-01-15' },
+    ]);
+    const result = await db.findMany('User');
+    expect(result[0].joined).toBeInstanceOf(Date);
+  });
+
+  it('parses json fields via JSON.parse', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', metadata: '{"role":"admin"}' },
+    ]);
+    const result = await db.findMany('User');
+    expect(result[0].metadata).toEqual({ role: 'admin' });
+  });
+
+  it('parses all rows in the result set', async () => {
+    (adapter.readSheet as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: '1', name: 'Alice', age: '30' },
+      { id: '2', name: 'Bob', age: '25' },
+    ]);
+    const result = await db.findMany('User');
+    expect(result).toHaveLength(2);
+    expect(result[0].age).toBe(30);
+    expect(result[1].age).toBe(25);
   });
 });
 
