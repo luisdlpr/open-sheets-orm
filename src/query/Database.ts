@@ -3,9 +3,10 @@
  * @module query/Database
  */
 
-import type { SchemaMetadata } from '../schema';
+import type { SchemaMetadata, FieldMetadata } from '../schema';
 import type { SheetsAdapter } from '../adapters/SheetsAdapter';
 import type { WhereClause } from './types';
+import { ModelNotFoundError } from './errors';
 
 /**
  * High-level query engine that translates ORM-style operations into
@@ -36,10 +37,16 @@ export class Database {
    *
    * @param modelName - The name of the model to query.
    * @returns An array of record objects keyed by field names.
+   * @throws {ModelNotFoundError} If the model does not exist in the schema.
    */
   async findMany(modelName: string): Promise<Record<string, unknown>[]> {
-    void modelName;
-    throw new Error('Not implemented');
+    const model = this.schema.models[modelName];
+    if (!model) {
+      throw new ModelNotFoundError(modelName);
+    }
+
+    const rawRows = await this.adapter.readSheet(modelName);
+    return rawRows.map((rawRow) => this.parseRow(model.fields, rawRow));
   }
 
   /**
@@ -106,5 +113,51 @@ export class Database {
     void modelName;
     void where;
     throw new Error('Not implemented');
+  }
+
+  /**
+   * Converts a raw row of string values into typed values using
+   * the model's field metadata. Fields not defined in the schema
+   * are omitted.
+   *
+   * @param fields - The field metadata map for the model.
+   * @param rawRow - The raw string-valued row from the adapter.
+   * @returns The parsed row with type-converted values.
+   */
+  private parseRow(
+    fields: Record<string, FieldMetadata>,
+    rawRow: Record<string, string>,
+  ): Record<string, unknown> {
+    const parsed: Record<string, unknown> = {};
+    for (const [fieldName, metadata] of Object.entries(fields)) {
+      const rawValue = rawRow[fieldName];
+      if (rawValue === undefined || rawValue === '') {
+        continue;
+      }
+      parsed[fieldName] = this.parseValue(rawValue, metadata.type);
+    }
+    return parsed;
+  }
+
+  /**
+   * Parses a raw string value into the target type.
+   *
+   * @param rawValue - The string value from the sheet cell.
+   * @param type - The target field type.
+   * @returns The parsed value.
+   */
+  private parseValue(rawValue: string, type: FieldMetadata['type']): unknown {
+    switch (type) {
+      case 'string':
+        return rawValue;
+      case 'number':
+        return Number(rawValue);
+      case 'boolean':
+        return rawValue === 'true' || rawValue === 'TRUE' || rawValue === '1';
+      case 'date':
+        return new Date(rawValue);
+      case 'json':
+        return JSON.parse(rawValue);
+    }
   }
 }
