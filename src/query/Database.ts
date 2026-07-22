@@ -59,6 +59,14 @@ export class Database {
       results = results.filter((row) => this.matchesWhere(row, where));
     }
 
+    if (options?.skip) {
+      results = results.slice(options.skip);
+    }
+
+    if (options?.limit !== undefined) {
+      results = results.slice(0, options.limit);
+    }
+
     return results;
   }
 
