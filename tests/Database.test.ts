@@ -3,6 +3,7 @@ import {
   Database,
   ModelNotFoundError,
   RecordNotFoundError,
+  ValidationError,
 } from '../src/query';
 import type { SchemaMetadata, FieldMetadata } from '../src/schema';
 import { MockAdapter } from './helpers/MockAdapter';
@@ -320,6 +321,20 @@ describe('Database - create', () => {
     const result = await db2.create('Task', { title: 'Test' });
     expect(result).toMatchObject({ title: 'Test', done: false });
   });
+
+  it('throws ValidationError when a required field is missing', async () => {
+    adapter.setData('User', ['id', 'name', 'age'], []);
+    await expect(db.create('User', { age: 30 })).rejects.toThrow(
+      ValidationError,
+    );
+  });
+
+  it('throws ValidationError when a field has the wrong type', async () => {
+    adapter.setData('User', ['id', 'name', 'age'], []);
+    await expect(
+      db.create('User', { name: 'Alice', age: 'abc' }),
+    ).rejects.toThrow(ValidationError);
+  });
 });
 
 describe('Database - update', () => {
@@ -364,6 +379,20 @@ describe('Database - update', () => {
     const users = await db.findMany('User');
     expect(users[0]).toMatchObject({ id: '1', name: 'Alice', age: 30 });
     expect(users[1]).toMatchObject({ id: '2', name: 'Robert', age: 26 });
+  });
+
+  it('throws ValidationError when a field has the wrong type', async () => {
+    adapter.setData('User', ['id', 'name', 'age'], [['1', 'Alice', '30']]);
+    await expect(
+      db.update('User', { id: '1' }, { age: 'abc' }),
+    ).rejects.toThrow(ValidationError);
+  });
+
+  it('allows partial update with valid data', async () => {
+    adapter.setData('User', ['id', 'name', 'age'], [['1', 'Alice', '30']]);
+    await expect(
+      db.update('User', { id: '1' }, { name: 'Bob' }),
+    ).resolves.toBeDefined();
   });
 });
 

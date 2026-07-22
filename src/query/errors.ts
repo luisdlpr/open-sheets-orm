@@ -16,6 +16,17 @@ export class ModelNotFoundError extends SheetsError {
 }
 
 /**
+ * Thrown when input data fails schema validation during
+ * create or update operations.
+ */
+export class ValidationError extends SheetsError {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+
+/**
  * Thrown when a query operation cannot find a record matching
  * the supplied where clause.
  */

@@ -30,7 +30,11 @@ export {
 } from './constants';
 
 export { Database } from './query';
-export { ModelNotFoundError, RecordNotFoundError } from './query';
+export {
+  ModelNotFoundError,
+  RecordNotFoundError,
+  ValidationError,
+} from './query';
 export type { WhereClause } from './query';
 
 export { schema, field, SchemaValidationError } from './schema';

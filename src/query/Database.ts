@@ -7,6 +7,7 @@ import type { SchemaMetadata, FieldMetadata } from '../schema';
 import type { SheetsAdapter } from '../adapters/SheetsAdapter';
 import type { WhereClause } from './types';
 import { ModelNotFoundError, RecordNotFoundError } from './errors';
+import { validateInput } from './validation';
 
 /**
  * High-level query engine that translates ORM-style operations into
@@ -95,6 +96,8 @@ export class Database {
       throw new ModelNotFoundError(modelName);
     }
 
+    validateInput('create', model.fields, data);
+
     const headers = await this.adapter.getHeaders(modelName);
 
     const row: unknown[] = headers.map((header) => {
@@ -137,6 +140,8 @@ export class Database {
     if (!model) {
       throw new ModelNotFoundError(modelName);
     }
+
+    validateInput('update', model.fields, data);
 
     const rawRows = await this.adapter.readSheet(modelName);
     const indexedRows = rawRows.map((rawRow, i) => ({

@@ -4,5 +4,9 @@
  */
 
 export { Database } from './Database';
-export { ModelNotFoundError, RecordNotFoundError } from './errors';
+export {
+  ModelNotFoundError,
+  RecordNotFoundError,
+  ValidationError,
+} from './errors';
 export type { WhereClause } from './types';
