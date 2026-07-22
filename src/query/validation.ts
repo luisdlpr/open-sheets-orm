@@ -3,7 +3,8 @@
  * @module query/validation
  */
 
-import type { FieldMetadata } from '../schema';
+import type { FieldMetadata, SupportedFieldType } from '../schema';
+import { ValidationError } from './errors';
 
 /**
  * Validates input data against the model's field metadata.
@@ -22,7 +23,63 @@ export function validateInput(
   fields: Record<string, FieldMetadata>,
   data: Record<string, unknown>,
 ): void {
-  void action;
-  void fields;
-  void data;
+  for (const [fieldName, metadata] of Object.entries(fields)) {
+    const value = data[fieldName];
+    const isPresent = value !== undefined;
+
+    if (
+      action === 'create' &&
+      !isPresent &&
+      !metadata.optional &&
+      metadata.defaultValue === undefined
+    ) {
+      throw new ValidationError(`Field "${fieldName}" is required`);
+    }
+
+    if (isPresent) {
+      assertValidType(fieldName, metadata.type, value);
+    }
+  }
+}
+
+function assertValidType(
+  fieldName: string,
+  type: SupportedFieldType,
+  value: unknown,
+): void {
+  switch (type) {
+    case 'string':
+      if (typeof value !== 'string') {
+        throw new ValidationError(
+          `Field "${fieldName}" expected string, received ${typeof value}`,
+        );
+      }
+      break;
+    case 'number':
+      if (typeof value !== 'number' || Number.isNaN(value)) {
+        throw new ValidationError(
+          `Field "${fieldName}" expected number, received ${typeof value}`,
+        );
+      }
+      break;
+    case 'boolean':
+      if (typeof value !== 'boolean') {
+        throw new ValidationError(
+          `Field "${fieldName}" expected boolean, received ${typeof value}`,
+        );
+      }
+      break;
+    case 'date':
+      if (
+        !(value instanceof Date) &&
+        !(typeof value === 'string' && Number.isFinite(Date.parse(value)))
+      ) {
+        throw new ValidationError(
+          `Field "${fieldName}" expected date, received ${typeof value}`,
+        );
+      }
+      break;
+    case 'json':
+      break;
+  }
 }

@@ -250,19 +250,19 @@ describe('Database - create', () => {
 
   it('appends a new row that can be read back', async () => {
     adapter.setData('User', ['id', 'name', 'age'], []);
-    await db.create('User', { name: 'Alice', age: 30 });
+    await db.create('User', { id: '1', name: 'Alice', age: 30 });
     const users = await db.findMany('User');
     expect(users).toHaveLength(1);
     expect(users[0].name).toBe('Alice');
     expect(users[0].age).toBe(30);
   });
 
-  it('does not include unprovided fields without defaults in the row', async () => {
+  it('omits optional fields that were not provided and have no defaults', async () => {
     adapter.setData('User', ['id', 'name', 'age'], []);
-    await db.create('User', { name: 'Alice' });
+    await db.create('User', { id: '1', name: 'Alice' });
     const users = await db.findMany('User');
+    expect(users[0].id).toBe('1');
     expect(users[0].name).toBe('Alice');
-    expect(users[0].id).toBeUndefined();
     expect(users[0].age).toBeUndefined();
   });
 
