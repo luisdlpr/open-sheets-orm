@@ -210,6 +210,79 @@ describe('Database - findMany', () => {
     expect(result).toHaveLength(1);
     expect(result[0].id).toBe('2');
   });
+
+  it('skips the first N records', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name', 'age'],
+      [
+        ['1', 'Alice', '30'],
+        ['2', 'Bob', '25'],
+        ['3', 'Charlie', '35'],
+      ],
+    );
+    const result = await db.findMany('User', { skip: 1 });
+    expect(result).toHaveLength(2);
+    expect(result[0].id).toBe('2');
+    expect(result[1].id).toBe('3');
+  });
+
+  it('returns empty array when skip exceeds record count', async () => {
+    adapter.setData('User', ['id', 'name', 'age'], [['1', 'Alice', '30']]);
+    const result = await db.findMany('User', { skip: 5 });
+    expect(result).toEqual([]);
+  });
+
+  it('limits the number of returned records', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name', 'age'],
+      [
+        ['1', 'Alice', '30'],
+        ['2', 'Bob', '25'],
+        ['3', 'Charlie', '35'],
+      ],
+    );
+    const result = await db.findMany('User', { limit: 2 });
+    expect(result).toHaveLength(2);
+    expect(result[0].id).toBe('1');
+    expect(result[1].id).toBe('2');
+  });
+
+  it('limits with skip paginates correctly', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name', 'age'],
+      [
+        ['1', 'Alice', '30'],
+        ['2', 'Bob', '25'],
+        ['3', 'Charlie', '35'],
+      ],
+    );
+    const result = await db.findMany('User', { skip: 1, limit: 1 });
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe('2');
+  });
+
+  it('applies where filter before skip and limit', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name', 'age'],
+      [
+        ['1', 'Alice', '30'],
+        ['2', 'Bob', '25'],
+        ['3', 'Alice', '35'],
+        ['4', 'Charlie', '40'],
+      ],
+    );
+    const result = await db.findMany('User', {
+      where: { name: 'Alice' },
+      skip: 1,
+      limit: 1,
+    });
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe('3');
+  });
 });
 
 describe('Database - findUnique', () => {

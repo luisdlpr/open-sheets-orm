@@ -54,7 +54,7 @@ export class Database {
     const rawRows = await this.adapter.readSheet(modelName);
     let results = rawRows.map((rawRow) => this.parseRow(model.fields, rawRow));
 
-    const where = options?.where
+    const where = options?.where;
     if (where) {
       results = results.filter((row) => this.matchesWhere(row, where));
     }
