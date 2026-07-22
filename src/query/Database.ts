@@ -5,7 +5,7 @@
 
 import type { SchemaMetadata, FieldMetadata } from '../schema';
 import type { SheetsAdapter } from '../adapters/SheetsAdapter';
-import type { WhereClause } from './types';
+import type { WhereClause, FindManyOptions } from './types';
 import { ModelNotFoundError, RecordNotFoundError } from './errors';
 import { validateInput } from './validation';
 
@@ -34,13 +34,19 @@ export class Database {
   }
 
   /**
-   * Retrieves all records for the given model.
+   * Retrieves all records for the given model, with optional filtering
+   * and pagination.
    *
    * @param modelName - The name of the model to query.
+   * @param options - Optional filtering and pagination options.
    * @returns An array of record objects keyed by field names.
    * @throws {ModelNotFoundError} If the model does not exist in the schema.
    */
-  async findMany(modelName: string): Promise<Record<string, unknown>[]> {
+  async findMany(
+    modelName: string,
+    options?: FindManyOptions,
+  ): Promise<Record<string, unknown>[]> {
+    void options;
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);

@@ -9,4 +9,4 @@ export {
   RecordNotFoundError,
   ValidationError,
 } from './errors';
-export type { WhereClause } from './types';
+export type { WhereClause, FindManyOptions } from './types';

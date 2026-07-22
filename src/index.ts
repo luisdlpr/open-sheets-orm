@@ -35,7 +35,7 @@ export {
   RecordNotFoundError,
   ValidationError,
 } from './query';
-export type { WhereClause } from './query';
+export type { WhereClause, FindManyOptions } from './query';
 
 export { schema, field, SchemaValidationError } from './schema';
 export type {

@@ -153,6 +153,63 @@ describe('Database - findMany', () => {
     expect(result).toHaveLength(1);
     expect(result[0].name).toBe('Alice');
   });
+
+  it('filters records by a where clause on a string field', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name', 'age'],
+      [
+        ['1', 'Alice', '30'],
+        ['2', 'Bob', '25'],
+        ['3', 'Alice', '35'],
+      ],
+    );
+    const result = await db.findMany('User', {
+      where: { name: 'Alice' },
+    });
+    expect(result).toHaveLength(2);
+    expect(result.every((r) => r.name === 'Alice')).toBe(true);
+  });
+
+  it('filters records by a where clause on a number field', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name', 'age'],
+      [
+        ['1', 'Alice', '30'],
+        ['2', 'Bob', '25'],
+        ['3', 'Charlie', '30'],
+      ],
+    );
+    const result = await db.findMany('User', { where: { age: 30 } });
+    expect(result).toHaveLength(2);
+    expect(result.every((r) => r.age === 30)).toBe(true);
+  });
+
+  it('returns empty array when no records match the where clause', async () => {
+    adapter.setData('User', ['id', 'name'], [['1', 'Alice']]);
+    const result = await db.findMany('User', {
+      where: { name: 'Charlie' },
+    });
+    expect(result).toEqual([]);
+  });
+
+  it('filters by multiple where conditions (AND)', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name', 'age'],
+      [
+        ['1', 'Alice', '30'],
+        ['2', 'Alice', '35'],
+        ['3', 'Bob', '30'],
+      ],
+    );
+    const result = await db.findMany('User', {
+      where: { name: 'Alice', age: 35 },
+    });
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe('2');
+  });
 });
 
 describe('Database - findUnique', () => {
