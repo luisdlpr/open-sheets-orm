@@ -46,14 +46,20 @@ export class Database {
     modelName: string,
     options?: FindManyOptions,
   ): Promise<Record<string, unknown>[]> {
-    void options;
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
     }
 
     const rawRows = await this.adapter.readSheet(modelName);
-    return rawRows.map((rawRow) => this.parseRow(model.fields, rawRow));
+    let results = rawRows.map((rawRow) => this.parseRow(model.fields, rawRow));
+
+    const where = options?.where
+    if (where) {
+      results = results.filter((row) => this.matchesWhere(row, where));
+    }
+
+    return results;
   }
 
   /**
