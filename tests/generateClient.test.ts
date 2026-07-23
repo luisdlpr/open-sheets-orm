@@ -215,7 +215,7 @@ describe('generateClientCode', () => {
       };
       const result = generateClientCode(schema);
       // import blank line interface
-      expect(result).toMatch(/;}\n\nexport interface/);
+      expect(result).toMatch(/;\n\nexport interface/);
       // interface blank line delegate
       expect(result).toMatch(/}\n\nexport class UserDelegate/);
       // delegate blank line client

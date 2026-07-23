@@ -1,5 +1,32 @@
 import type { SchemaMetadata } from '../schema/types';
+import { generateInterfaces } from './generateInterfaces';
+import { generateDelegates } from './generateDelegates';
+
+function lowerFirst(name: string): string {
+  return name.charAt(0).toLowerCase() + name.slice(1);
+}
+
+function generateClientClass(models: Array<{ name: string }>): string {
+  const properties = models
+    .map((m) => `  public ${lowerFirst(m.name)}: ${m.name}Delegate;`)
+    .join('\n');
+  const assignments = models
+    .map((m) => `    this.${lowerFirst(m.name)} = new ${m.name}Delegate(db);`)
+    .join('\n');
+
+  return `export class SheetORMClient {\n${properties}\n\n  constructor(db: Database) {\n${assignments}\n  }\n}`;
+}
 
 export function generateClientCode(schema: SchemaMetadata): string {
-  return '';
+  const models = Object.values(schema.models);
+  if (models.length === 0) return '';
+
+  const parts: string[] = [];
+
+  parts.push("import { Database } from 'open-sheets-orm';");
+  parts.push(generateInterfaces(schema));
+  parts.push(generateDelegates(schema));
+  parts.push(generateClientClass(models));
+
+  return parts.join('\n\n');
 }
