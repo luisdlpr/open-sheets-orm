@@ -1,0 +1,277 @@
+import { describe, it, expect } from 'vitest';
+import { generateClientCode } from '../src/generator/generateClient';
+import type { SchemaMetadata, FieldMetadata } from '../src/schema/types';
+
+function field(
+  type: FieldMetadata['type'],
+  overrides?: Partial<FieldMetadata>,
+): FieldMetadata {
+  return {
+    type,
+    primaryKey: false,
+    unique: false,
+    optional: false,
+    ...overrides,
+  };
+}
+
+const pk = (type: FieldMetadata['type'] = 'string') =>
+  field(type, { primaryKey: true });
+
+describe('generateClientCode', () => {
+  it('returns a string', () => {
+    const schema: SchemaMetadata = { models: {} };
+    expect(typeof generateClientCode(schema)).toBe('string');
+  });
+
+  it('returns empty string for empty schema', () => {
+    const schema: SchemaMetadata = { models: {} };
+    expect(generateClientCode(schema)).toBe('');
+  });
+
+  describe('import line', () => {
+    it('includes the Database import from open-sheets-orm', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain("import { Database } from 'open-sheets-orm';");
+    });
+
+    it('places the import at the top of the file', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(
+        result.startsWith("import { Database } from 'open-sheets-orm';"),
+      ).toBe(true);
+    });
+  });
+
+  describe('model interfaces', () => {
+    it('includes interfaces for each model', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk(), name: field('string') },
+          },
+          Club: {
+            name: 'Club',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain('export interface User');
+      expect(result).toContain('export interface Club');
+    });
+  });
+
+  describe('delegate classes', () => {
+    it('includes delegate classes for each model', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain('export class UserDelegate');
+    });
+
+    it('includes all CRUD methods on delegates', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain('async findMany');
+      expect(result).toContain('async findUnique');
+      expect(result).toContain('async create');
+      expect(result).toContain('async update');
+      expect(result).toContain('async delete');
+    });
+  });
+
+  describe('SheetORMClient class', () => {
+    it('exports a SheetORMClient class', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toMatch(/export class SheetORMClient/);
+    });
+
+    it('has a public property per model, lowercased first letter', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+          Club: {
+            name: 'Club',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain('public user: UserDelegate;');
+      expect(result).toContain('public club: ClubDelegate;');
+    });
+
+    it('handles multi-word PascalCase model names', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          MyModel: {
+            name: 'MyModel',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain('public myModel: MyModelDelegate;');
+    });
+
+    it('instantiates each delegate in the constructor', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain('this.user = new UserDelegate(db);');
+    });
+
+    it('accepts a Database instance in the constructor', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      expect(result).toContain('constructor(db: Database)');
+    });
+  });
+
+  describe('file assembly', () => {
+    it('places interfaces before delegates before client', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      const importIdx = result.indexOf('import { Database }');
+      const interfaceIdx = result.indexOf('export interface User');
+      const delegateIdx = result.indexOf('export class UserDelegate');
+      const clientIdx = result.indexOf('export class SheetORMClient');
+
+      expect(importIdx).toBeLessThan(interfaceIdx);
+      expect(interfaceIdx).toBeLessThan(delegateIdx);
+      expect(delegateIdx).toBeLessThan(clientIdx);
+    });
+
+    it('separates sections with blank lines', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk() },
+          },
+        },
+      };
+      const result = generateClientCode(schema);
+      // import blank line interface
+      expect(result).toMatch(/;}\n\nexport interface/);
+      // interface blank line delegate
+      expect(result).toMatch(/}\n\nexport class UserDelegate/);
+      // delegate blank line client
+      expect(result).toMatch(/}\n\nexport class SheetORMClient/);
+    });
+  });
+
+  describe('exact output', () => {
+    it('matches the expected full output for a basic schema', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          User: {
+            name: 'User',
+            fields: { id: pk(), name: field('string') },
+          },
+        },
+      };
+      expect(generateClientCode(schema))
+        .toBe(`import { Database } from 'open-sheets-orm';
+
+export interface User {
+  id: string;
+  name: string;
+}
+
+export class UserDelegate {
+  constructor(private db: Database) {}
+
+  async findMany(opts?: { where?: Partial<User>; skip?: number; limit?: number }): Promise<User[]> {
+    return this.db.findMany('User', opts) as Promise<User[]>;
+  }
+
+  async findUnique(where: { id: string }): Promise<User | null> {
+    return this.db.findUnique('User', where) as Promise<User | null>;
+  }
+
+  async create(args: { data: Omit<User, 'id'> }): Promise<User> {
+    return this.db.create('User', args.data) as Promise<User>;
+  }
+
+  async update(args: { where: { id: string }; data: Partial<User> }): Promise<User> {
+    return this.db.update('User', args.where, args.data) as Promise<User>;
+  }
+
+  async delete(where: { id: string }): Promise<void> {
+    return this.db.delete('User', where);
+  }
+}
+
+export class SheetORMClient {
+  public user: UserDelegate;
+
+  constructor(db: Database) {
+    this.user = new UserDelegate(db);
+  }
+}`);
+    });
+  });
+});
