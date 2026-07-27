@@ -141,7 +141,9 @@ describe('generateCommand', () => {
       });
 
       const content = readFileSync(outPath, 'utf-8');
-      expect(content).toContain("import { Database } from 'open-sheets-orm'");
+      expect(content).toContain(
+        "import { Database, type SheetsAdapter } from 'open-sheets-orm'",
+      );
     });
 
     it('handles multiple models', async () => {

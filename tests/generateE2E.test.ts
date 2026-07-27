@@ -14,7 +14,9 @@ describe('generateClientCode — E2E pipeline', () => {
 
     const code = generateClientCode(meta);
 
-    expect(code).toContain("import { Database } from 'open-sheets-orm';");
+    expect(code).toContain(
+      "import { Database, type SheetsAdapter } from 'open-sheets-orm';",
+    );
     expect(code).toContain('export interface User');
     expect(code).toContain('  id: string;');
     expect(code).toContain('  name: string;');
@@ -119,9 +121,12 @@ describe('generateClientCode — E2E pipeline', () => {
 
     const code = generateClientCode(meta);
 
-    expect(code).not.toContain('primaryKey');
-    expect(code).not.toContain('defaultValue');
-    expect(code).not.toContain('Anonymous');
+    // The schema constant includes metadata keys like primaryKey,
+    // but the TypeScript interfaces and delegates must not
+    const interfaceSection = code.slice(code.indexOf('export interface'));
+    expect(interfaceSection).not.toContain('primaryKey');
+    expect(interfaceSection).not.toContain('defaultValue');
+    expect(interfaceSection).not.toContain('Anonymous');
   });
 
   it('generates delegates with all five CRUD methods', () => {
