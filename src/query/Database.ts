@@ -42,10 +42,10 @@ export class Database {
    * @returns An array of record objects keyed by field names.
    * @throws {ModelNotFoundError} If the model does not exist in the schema.
    */
-  async findMany(
+  async findMany<T = Record<string, unknown>>(
     modelName: string,
     options?: FindManyOptions,
-  ): Promise<Record<string, unknown>[]> {
+  ): Promise<T[]> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
@@ -67,7 +67,7 @@ export class Database {
       results = results.slice(0, options.limit);
     }
 
-    return results;
+    return results as T[];
   }
 
   /**
@@ -78,10 +78,10 @@ export class Database {
    * @returns The matching record.
    * @throws {RecordNotFoundError} If no record matches the where clause.
    */
-  async findUnique(
+  async findUnique<T = Record<string, unknown>>(
     modelName: string,
     where: WhereClause,
-  ): Promise<Record<string, unknown>> {
+  ): Promise<T> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
@@ -97,7 +97,7 @@ export class Database {
       throw new RecordNotFoundError(modelName, where);
     }
 
-    return match;
+    return match as T;
   }
 
   /**
@@ -107,10 +107,10 @@ export class Database {
    * @param data - The field values for the new record.
    * @returns The created record with any applied defaults.
    */
-  async create(
+  async create<T = Record<string, unknown>>(
     modelName: string,
     data: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  ): Promise<T> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
@@ -139,7 +139,7 @@ export class Database {
         record[fieldName] = field.defaultValue;
       }
     }
-    return record;
+    return record as T;
   }
 
   /**
@@ -151,11 +151,11 @@ export class Database {
    * @returns The updated record.
    * @throws {RecordNotFoundError} If no record matches the where clause.
    */
-  async update(
+  async update<T = Record<string, unknown>>(
     modelName: string,
     where: WhereClause,
     data: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  ): Promise<T> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
@@ -186,7 +186,7 @@ export class Database {
 
     await this.adapter.updateRow(match.index, mergedRow, modelName);
 
-    return { ...match.row, ...data };
+    return { ...match.row, ...data } as T;
   }
 
   /**

@@ -30,19 +30,19 @@ function generateDelegate(model: {
   constructor(private db: Database) {}
 
   async findMany(opts?: { where?: Partial<${name}>; skip?: number; limit?: number }): Promise<${name}[]> {
-    return this.db.findMany('${name}', opts) as Promise<${name}[]>;
+    return this.db.findMany<${name}>('${name}', opts);
   }
 
   async findUnique(where: { ${pk}: string }): Promise<${name} | null> {
-    return this.db.findUnique('${name}', where) as Promise<${name} | null>;
+    return this.db.findUnique<${name}>('${name}', where);
   }
 
   async create(args: { data: Omit<${name}, '${pk}'> }): Promise<${name}> {
-    return this.db.create('${name}', args.data) as Promise<${name}>;
+    return this.db.create<${name}>('${name}', args.data);
   }
 
   async update(args: { where: { ${pk}: string }; data: Partial<${name}> }): Promise<${name}> {
-    return this.db.update('${name}', args.where, args.data) as Promise<${name}>;
+    return this.db.update<${name}>('${name}', args.where, args.data);
   }
 
   async delete(where: { ${pk}: string }): Promise<void> {

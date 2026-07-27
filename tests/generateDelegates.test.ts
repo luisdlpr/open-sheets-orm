@@ -111,7 +111,7 @@ describe('generateDelegates', () => {
       };
       const result = generateDelegates(schema);
       expect(result).toContain(
-        "return this.db.findMany('User', opts) as Promise<User[]>;",
+        "return this.db.findMany<User>('User', opts);",
       );
     });
 
@@ -180,7 +180,7 @@ describe('generateDelegates', () => {
       };
       const result = generateDelegates(schema);
       expect(result).toContain(
-        "return this.db.findUnique('User', where) as Promise<User | null>;",
+        "return this.db.findUnique<User>('User', where);",
       );
     });
   });
@@ -223,7 +223,7 @@ describe('generateDelegates', () => {
       };
       const result = generateDelegates(schema);
       expect(result).toContain(
-        "return this.db.create('User', args.data) as Promise<User>;",
+        "return this.db.create<User>('User', args.data);",
       );
     });
 
@@ -281,7 +281,7 @@ describe('generateDelegates', () => {
       };
       const result = generateDelegates(schema);
       expect(result).toContain(
-        "return this.db.update('User', args.where, args.data) as Promise<User>;",
+        "return this.db.update<User>('User', args.where, args.data);",
       );
     });
 
@@ -522,19 +522,19 @@ describe('generateDelegates', () => {
   constructor(private db: Database) {}
 
   async findMany(opts?: { where?: Partial<User>; skip?: number; limit?: number }): Promise<User[]> {
-    return this.db.findMany('User', opts) as Promise<User[]>;
+    return this.db.findMany<User>('User', opts);
   }
 
   async findUnique(where: { id: string }): Promise<User | null> {
-    return this.db.findUnique('User', where) as Promise<User | null>;
+    return this.db.findUnique<User>('User', where);
   }
 
   async create(args: { data: Omit<User, 'id'> }): Promise<User> {
-    return this.db.create('User', args.data) as Promise<User>;
+    return this.db.create<User>('User', args.data);
   }
 
   async update(args: { where: { id: string }; data: Partial<User> }): Promise<User> {
-    return this.db.update('User', args.where, args.data) as Promise<User>;
+    return this.db.update<User>('User', args.where, args.data);
   }
 
   async delete(where: { id: string }): Promise<void> {
