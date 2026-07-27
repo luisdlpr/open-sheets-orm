@@ -110,9 +110,7 @@ describe('generateDelegates', () => {
         },
       };
       const result = generateDelegates(schema);
-      expect(result).toContain(
-        "return this.db.findMany<User>('User', opts);",
-      );
+      expect(result).toContain("return this.db.findMany<User>('User', opts);");
     });
 
     it('returns Promise<ModelType[]>', () => {

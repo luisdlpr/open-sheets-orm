@@ -6,7 +6,12 @@
 export { SheetsAdapter } from './adapters/SheetsAdapter';
 export { GoogleSheetsAdapter } from './adapters/GoogleSheetsAdapter';
 
-export type { SheetConfig, SpreadsheetInfo, SheetInfo } from './types';
+export type {
+  SheetConfig,
+  SpreadsheetInfo,
+  SheetInfo,
+  ClientInitializerGoogle,
+} from './types';
 
 export {
   SheetsError,

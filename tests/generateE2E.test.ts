@@ -15,7 +15,10 @@ describe('generateClientCode — E2E pipeline', () => {
     const code = generateClientCode(meta);
 
     expect(code).toContain(
-      "import { Database, type SheetsAdapter } from 'open-sheets-orm';",
+      "import { Database, GoogleSheetsAdapter } from 'open-sheets-orm';",
+    );
+    expect(code).toContain(
+      "import type { ClientInitializerGoogle } from 'open-sheets-orm';",
     );
     expect(code).toContain('export interface User');
     expect(code).toContain('  id: string;');
@@ -23,7 +26,7 @@ describe('generateClientCode — E2E pipeline', () => {
     expect(code).toContain('  age?: number;');
     expect(code).toContain('export class UserDelegate');
     expect(code).toContain('export class SheetORMClient');
-    expect(code).toContain('public user: UserDelegate;');
+    expect(code).toContain('public user!: UserDelegate;');
   });
 
   it('maps all field types correctly', () => {
@@ -88,8 +91,8 @@ describe('generateClientCode — E2E pipeline', () => {
 
     const code = generateClientCode(meta);
 
-    expect(code).toContain('public user: UserDelegate;');
-    expect(code).toContain('public club: ClubDelegate;');
+    expect(code).toContain('public user!: UserDelegate;');
+    expect(code).toContain('public club!: ClubDelegate;');
     expect(code).toContain('where: { userId: string }');
     expect(code).toContain('where: { id: string }');
   });

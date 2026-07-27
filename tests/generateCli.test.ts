@@ -142,7 +142,10 @@ describe('generateCommand', () => {
 
       const content = readFileSync(outPath, 'utf-8');
       expect(content).toContain(
-        "import { Database, type SheetsAdapter } from 'open-sheets-orm'",
+        "import { Database, GoogleSheetsAdapter } from 'open-sheets-orm'",
+      );
+      expect(content).toContain(
+        "import type { ClientInitializerGoogle } from 'open-sheets-orm'",
       );
     });
 
@@ -184,8 +187,8 @@ export default {
       expect(content).toContain('export interface Club');
       expect(content).toContain('export class UserDelegate');
       expect(content).toContain('export class ClubDelegate');
-      expect(content).toContain('public user: UserDelegate');
-      expect(content).toContain('public club: ClubDelegate');
+      expect(content).toContain('public user!: UserDelegate');
+      expect(content).toContain('public club!: ClubDelegate');
     });
   });
 
