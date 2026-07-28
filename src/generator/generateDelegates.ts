@@ -9,6 +9,23 @@ function getPrimaryKeyField(model: {
   return 'id';
 }
 
+function getFieldTsType(type: string): string {
+  switch (type) {
+    case 'string':
+      return 'string';
+    case 'number':
+      return 'number';
+    case 'boolean':
+      return 'boolean';
+    case 'date':
+      return 'Date';
+    case 'json':
+      return 'unknown';
+    default:
+      return 'string';
+  }
+}
+
 export function generateDelegates(schema: SchemaMetadata): string {
   const models = Object.values(schema.models);
   if (models.length === 0) return '';
@@ -25,6 +42,8 @@ function generateDelegate(model: {
 }): string {
   const pk = getPrimaryKeyField(model);
   const name = model.name;
+  const pkField = model.fields[pk];
+  const pkTsType = pkField ? getFieldTsType(pkField.type) : 'string';
 
   return `export class ${name}Delegate {
   constructor(private db: Database) {}
@@ -37,7 +56,7 @@ function generateDelegate(model: {
     return this.db.findUnique<${name}>('${name}', where);
   }
 
-  async create(args: { data: Omit<${name}, '${pk}'> }): Promise<${name}> {
+  async create(args: { data: Omit<${name}, '${pk}'> & { ${pk}?: ${pkTsType} } }): Promise<${name}> {
     return this.db.create<${name}>('${name}', args.data);
   }
 

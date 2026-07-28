@@ -3,6 +3,7 @@
  * @module query/Database
  */
 
+import { randomUUID } from 'node:crypto';
 import type { SchemaMetadata, FieldMetadata } from '../schema';
 import type { SheetsAdapter } from '../adapters/SheetsAdapter';
 import type { WhereClause, FindManyOptions } from './types';
@@ -114,6 +115,14 @@ export class Database {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
+    }
+
+    const pkEntry = Object.entries(model.fields).find(([, f]) => f.primaryKey);
+    if (pkEntry) {
+      const [pkName, pkMeta] = pkEntry;
+      if (!(pkName in data) && pkMeta.defaultValue === undefined) {
+        data[pkName] = randomUUID();
+      }
     }
 
     validateInput('create', model.fields, data);

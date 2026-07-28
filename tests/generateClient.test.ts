@@ -315,7 +315,7 @@ describe('generateClientCode', () => {
           "    return this.db.findUnique<User>('User', where);",
           '  }',
           '',
-          "  async create(args: { data: Omit<User, 'id'> }): Promise<User> {",
+          "  async create(args: { data: Omit<User, 'id'> & { id?: string } }): Promise<User> {",
           "    return this.db.create<User>('User', args.data);",
           '  }',
           '',

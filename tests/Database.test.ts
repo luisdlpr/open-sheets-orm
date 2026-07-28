@@ -396,6 +396,24 @@ describe('Database - create', () => {
     expect(users[0].age).toBeUndefined();
   });
 
+  it('auto-generates a primary key when not provided and no default exists', async () => {
+    adapter.setData('User', ['id', 'name', 'age'], []);
+    await db.create('User', { name: 'Bob', age: 25 });
+    const users = await db.findMany('User');
+    expect(users).toHaveLength(1);
+    expect(users[0].id).toBeDefined();
+    expect(typeof users[0].id).toBe('string');
+    expect(users[0].name).toBe('Bob');
+    expect(users[0].age).toBe(25);
+  });
+
+  it('uses provided primary key value over auto-generation', async () => {
+    adapter.setData('User', ['id', 'name', 'age'], []);
+    await db.create('User', { id: 'custom-id', name: 'Charlie', age: 35 });
+    const users = await db.findMany('User');
+    expect(users[0].id).toBe('custom-id');
+  });
+
   it('applies default values for fields not provided in input', async () => {
     const schema: SchemaMetadata = {
       models: {

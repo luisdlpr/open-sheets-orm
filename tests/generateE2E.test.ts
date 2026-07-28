@@ -59,7 +59,7 @@ describe('generateClientCode — E2E pipeline', () => {
     const code = generateClientCode(meta);
 
     expect(code).toContain('where: { userId: string }');
-    expect(code).toContain("Omit<User, 'userId'>");
+    expect(code).toContain("Omit<User, 'userId'> & { userId?: string }");
     expect(code).not.toContain('where: { id: string }');
   });
 
@@ -74,7 +74,7 @@ describe('generateClientCode — E2E pipeline', () => {
     const code = generateClientCode(meta);
 
     expect(code).toContain('where: { id: string }');
-    expect(code).toContain("Omit<Item, 'id'>");
+    expect(code).toContain("Omit<Item, 'id'> & { id?: string }");
   });
 
   it('handles multiple models with different primary keys', () => {

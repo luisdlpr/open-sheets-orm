@@ -207,7 +207,9 @@ describe('generateDelegates', () => {
         },
       };
       const result = generateDelegates(schema);
-      expect(result).toContain("args: { data: Omit<User, 'id'> }");
+      expect(result).toContain(
+        "args: { data: Omit<User, 'id'> & { id?: string } }",
+      );
     });
 
     it('delegates to this.db.create with args.data', () => {
@@ -527,7 +529,7 @@ describe('generateDelegates', () => {
     return this.db.findUnique<User>('User', where);
   }
 
-  async create(args: { data: Omit<User, 'id'> }): Promise<User> {
+  async create(args: { data: Omit<User, 'id'> & { id?: string } }): Promise<User> {
     return this.db.create<User>('User', args.data);
   }
 
