@@ -7,6 +7,7 @@ export { Database } from './Database';
 export {
   ModelNotFoundError,
   RecordNotFoundError,
+  UniqueConstraintError,
   ValidationError,
 } from './errors';
 export type { WhereClause, FindManyOptions } from './types';

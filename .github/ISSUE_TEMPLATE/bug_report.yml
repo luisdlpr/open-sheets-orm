@@ -1,0 +1,116 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+title: 'bug: '
+labels: ['bug', 'triage']
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+      placeholder: When I call `getRows()`, the adapter throws...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: |
+        Minimal steps or code to reproduce the behavior. If possible, include a link to a repository or [StackBlitz](https://stackblitz.com) that reproduces the issue.
+      placeholder: |
+        1. Create a `GoogleSheetsAdapter` instance with...
+        2. Call `.findMany()` with...
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+      placeholder: The query should return the matching rows.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened? Include full error output, stack traces, or unexpected results.
+      placeholder: |
+        Error: Sheet "Users" not found
+            at GoogleRowService.getRows (...)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of open-sheets-orm are you running? Check your `package.json`.
+      placeholder: '0.0.0'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      description: Where are you running this?
+      options:
+        - Node.js
+        - Bun
+        - Deno
+        - Browser (Vite / webpack)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: node_version
+    attributes:
+      label: Node / Runtime version
+      description: Run `node --version` or the equivalent for your runtime.
+      placeholder: 'v22.14.0'
+    validations:
+      required: false
+
+  - type: dropdown
+    id: google_auth
+    attributes:
+      label: Authentication method
+      options:
+        - Service account (default)
+        - OAuth 2.0 (user credentials)
+        - API key
+        - Other / not sure
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code.
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Before submitting, please confirm the following.
+      options:
+        - label: I have searched the [existing issues](https://github.com/luisdlpr/open-sheets-orm/issues) for similar reports.
+          required: true
+        - label: I have checked the [README](https://github.com/luisdlpr/open-sheets-orm#readme) for relevant documentation.
+          required: true
+        - label: I have included a minimal reproduction.
+          required: true

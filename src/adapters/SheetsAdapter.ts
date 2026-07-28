@@ -4,6 +4,7 @@
  */
 
 import type { SheetConfig, SpreadsheetInfo, SheetInfo } from '../types';
+import { ConnectionError } from '../errors';
 
 /**
  * Abstract base class defining the contract for sheets adapter implementations.
@@ -22,6 +23,14 @@ import type { SheetConfig, SpreadsheetInfo, SheetInfo } from '../types';
 export abstract class SheetsAdapter {
   /** The spreadsheet configuration for this adapter instance. */
   protected config: SheetConfig;
+
+  /**
+   * Whether the adapter has been successfully connected.
+   *
+   * Set to `true` by {@link connect} and `false` by {@link disconnect}.
+   * Checked in {@link ensureConnected} before every data operation.
+   */
+  protected _connected = false;
 
   /**
    * @param config - Configuration identifying the target spreadsheet
@@ -48,6 +57,21 @@ export abstract class SheetsAdapter {
   abstract disconnect(): Promise<void>;
 
   /**
+   * Guards data-access methods against being called before {@link connect}.
+   *
+   * @param methodName - The name of the calling method, included in
+   *   the error message for diagnostic clarity.
+   * @throws {ConnectionError} If the adapter has not been connected.
+   */
+  protected ensureConnected(methodName: string): void {
+    if (!this._connected) {
+      throw new ConnectionError(
+        `Cannot call ${methodName} — you must await adapter.connect() first`,
+      );
+    }
+  }
+
+  /**
    * Retrieves metadata for the spreadsheet, including its title,
    * URL, and contained sheets.
    *
@@ -63,6 +87,18 @@ export abstract class SheetsAdapter {
    * @returns Metadata for the newly created sheet.
    */
   abstract createSheet(title: string): Promise<SheetInfo>;
+
+  /**
+   * Ensures a sheet exists, creating it if missing.
+   *
+   * When the sheet already exists this is a no-op that returns its
+   * metadata. When it does not exist, a new sheet (tab) is created
+   * with the given title.
+   *
+   * @param sheetName - The title of the sheet to ensure exists.
+   * @returns Metadata for the sheet.
+   */
+  abstract ensureSheet(sheetName: string): Promise<SheetInfo>;
 
   /**
    * Deletes a sheet (tab) from the spreadsheet by its title.

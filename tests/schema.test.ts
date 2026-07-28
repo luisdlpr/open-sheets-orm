@@ -295,6 +295,56 @@ describe('validateSchema', () => {
         }),
       ).toThrow(SchemaValidationError);
     });
+
+    it('throws when a primary key is marked as optional', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey().optional(),
+          },
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+
+    it('throws when primaryKey+optional with informative message', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey().optional(),
+          },
+        }),
+      ).toThrow(/primary keys cannot be optional/i);
+    });
+
+    it('throws when a primary key is optional with additional modifiers', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey().unique().optional(),
+          },
+        }),
+      ).toThrow(SchemaValidationError);
+    });
+
+    it('accepts a primary key that is not optional', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            id: field.string().primaryKey(),
+          },
+        }),
+      ).not.toThrow();
+    });
+
+    it('accepts an optional field that is not a primary key', () => {
+      expect(() =>
+        validateSchema({
+          User: {
+            name: field.string().optional(),
+          },
+        }),
+      ).not.toThrow();
+    });
   });
 
   describe('default value type matching', () => {

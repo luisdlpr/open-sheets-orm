@@ -6,7 +6,12 @@
 export { SheetsAdapter } from './adapters/SheetsAdapter';
 export { GoogleSheetsAdapter } from './adapters/GoogleSheetsAdapter';
 
-export type { SheetConfig, SpreadsheetInfo, SheetInfo } from './types';
+export type {
+  SheetConfig,
+  SpreadsheetInfo,
+  SheetInfo,
+  ClientInitializerGoogle,
+} from './types';
 
 export {
   SheetsError,
@@ -33,6 +38,7 @@ export { Database } from './query';
 export {
   ModelNotFoundError,
   RecordNotFoundError,
+  UniqueConstraintError,
   ValidationError,
 } from './query';
 export type { WhereClause, FindManyOptions } from './query';

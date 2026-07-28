@@ -3,10 +3,15 @@
  * @module query/Database
  */
 
+import { randomUUID } from 'node:crypto';
 import type { SchemaMetadata, FieldMetadata } from '../schema';
 import type { SheetsAdapter } from '../adapters/SheetsAdapter';
 import type { WhereClause, FindManyOptions } from './types';
-import { ModelNotFoundError, RecordNotFoundError } from './errors';
+import {
+  ModelNotFoundError,
+  RecordNotFoundError,
+  UniqueConstraintError,
+} from './errors';
 import { validateInput } from './validation';
 
 /**
@@ -42,10 +47,10 @@ export class Database {
    * @returns An array of record objects keyed by field names.
    * @throws {ModelNotFoundError} If the model does not exist in the schema.
    */
-  async findMany(
+  async findMany<T = Record<string, unknown>>(
     modelName: string,
     options?: FindManyOptions,
-  ): Promise<Record<string, unknown>[]> {
+  ): Promise<T[]> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
@@ -67,7 +72,7 @@ export class Database {
       results = results.slice(0, options.limit);
     }
 
-    return results;
+    return results as T[];
   }
 
   /**
@@ -78,10 +83,10 @@ export class Database {
    * @returns The matching record.
    * @throws {RecordNotFoundError} If no record matches the where clause.
    */
-  async findUnique(
+  async findUnique<T = Record<string, unknown>>(
     modelName: string,
     where: WhereClause,
-  ): Promise<Record<string, unknown>> {
+  ): Promise<T> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
@@ -97,7 +102,7 @@ export class Database {
       throw new RecordNotFoundError(modelName, where);
     }
 
-    return match;
+    return match as T;
   }
 
   /**
@@ -107,20 +112,40 @@ export class Database {
    * @param data - The field values for the new record.
    * @returns The created record with any applied defaults.
    */
-  async create(
+  async create<T = Record<string, unknown>>(
     modelName: string,
     data: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  ): Promise<T> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
     }
 
+    const pkEntry = Object.entries(model.fields).find(([, f]) => f.primaryKey);
+    if (pkEntry) {
+      const [pkName, pkMeta] = pkEntry;
+      if (!(pkName in data) && pkMeta.defaultValue === undefined) {
+        data[pkName] = randomUUID();
+      }
+    }
+
     validateInput('create', model.fields, data);
+
+    await this.checkUniqueness(modelName, model.fields, data);
+
+    await this.adapter.ensureSheet(modelName);
 
     const headers = await this.adapter.getHeaders(modelName);
 
-    const row: unknown[] = headers.map((header) => {
+    if (headers.length === 0) {
+      const fieldNames = Object.keys(model.fields);
+      await this.adapter.writeHeaders(fieldNames, modelName);
+    }
+
+    const currentHeaders =
+      headers.length === 0 ? Object.keys(model.fields) : headers;
+
+    const row: unknown[] = currentHeaders.map((header) => {
       if (header in data) {
         return data[header];
       }
@@ -139,7 +164,7 @@ export class Database {
         record[fieldName] = field.defaultValue;
       }
     }
-    return record;
+    return record as T;
   }
 
   /**
@@ -151,11 +176,11 @@ export class Database {
    * @returns The updated record.
    * @throws {RecordNotFoundError} If no record matches the where clause.
    */
-  async update(
+  async update<T = Record<string, unknown>>(
     modelName: string,
     where: WhereClause,
     data: Record<string, unknown>,
-  ): Promise<Record<string, unknown>> {
+  ): Promise<T> {
     const model = this.schema.models[modelName];
     if (!model) {
       throw new ModelNotFoundError(modelName);
@@ -175,6 +200,8 @@ export class Database {
       throw new RecordNotFoundError(modelName, where);
     }
 
+    await this.checkUniqueness(modelName, model.fields, data, match.index);
+
     const headers = await this.adapter.getHeaders(modelName);
 
     const mergedRow: unknown[] = headers.map((header) => {
@@ -186,7 +213,7 @@ export class Database {
 
     await this.adapter.updateRow(match.index, mergedRow, modelName);
 
-    return { ...match.row, ...data };
+    return { ...match.row, ...data } as T;
   }
 
   /**
@@ -276,5 +303,56 @@ export class Database {
     return Object.entries(where).every(
       ([key, value]) => key in row && row[key] === value,
     );
+  }
+
+  /**
+   * Enforces uniqueness constraints for all `primaryKey` and `unique` fields
+   * that appear in the provided data. Reads existing rows from the sheet and
+   * throws {@link UniqueConstraintError} on the first violation found.
+   *
+   * @param modelName - The model being written to.
+   * @param fields - The field metadata map for the model.
+   * @param data - The incoming field values to check.
+   * @param excludeIndex - Row index (0-based data index) to skip when checking;
+   *   used by `update` to avoid self-collision on the row being replaced.
+   * @throws {UniqueConstraintError} When a duplicate value is detected.
+   */
+  private async checkUniqueness(
+    modelName: string,
+    fields: Record<string, FieldMetadata>,
+    data: Record<string, unknown>,
+    excludeIndex?: number,
+  ): Promise<void> {
+    const uniqueFields = Object.entries(fields).filter(
+      ([, meta]) => meta.primaryKey || meta.unique,
+    );
+
+    if (uniqueFields.length === 0) return;
+
+    const constrainedFieldNames = uniqueFields
+      .map(([name]) => name)
+      .filter((name) => name in data);
+
+    if (constrainedFieldNames.length === 0) return;
+
+    const rawRows = await this.adapter.readSheet(modelName);
+    const parsedRows = rawRows.map((rawRow) => this.parseRow(fields, rawRow));
+
+    for (const [index, existingRow] of parsedRows.entries()) {
+      if (index === excludeIndex) continue;
+
+      for (const fieldName of constrainedFieldNames) {
+        if (
+          fieldName in existingRow &&
+          existingRow[fieldName] === data[fieldName]
+        ) {
+          throw new UniqueConstraintError(
+            modelName,
+            fieldName,
+            data[fieldName],
+          );
+        }
+      }
+    }
   }
 }

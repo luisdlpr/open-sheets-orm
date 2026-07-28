@@ -1,0 +1,62 @@
+name: Feature Request
+description: Propose a new feature or improvement
+title: 'feat: '
+labels: ['enhancement']
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an idea! Please check [existing issues](https://github.com/luisdlpr/open-sheets-orm/issues) before opening a duplicate.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the problem or limitation you're encountering. What use case does this address?
+      placeholder: I'm always frustrated when I have to manually...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the solution you'd like. Be specific about API shape, new methods, configuration options, etc.
+      placeholder: |
+        Add a `where` clause to `findMany()` that supports...
+        ```ts
+        const results = await adapter.findMany({ where: { status: "active" } });
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe any alternatives you've considered and why they don't meet your needs.
+      placeholder: I considered filtering in-memory after fetching all rows, but that doesn't scale for large sheets.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context, references, or examples that help explain the request.
+      placeholder: This would match the Prisma API convention that open-sheets-orm follows.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched the [existing issues](https://github.com/luisdlpr/open-sheets-orm/issues) for similar requests.
+          required: true
+        - label: I have checked the [README](https://github.com/luisdlpr/open-sheets-orm#readme) to confirm this isn't already planned.
+          required: true
+        - label: I would be willing to help implement this feature.
+          required: false

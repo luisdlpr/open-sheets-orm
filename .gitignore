@@ -4,6 +4,9 @@ node_modules/
 # Build output
 dist/
 
+# Generated client code
+generated/
+
 # Environment variables
 .env
 .env.*
@@ -41,3 +44,4 @@ yarn-error.log*
 
 # review checklists
 REVIEW.md
+planning.md

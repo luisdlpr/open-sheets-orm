@@ -3,6 +3,8 @@
  * @module types
  */
 
+import type { Auth } from 'googleapis';
+
 /** Configuration for initializing a sheets adapter instance. */
 export interface SheetConfig {
   /** The unique identifier of the target spreadsheet. */
@@ -10,6 +12,21 @@ export interface SheetConfig {
 
   /** The default sheet name to operate on. When omitted, the first sheet is used. */
   sheetName?: string;
+}
+
+/** Parameters for initializing the generated client with a Google Sheets provider. */
+export interface ClientInitializerGoogle {
+  /** Google service account credentials (JWT) or external account credentials. */
+  credentials: Auth.JWTInput;
+
+  /** The unique ID of the target spreadsheet. */
+  sheetId: string;
+
+  /** The default sheet name to operate on. When omitted, the first sheet is used. */
+  sheetName?: string;
+
+  /** The spreadsheet provider identifier. Must be "google". */
+  provider: 'google';
 }
 
 /** Metadata for a spreadsheet and its contained sheets. */

@@ -64,6 +64,39 @@ export class GoogleWorksheetService {
   }
 
   /**
+   * Ensures a sheet exists, creating it if missing.
+   *
+   * When the sheet already exists this is a no-op that returns its
+   * metadata. When it does not exist, a new sheet (tab) is created.
+   *
+   * @param spreadsheetId - The spreadsheet to check or create in.
+   * @param sheetName - The title of the sheet to ensure exists.
+   * @returns Metadata for the sheet.
+   */
+  async ensure(spreadsheetId: string, sheetName: string): Promise<SheetInfo> {
+    const response = await this.sheets.spreadsheets.get({
+      spreadsheetId,
+      fields: FIELDS_PROPERTIES,
+    });
+
+    const existing = response.data.sheets?.find(
+      (s) => s.properties?.title === sheetName,
+    );
+
+    if (existing) {
+      const props = existing.properties!;
+      return {
+        id: props.sheetId!,
+        title: props.title!,
+        rowCount: props.gridProperties!.rowCount!,
+        columnCount: props.gridProperties!.columnCount!,
+      };
+    }
+
+    return this.create(spreadsheetId, sheetName);
+  }
+
+  /**
    * Deletes a sheet (tab) from the spreadsheet by its title.
    *
    * @param spreadsheetId - The spreadsheet containing the sheet.

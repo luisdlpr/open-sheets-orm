@@ -1,6 +1,9 @@
 {
   "name": "open-sheets-orm",
-  "version": "0.0.0",
+  "version": "0.2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "reserved-placeholder: A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.",
   "author": "luisdlpr",
   "license": "MIT",
@@ -43,6 +46,21 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.js",
+      "require": "./dist/cli.cjs"
+    }
+  },
+  "bin": {
+    "open-sheets-orm": "./dist/cli.js"
+  },
   "files": [
     "dist"
   ],

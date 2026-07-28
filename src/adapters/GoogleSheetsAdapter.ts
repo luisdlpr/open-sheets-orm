@@ -64,6 +64,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
     this.spreadsheetService = new GoogleSpreadsheetService(client);
     this.worksheetService = new GoogleWorksheetService(client);
     this.rowService = new GoogleRowService(client);
+    this._connected = true;
   }
 
   /**
@@ -73,7 +74,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    * Service references are preserved for reuse on next connect.
    */
   async disconnect(): Promise<void> {
-    // No cleanup required for Google Sheets API.
+    this._connected = false;
   }
 
   /**
@@ -82,6 +83,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    * @returns The spreadsheet's title, URL, and contained sheet summaries.
    */
   async getSpreadsheet(): Promise<SpreadsheetInfo> {
+    this.ensureConnected('getSpreadsheet');
     return this.spreadsheetService.get(this.config.spreadsheetId);
   }
 
@@ -92,7 +94,19 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    * @returns Metadata for the newly created sheet.
    */
   async createSheet(title: string): Promise<SheetInfo> {
+    this.ensureConnected('createSheet');
     return this.worksheetService.create(this.config.spreadsheetId, title);
+  }
+
+  /**
+   * Ensures a sheet exists, creating it if missing.
+   *
+   * @param sheetName - The title of the sheet to ensure exists.
+   * @returns Metadata for the sheet.
+   */
+  async ensureSheet(sheetName: string): Promise<SheetInfo> {
+    this.ensureConnected('ensureSheet');
+    return this.worksheetService.ensure(this.config.spreadsheetId, sheetName);
   }
 
   /**
@@ -101,6 +115,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    * @param sheetName - The title of the sheet to delete.
    */
   async deleteSheet(sheetName: string): Promise<void> {
+    this.ensureConnected('deleteSheet');
     return this.worksheetService.delete(this.config.spreadsheetId, sheetName);
   }
 
@@ -112,6 +127,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    * @returns An array of header cell values.
    */
   async getHeaders(sheetName?: string): Promise<string[]> {
+    this.ensureConnected('getHeaders');
     return this.worksheetService.getHeaders(
       this.config.spreadsheetId,
       sheetName ?? this.config.sheetName,
@@ -126,6 +142,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    *   name provided at construction time.
    */
   async writeHeaders(headers: string[], sheetName?: string): Promise<void> {
+    this.ensureConnected('writeHeaders');
     return this.worksheetService.writeHeaders(
       this.config.spreadsheetId,
       headers,
@@ -145,6 +162,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
   async readSheet<T extends Record<string, string> = Record<string, string>>(
     sheetName?: string,
   ): Promise<T[]> {
+    this.ensureConnected('readSheet');
     return this.rowService.read<T>(
       this.config.spreadsheetId,
       sheetName ?? this.config.sheetName,
@@ -159,6 +177,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    *   name provided at construction time.
    */
   async appendRow(row: unknown[], sheetName?: string): Promise<void> {
+    this.ensureConnected('appendRow');
     return this.rowService.append(
       this.config.spreadsheetId,
       row,
@@ -179,6 +198,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
     row: unknown[],
     sheetName?: string,
   ): Promise<void> {
+    this.ensureConnected('updateRow');
     return this.rowService.update(
       this.config.spreadsheetId,
       rowIndex,
@@ -195,6 +215,7 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
    *   name provided at construction time.
    */
   async deleteRow(rowIndex: number, sheetName?: string): Promise<void> {
+    this.ensureConnected('deleteRow');
     return this.rowService.delete(
       this.config.spreadsheetId,
       rowIndex,
