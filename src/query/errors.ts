@@ -27,6 +27,19 @@ export class ValidationError extends SheetsError {
 }
 
 /**
+ * Thrown when a create or update operation would violate a uniqueness
+ * constraint on a primary key or unique-flagged field.
+ */
+export class UniqueConstraintError extends SheetsError {
+  constructor(modelName: string, fieldName: string, value: unknown) {
+    super(
+      `Unique constraint violation in "${modelName}": field "${fieldName}" already has value ${JSON.stringify(value)}`,
+    );
+    this.name = 'UniqueConstraintError';
+  }
+}
+
+/**
  * Thrown when a query operation cannot find a record matching
  * the supplied where clause.
  */

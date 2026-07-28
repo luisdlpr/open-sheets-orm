@@ -3,6 +3,7 @@ import {
   Database,
   ModelNotFoundError,
   RecordNotFoundError,
+  UniqueConstraintError,
   ValidationError,
 } from '../src/query';
 import type { SchemaMetadata, FieldMetadata } from '../src/schema';
@@ -632,5 +633,223 @@ describe('RecordNotFoundError', () => {
     expect(new RecordNotFoundError('User', { id: '1' })).toBeInstanceOf(
       SheetsError,
     );
+  });
+});
+
+describe('UniqueConstraintError', () => {
+  it('formats the error message with model name, field name, and value', () => {
+    const error = new UniqueConstraintError('User', 'id', '42');
+    expect(error.message).toBe(
+      'Unique constraint violation in "User": field "id" already has value "42"',
+    );
+  });
+
+  it('serializes non-string values via JSON.stringify', () => {
+    const error = new UniqueConstraintError('User', 'age', 30);
+    expect(error.message).toContain('"age" already has value 30');
+  });
+
+  it('has correct name', () => {
+    const error = new UniqueConstraintError('User', 'id', '1');
+    expect(error.name).toBe('UniqueConstraintError');
+  });
+
+  it('is an instance of SheetsError', async () => {
+    const { SheetsError } = await import('../src/errors');
+    expect(new UniqueConstraintError('User', 'id', '1')).toBeInstanceOf(
+      SheetsError,
+    );
+  });
+});
+
+describe('Database - uniqueness enforcement on create', () => {
+  let adapter: MockAdapter;
+  let db: Database;
+
+  beforeEach(() => {
+    adapter = new MockAdapter();
+    db = new Database(userSchema, adapter);
+  });
+
+  it('throws UniqueConstraintError when creating a record with a duplicate primary key', async () => {
+    adapter.setData('User', ['id', 'name'], [['1', 'Alice']]);
+    await expect(db.create('User', { id: '1', name: 'Bob' })).rejects.toThrow(
+      UniqueConstraintError,
+    );
+  });
+
+  it('includes the field name and value in the error message', async () => {
+    adapter.setData('User', ['id', 'name'], [['abc', 'Alice']]);
+    await expect(db.create('User', { id: 'abc', name: 'Bob' })).rejects.toThrow(
+      /field "id" already has value "abc"/,
+    );
+  });
+
+  it('allows create when the primary key is unique', async () => {
+    adapter.setData('User', ['id', 'name'], [['1', 'Alice']]);
+    await expect(
+      db.create('User', { id: '2', name: 'Bob' }),
+    ).resolves.toBeDefined();
+  });
+
+  it('throws UniqueConstraintError when creating a record with a duplicate unique field', async () => {
+    const schema: SchemaMetadata = {
+      models: {
+        Product: {
+          name: 'Product',
+          fields: {
+            id: field('string', { primaryKey: true }),
+            sku: field('string', { unique: true }),
+            title: field('string'),
+          },
+        },
+      },
+    };
+    const db2 = new Database(schema, adapter);
+    adapter.setData(
+      'Product',
+      ['id', 'sku', 'title'],
+      [['1', 'ABC-001', 'Widget']],
+    );
+    await expect(
+      db2.create('Product', { id: '2', sku: 'ABC-001', title: 'Gadget' }),
+    ).rejects.toThrow(UniqueConstraintError);
+  });
+
+  it('allows create when the unique field value is different', async () => {
+    const schema: SchemaMetadata = {
+      models: {
+        Product: {
+          name: 'Product',
+          fields: {
+            id: field('string', { primaryKey: true }),
+            sku: field('string', { unique: true }),
+            title: field('string'),
+          },
+        },
+      },
+    };
+    const db2 = new Database(schema, adapter);
+    adapter.setData(
+      'Product',
+      ['id', 'sku', 'title'],
+      [['1', 'ABC-001', 'Widget']],
+    );
+    await expect(
+      db2.create('Product', { id: '2', sku: 'ABC-002', title: 'Gadget' }),
+    ).resolves.toBeDefined();
+  });
+
+  it('allows create when the sheet is empty', async () => {
+    adapter.setData('User', ['id', 'name'], []);
+    await expect(
+      db.create('User', { id: '1', name: 'Alice' }),
+    ).resolves.toBeDefined();
+  });
+
+  it('does not throw for non-unique fields with duplicate values', async () => {
+    adapter.setData('User', ['id', 'name'], [['1', 'Alice']]);
+    await expect(
+      db.create('User', { id: '2', name: 'Alice' }),
+    ).resolves.toBeDefined();
+  });
+});
+
+describe('Database - uniqueness enforcement on update', () => {
+  let adapter: MockAdapter;
+  let db: Database;
+
+  beforeEach(() => {
+    adapter = new MockAdapter();
+    db = new Database(userSchema, adapter);
+  });
+
+  it('throws UniqueConstraintError when updating a field to a value already held by another record', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name'],
+      [
+        ['1', 'Alice'],
+        ['2', 'Bob'],
+      ],
+    );
+    await expect(db.update('User', { id: '2' }, { id: '1' })).rejects.toThrow(
+      UniqueConstraintError,
+    );
+  });
+
+  it('does not throw when updating a record to keep its own primary key', async () => {
+    adapter.setData('User', ['id', 'name'], [['1', 'Alice']]);
+    await expect(
+      db.update('User', { id: '1' }, { id: '1', name: 'Alicia' }),
+    ).resolves.toBeDefined();
+  });
+
+  it('does not throw when updating a non-unique field', async () => {
+    adapter.setData(
+      'User',
+      ['id', 'name'],
+      [
+        ['1', 'Alice'],
+        ['2', 'Bob'],
+      ],
+    );
+    await expect(
+      db.update('User', { id: '2' }, { name: 'Alice' }),
+    ).resolves.toBeDefined();
+  });
+
+  it('throws UniqueConstraintError when updating a unique field to a duplicate value', async () => {
+    const schema: SchemaMetadata = {
+      models: {
+        Product: {
+          name: 'Product',
+          fields: {
+            id: field('string', { primaryKey: true }),
+            sku: field('string', { unique: true }),
+            title: field('string'),
+          },
+        },
+      },
+    };
+    const db2 = new Database(schema, adapter);
+    adapter.setData(
+      'Product',
+      ['id', 'sku', 'title'],
+      [
+        ['1', 'ABC-001', 'Widget'],
+        ['2', 'ABC-002', 'Gadget'],
+      ],
+    );
+    await expect(
+      db2.update('Product', { id: '2' }, { sku: 'ABC-001' }),
+    ).rejects.toThrow(UniqueConstraintError);
+  });
+
+  it('allows updating a unique field to a new value not held by any other record', async () => {
+    const schema: SchemaMetadata = {
+      models: {
+        Product: {
+          name: 'Product',
+          fields: {
+            id: field('string', { primaryKey: true }),
+            sku: field('string', { unique: true }),
+            title: field('string'),
+          },
+        },
+      },
+    };
+    const db2 = new Database(schema, adapter);
+    adapter.setData(
+      'Product',
+      ['id', 'sku', 'title'],
+      [
+        ['1', 'ABC-001', 'Widget'],
+        ['2', 'ABC-002', 'Gadget'],
+      ],
+    );
+    await expect(
+      db2.update('Product', { id: '2' }, { sku: 'ABC-003' }),
+    ).resolves.toBeDefined();
   });
 });

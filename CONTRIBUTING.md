@@ -17,14 +17,14 @@ pnpm install
 
 ## Development commands
 
-| Command        | What it does                                      |
-| -------------- | ------------------------------------------------- |
-| `pnpm install` | Install dependencies                              |
-| `pnpm build`   | Build to `dist/` (esm + cjs + types + sourcemaps) |
-| `pnpm dev`     | Watch build (`tsup --watch`)                      |
-| `pnpm test`    | Run tests with Vitest                             |
-| `pnpm lint`    | Lint with ESLint (flat config, v9+)               |
-| `pnpm vitest run tests/Foo.test.ts` | Run a single test file            |
+| Command                             | What it does                                      |
+| ----------------------------------- | ------------------------------------------------- |
+| `pnpm install`                      | Install dependencies                              |
+| `pnpm build`                        | Build to `dist/` (esm + cjs + types + sourcemaps) |
+| `pnpm dev`                          | Watch build (`tsup --watch`)                      |
+| `pnpm test`                         | Run tests with Vitest                             |
+| `pnpm lint`                         | Lint with ESLint (flat config, v9+)               |
+| `pnpm vitest run tests/Foo.test.ts` | Run a single test file                            |
 
 ## How to contribute
 
@@ -62,6 +62,7 @@ Open a [feature request](https://github.com/luisdlpr/open-sheets-orm/issues/new?
 ## CI
 
 The CI workflow (`.github/workflows/ci.yml`) runs on push/PR to `main`:
+
 1. `pnpm install --frozen-lockfile`
 2. `pnpm lint`
 3. `pnpm build`

@@ -38,6 +38,7 @@ export { Database } from './query';
 export {
   ModelNotFoundError,
   RecordNotFoundError,
+  UniqueConstraintError,
   ValidationError,
 } from './query';
 export type { WhereClause, FindManyOptions } from './query';

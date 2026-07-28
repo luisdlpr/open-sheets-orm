@@ -7,7 +7,11 @@ import { randomUUID } from 'node:crypto';
 import type { SchemaMetadata, FieldMetadata } from '../schema';
 import type { SheetsAdapter } from '../adapters/SheetsAdapter';
 import type { WhereClause, FindManyOptions } from './types';
-import { ModelNotFoundError, RecordNotFoundError } from './errors';
+import {
+  ModelNotFoundError,
+  RecordNotFoundError,
+  UniqueConstraintError,
+} from './errors';
 import { validateInput } from './validation';
 
 /**
@@ -127,6 +131,8 @@ export class Database {
 
     validateInput('create', model.fields, data);
 
+    await this.checkUniqueness(modelName, model.fields, data);
+
     await this.adapter.ensureSheet(modelName);
 
     const headers = await this.adapter.getHeaders(modelName);
@@ -193,6 +199,8 @@ export class Database {
     if (!match) {
       throw new RecordNotFoundError(modelName, where);
     }
+
+    await this.checkUniqueness(modelName, model.fields, data, match.index);
 
     const headers = await this.adapter.getHeaders(modelName);
 
@@ -295,5 +303,56 @@ export class Database {
     return Object.entries(where).every(
       ([key, value]) => key in row && row[key] === value,
     );
+  }
+
+  /**
+   * Enforces uniqueness constraints for all `primaryKey` and `unique` fields
+   * that appear in the provided data. Reads existing rows from the sheet and
+   * throws {@link UniqueConstraintError} on the first violation found.
+   *
+   * @param modelName - The model being written to.
+   * @param fields - The field metadata map for the model.
+   * @param data - The incoming field values to check.
+   * @param excludeIndex - Row index (0-based data index) to skip when checking;
+   *   used by `update` to avoid self-collision on the row being replaced.
+   * @throws {UniqueConstraintError} When a duplicate value is detected.
+   */
+  private async checkUniqueness(
+    modelName: string,
+    fields: Record<string, FieldMetadata>,
+    data: Record<string, unknown>,
+    excludeIndex?: number,
+  ): Promise<void> {
+    const uniqueFields = Object.entries(fields).filter(
+      ([, meta]) => meta.primaryKey || meta.unique,
+    );
+
+    if (uniqueFields.length === 0) return;
+
+    const constrainedFieldNames = uniqueFields
+      .map(([name]) => name)
+      .filter((name) => name in data);
+
+    if (constrainedFieldNames.length === 0) return;
+
+    const rawRows = await this.adapter.readSheet(modelName);
+    const parsedRows = rawRows.map((rawRow) => this.parseRow(fields, rawRow));
+
+    for (const [index, existingRow] of parsedRows.entries()) {
+      if (index === excludeIndex) continue;
+
+      for (const fieldName of constrainedFieldNames) {
+        if (
+          fieldName in existingRow &&
+          existingRow[fieldName] === data[fieldName]
+        ) {
+          throw new UniqueConstraintError(
+            modelName,
+            fieldName,
+            data[fieldName],
+          );
+        }
+      }
+    }
   }
 }
