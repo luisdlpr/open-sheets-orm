@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { ConnectionError } from '../src/errors';
 
 const mockSpreadsheetService = {
   get: vi.fn(),
@@ -248,6 +249,42 @@ describe('GoogleSheetsAdapter', () => {
         spreadsheetId,
         0,
         'Sheet1',
+      );
+    });
+  });
+
+  describe('connection guard', () => {
+    it('throws ConnectionError when calling any method before connect', async () => {
+      const unconnected = new GoogleSheetsAdapter(credentials, spreadsheetId);
+
+      await expect(unconnected.getSpreadsheet()).rejects.toThrow(
+        ConnectionError,
+      );
+      await expect(unconnected.createSheet('Test')).rejects.toThrow(
+        ConnectionError,
+      );
+      await expect(unconnected.deleteSheet('Test')).rejects.toThrow(
+        ConnectionError,
+      );
+      await expect(unconnected.getHeaders()).rejects.toThrow(ConnectionError);
+      await expect(unconnected.writeHeaders(['A'])).rejects.toThrow(
+        ConnectionError,
+      );
+      await expect(unconnected.readSheet()).rejects.toThrow(ConnectionError);
+      await expect(unconnected.appendRow(['data'])).rejects.toThrow(
+        ConnectionError,
+      );
+      await expect(unconnected.updateRow(0, ['data'])).rejects.toThrow(
+        ConnectionError,
+      );
+      await expect(unconnected.deleteRow(0)).rejects.toThrow(ConnectionError);
+    });
+
+    it('includes the method name in the error message', async () => {
+      const unconnected = new GoogleSheetsAdapter(credentials, spreadsheetId);
+
+      await expect(unconnected.getSpreadsheet()).rejects.toThrow(
+        'getSpreadsheet',
       );
     });
   });
