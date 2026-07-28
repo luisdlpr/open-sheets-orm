@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions
+    url: https://github.com/luisdlpr/open-sheets-orm/discussions
+    about: Ask questions, share ideas, and get help with usage.
+  - name: Security
+    url: https://github.com/luisdlpr/open-sheets-orm/security/policy
+    about: Report security vulnerabilities here.
+  - name: Documentation
+    url: https://github.com/luisdlpr/open-sheets-orm#readme
+    about: Check the README for existing documentation.
