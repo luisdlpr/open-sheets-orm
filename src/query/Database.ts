@@ -131,9 +131,9 @@ export class Database {
 
     validateInput('create', model.fields, data);
 
-    await this.checkUniqueness(modelName, model.fields, data);
-
     await this.adapter.ensureSheet(modelName);
+
+    await this.checkUniqueness(modelName, model.fields, data);
 
     const headers = await this.adapter.getHeaders(modelName);
 
