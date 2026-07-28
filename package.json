@@ -1,6 +1,9 @@
 {
   "name": "open-sheets-orm",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "reserved-placeholder: A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.",
   "author": "luisdlpr",
   "license": "MIT",
