@@ -77,6 +77,19 @@ export class MockAdapter extends SheetsAdapter {
     };
   }
 
+  async ensureSheet(sheetName: string): Promise<SheetInfo> {
+    if (this.sheets[sheetName]) {
+      const s = this.sheets[sheetName];
+      return {
+        id: Object.keys(this.sheets).indexOf(sheetName),
+        title: sheetName,
+        rowCount: s.rows.length + 1,
+        columnCount: s.headers.length,
+      };
+    }
+    return this.createSheet(sheetName);
+  }
+
   async deleteSheet(sheetName: string): Promise<void> {
     delete this.sheets[sheetName];
   }

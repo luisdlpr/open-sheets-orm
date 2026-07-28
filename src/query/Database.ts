@@ -118,9 +118,19 @@ export class Database {
 
     validateInput('create', model.fields, data);
 
+    await this.adapter.ensureSheet(modelName);
+
     const headers = await this.adapter.getHeaders(modelName);
 
-    const row: unknown[] = headers.map((header) => {
+    if (headers.length === 0) {
+      const fieldNames = Object.keys(model.fields);
+      await this.adapter.writeHeaders(fieldNames, modelName);
+    }
+
+    const currentHeaders =
+      headers.length === 0 ? Object.keys(model.fields) : headers;
+
+    const row: unknown[] = currentHeaders.map((header) => {
       if (header in data) {
         return data[header];
       }

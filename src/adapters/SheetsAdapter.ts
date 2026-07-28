@@ -89,6 +89,18 @@ export abstract class SheetsAdapter {
   abstract createSheet(title: string): Promise<SheetInfo>;
 
   /**
+   * Ensures a sheet exists, creating it if missing.
+   *
+   * When the sheet already exists this is a no-op that returns its
+   * metadata. When it does not exist, a new sheet (tab) is created
+   * with the given title.
+   *
+   * @param sheetName - The title of the sheet to ensure exists.
+   * @returns Metadata for the sheet.
+   */
+  abstract ensureSheet(sheetName: string): Promise<SheetInfo>;
+
+  /**
    * Deletes a sheet (tab) from the spreadsheet by its title.
    *
    * @param sheetName - The title of the sheet to delete.

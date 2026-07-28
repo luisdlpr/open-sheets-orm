@@ -99,6 +99,17 @@ export class GoogleSheetsAdapter extends SheetsAdapter {
   }
 
   /**
+   * Ensures a sheet exists, creating it if missing.
+   *
+   * @param sheetName - The title of the sheet to ensure exists.
+   * @returns Metadata for the sheet.
+   */
+  async ensureSheet(sheetName: string): Promise<SheetInfo> {
+    this.ensureConnected('ensureSheet');
+    return this.worksheetService.ensure(this.config.spreadsheetId, sheetName);
+  }
+
+  /**
    * Deletes a sheet (tab) from the configured spreadsheet.
    *
    * @param sheetName - The title of the sheet to delete.
