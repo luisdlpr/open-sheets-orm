@@ -71,6 +71,12 @@ export function validateSchema(
 
       if (fieldMeta.primaryKey) {
         primaryKeyCount++;
+
+        if (fieldMeta.optional) {
+          throw new SchemaValidationError(
+            `Field "${fieldName}" in model "${modelName}" is both a primary key and optional — primary keys cannot be optional`,
+          );
+        }
       }
 
       if (fieldMeta.defaultValue !== undefined) {
