@@ -14,10 +14,9 @@ import type { SpreadsheetInfo, SheetInfo } from '../types';
 /**
  * Google Sheets implementation of the {@link SheetsAdapter} contract.
  *
- * Delegates to four internal services — {@link GoogleAuthService},
- * {@link GoogleSpreadsheetService}, {@link GoogleWorksheetService},
- * and {@link GoogleRowService} — each responsible for a focused area
- * of the Google Sheets API.
+ * Delegates to four internal services — authentication, spreadsheet
+ * metadata, worksheet management, and row operations — each
+ * responsible for a focused area of the Google Sheets API.
  *
  * @example
  * ```ts

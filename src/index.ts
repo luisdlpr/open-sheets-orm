@@ -1,5 +1,4 @@
 /**
- * @file Public API barrel export for open-sheets-orm.
  * @module open-sheets-orm
  */
 
@@ -43,7 +42,7 @@ export {
 } from './query';
 export type { WhereClause, FindManyOptions } from './query';
 
-export { schema, field, SchemaValidationError } from './schema';
+export { schema, field, FieldBuilder, SchemaValidationError } from './schema';
 export type {
   FieldMetadata,
   ModelMetadata,

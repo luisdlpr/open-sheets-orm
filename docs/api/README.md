@@ -7,10 +7,10 @@ A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.
 ## Installation
 
 ```sh
-npm install open-sheets-orm
+pnpm add open-sheets-orm
 ```
 
-Also available via pnpm and yarn.
+Also available via npm and yarn.
 
 ## Setup
 

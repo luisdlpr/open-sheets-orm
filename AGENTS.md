@@ -24,6 +24,9 @@ Do not stage, commit, amend, or push changes. Leave all git operations to the us
 | `pnpm dev`     | Watch build (`tsup --watch`)                      |
 | `pnpm test`    | Run all tests (watch mode in TTY, run mode in CI) |
 | `pnpm lint`    | Lint with ESLint (flat config, v9+)               |
+| `pnpm docs:api`    | Generate TypeDoc API reference into `docs/api/reference/` |
+| `pnpm docs:dev`    | VitePress dev server (local preview)              |
+| `pnpm docs:build`  | Build full docs site (TypeDoc + VitePress)        |
 
 **No `typecheck` script exists.** Type checking happens implicitly via `dts: true` in tsup during `pnpm build`. There is no `tsc --noEmit` shortcut.
 
@@ -113,6 +116,33 @@ src/
 ### Adapter pattern
 
 `SheetsAdapter` is the abstract superclass. `GoogleSheetsAdapter` extends it and delegates to four internal service classes. Each service receives an authenticated `sheets_v4.Sheets` client and is responsible for one area of the API. Services are **concrete Google-specific classes** — not abstract. If a second adapter (e.g. Excel) is added later, it will have its own service implementations. The adapter is the abstraction boundary, not the services.
+
+### Docs layout
+
+```
+docs/
+  index.md                          # VitePress landing page
+  guide/
+    getting-started.md              # Installation, setup, quick start
+    manual-api.md                   # Schema, adapter, Database usage
+    autogen-client.md               # CLI code generation
+  api/
+    index.md                        # API reference landing page
+    reference/                      # TypeDoc-generated (never edit manually)
+      index.md
+      classes/
+      interfaces/
+      functions/
+      variables/
+      type-aliases/
+  .vitepress/
+    config.ts                       # VitePress config with dynamic sidebar
+```
+
+- **Hand-authored**: `docs/index.md`, `docs/guide/*.md`, `docs/api/index.md`, `docs/.vitepress/config.ts`
+- **Generated**: `docs/api/reference/` — produced by `pnpm docs:api`, regenerated on every build
+- If you change public exports in `src/index.ts`, run `pnpm docs:api` to regenerate the API reference before committing.
+- If you add/modify user-facing features, update the relevant guide page.
 
 ---
 
