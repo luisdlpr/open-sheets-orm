@@ -55,7 +55,7 @@ const mySchema = schema({
 import { GoogleSheetsAdapter } from 'open-sheets-orm';
 
 const adapter = new GoogleSheetsAdapter(
-  credentials,   // Google service account credentials (JWT)
+  credentials, // Google service account credentials (JWT)
   'spreadsheet-id',
 );
 await adapter.connect();
@@ -150,17 +150,17 @@ await client.user.delete({ id: users[0].id });
 
 ### What gets generated
 
-| Output | Description |
-|--------|-------------|
-| Interfaces | One `export interface` per model with correct types |
-| Delegates | One class per model with typed `findMany`, `findUnique`, `create`, `update`, `delete` |
-| `SheetORMClient` | Wrapper class with dot-notation access (`client.user`, `client.post`) |
+| Output           | Description                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| Interfaces       | One `export interface` per model with correct types                                   |
+| Delegates        | One class per model with typed `findMany`, `findUnique`, `create`, `update`, `delete` |
+| `SheetORMClient` | Wrapper class with dot-notation access (`client.user`, `client.post`)                 |
 
 ### CLI Options
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--schema` | `./schema.ts` | Path to your schema file |
+| Flag       | Default                 | Description                          |
+| ---------- | ----------------------- | ------------------------------------ |
+| `--schema` | `./schema.ts`           | Path to your schema file             |
 | `--output` | `./generated/client.ts` | Output path for the generated client |
 
 For more details, see the [AutoGen Client guide](https://luisdlpr.github.io/open-sheets-orm/guide/autogen-client).
@@ -169,30 +169,30 @@ For more details, see the [AutoGen Client guide](https://luisdlpr.github.io/open
 
 ### Field Types
 
-| Type | TypeScript | Description |
-|------|-----------|-------------|
-| `field.string()` | `string` | Text values |
-| `field.number()` | `number` | Numeric values |
-| `field.boolean()` | `boolean` | Boolean values (`true`/`false`/`1`/`0`) |
-| `field.date()` | `Date` | Date values (parsed via `new Date()`) |
-| `field.json()` | `any` | JSON objects or arrays |
+| Type              | TypeScript | Description                             |
+| ----------------- | ---------- | --------------------------------------- |
+| `field.string()`  | `string`   | Text values                             |
+| `field.number()`  | `number`   | Numeric values                          |
+| `field.boolean()` | `boolean`  | Boolean values (`true`/`false`/`1`/`0`) |
+| `field.date()`    | `Date`     | Date values (parsed via `new Date()`)   |
+| `field.json()`    | `any`      | JSON objects or arrays                  |
 
 ### Field Modifiers
 
-| Modifier | Description |
-|----------|-------------|
-| `.primaryKey()` | Marks field as the primary key (auto-generates UUID if omitted) |
-| `.unique()` | Enforces uniqueness across all records |
-| `.optional()` | Field may be omitted or empty |
-| `.default(value)` | Sets a default value when not provided |
+| Modifier          | Description                                                     |
+| ----------------- | --------------------------------------------------------------- |
+| `.primaryKey()`   | Marks field as the primary key (auto-generates UUID if omitted) |
+| `.unique()`       | Enforces uniqueness across all records                          |
+| `.optional()`     | Field may be omitted or empty                                   |
+| `.default(value)` | Sets a default value when not provided                          |
 
 ### Query Options
 
 ```ts
 const results = await db.findMany('User', {
-  where: { active: true },   // Filter conditions
-  skip: 10,                   // Offset
-  limit: 5,                   // Max records to return
+  where: { active: true }, // Filter conditions
+  skip: 10, // Offset
+  limit: 5, // Max records to return
 });
 ```
 
@@ -223,12 +223,12 @@ cd open-sheets-orm
 pnpm install
 ```
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Watch mode |
-| `pnpm build` | Build to `dist/` |
-| `pnpm test` | Run tests |
-| `pnpm lint` | Lint with ESLint |
+| Command         | Description       |
+| --------------- | ----------------- |
+| `pnpm dev`      | Watch mode        |
+| `pnpm build`    | Build to `dist/`  |
+| `pnpm test`     | Run tests         |
+| `pnpm lint`     | Lint with ESLint  |
 | `pnpm docs:dev` | Local docs server |
 
 ## Contributing

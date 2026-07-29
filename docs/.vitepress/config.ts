@@ -43,7 +43,7 @@ export default defineConfig({
       { text: 'Getting Started', link: '/guide/getting-started' },
       { text: 'Manual API', link: '/guide/manual-api' },
       { text: 'AutoGen Client', link: '/guide/autogen-client' },
-      { text: 'API Reference', link: '/api/reference/' },
+      { text: 'API Reference', link: '/api/' },
     ],
     sidebar: [
       {

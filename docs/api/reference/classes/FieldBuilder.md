@@ -1,4 +1,4 @@
-Defined in: [schema/FieldBuilder.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/FieldBuilder.ts#L20)
+Defined in: [schema/FieldBuilder.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/FieldBuilder.ts#L20)
 
 Fluent builder for defining a single field's properties.
 
@@ -8,7 +8,7 @@ instantiating this class directly.
 ## Example
 
 ```ts
-field.string().primaryKey().unique().default('hello').build()
+field.string().primaryKey().unique().default('hello').build();
 // → { type: 'string', primaryKey: true, unique: true, optional: false, defaultValue: 'hello' }
 ```
 
@@ -18,7 +18,7 @@ field.string().primaryKey().unique().default('hello').build()
 
 > **new FieldBuilder**(`type`): `FieldBuilder`
 
-Defined in: [schema/FieldBuilder.ts:28](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/FieldBuilder.ts#L28)
+Defined in: [schema/FieldBuilder.ts:28](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/FieldBuilder.ts#L28)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [schema/FieldBuilder.ts:28](https://github.com/luisdlpr/open-sheets-
 
 > **build**(): [`FieldMetadata`](../interfaces/FieldMetadata.md)
 
-Defined in: [schema/FieldBuilder.ts:64](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/FieldBuilder.ts#L64)
+Defined in: [schema/FieldBuilder.ts:64](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/FieldBuilder.ts#L64)
 
 Compiles the builder into a plain metadata object.
 
@@ -46,13 +46,13 @@ Compiles the builder into a plain metadata object.
 
 The field metadata.
 
-***
+---
 
 ### default()
 
 > **default**(`value`): `this`
 
-Defined in: [schema/FieldBuilder.ts:53](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/FieldBuilder.ts#L53)
+Defined in: [schema/FieldBuilder.ts:53](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/FieldBuilder.ts#L53)
 
 Sets a default value for the field.
 
@@ -63,43 +63,43 @@ Sets a default value for the field.
 `unknown`
 
 The default value. Its type must match the field type
-  (validated by `validateSchema` at compile time).
+(validated by `validateSchema` at compile time).
 
 #### Returns
 
 `this`
 
-***
+---
 
 ### optional()
 
 > **optional**(): `this`
 
-Defined in: [schema/FieldBuilder.ts:42](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/FieldBuilder.ts#L42)
+Defined in: [schema/FieldBuilder.ts:42](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/FieldBuilder.ts#L42)
 
 #### Returns
 
 `this`
 
-***
+---
 
 ### primaryKey()
 
 > **primaryKey**(): `this`
 
-Defined in: [schema/FieldBuilder.ts:32](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/FieldBuilder.ts#L32)
+Defined in: [schema/FieldBuilder.ts:32](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/FieldBuilder.ts#L32)
 
 #### Returns
 
 `this`
 
-***
+---
 
 ### unique()
 
 > **unique**(): `this`
 
-Defined in: [schema/FieldBuilder.ts:37](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/FieldBuilder.ts#L37)
+Defined in: [schema/FieldBuilder.ts:37](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/FieldBuilder.ts#L37)
 
 #### Returns
 

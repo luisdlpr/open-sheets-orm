@@ -17,7 +17,7 @@ hero:
       text: NPM
       link: https://npmjs.com/package/open-sheets-orm
     - theme: alt
-      text: github
+      text: GitHub
       link: https://github.com/luisdlpr/open-sheets-orm
 features:
   - title: TypeScript/JavaScript
