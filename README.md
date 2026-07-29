@@ -6,8 +6,6 @@
 
 A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.
 
-> **Early stage** — this project is under active development and the API is not yet stable.
-
 ## Features
 
 - **Schema-first approach** — Define your data models with a fluent, type-safe API
