@@ -1,5 +1,5 @@
 > `const` **GOOGLE\_SHEETS\_BASE\_URL**: `"https://docs.google.com/spreadsheets/d/"`
 
-Defined in: [constants/index.ts:10](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/constants/index.ts#L10)
+Defined in: [constants/index.ts:10](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/constants/index.ts#L10)
 
 Base URL for constructing Google Sheets spreadsheet links.

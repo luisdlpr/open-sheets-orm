@@ -139,7 +139,6 @@ import credentials from 'path/to/creds.json';
 const client = new SheetORMClient({
   credentials,
   sheetId: 'your-spreadsheet-id',
-  sheetName: 'Users', // optional
   provider: 'google',
 });
 
