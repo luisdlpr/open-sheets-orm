@@ -1,4 +1,4 @@
-Defined in: [query/errors.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/errors.ts#L33)
+Defined in: [query/errors.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/query/errors.ts#L33)
 
 Thrown when a create or update operation would violate a uniqueness
 constraint on a primary key or unique-flagged field.
@@ -13,7 +13,7 @@ constraint on a primary key or unique-flagged field.
 
 > **new UniqueConstraintError**(`modelName`, `fieldName`, `value`): `UniqueConstraintError`
 
-Defined in: [query/errors.ts:34](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/errors.ts#L34)
+Defined in: [query/errors.ts:34](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/query/errors.ts#L34)
 
 #### Parameters
 

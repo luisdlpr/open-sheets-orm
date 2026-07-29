@@ -1,4 +1,4 @@
-Defined in: [schema/types.ts:16](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L16)
+Defined in: [schema/types.ts:16](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L16)
 
 ## Properties
 
@@ -6,7 +6,7 @@ Defined in: [schema/types.ts:16](https://github.com/luisdlpr/open-sheets-orm/blo
 
 > **fields**: `Record`\<`string`, [`FieldMetadata`](FieldMetadata.md)\>
 
-Defined in: [schema/types.ts:18](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L18)
+Defined in: [schema/types.ts:18](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L18)
 
 ***
 
@@ -14,4 +14,4 @@ Defined in: [schema/types.ts:18](https://github.com/luisdlpr/open-sheets-orm/blo
 
 > **name**: `string`
 
-Defined in: [schema/types.ts:17](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L17)
+Defined in: [schema/types.ts:17](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L17)

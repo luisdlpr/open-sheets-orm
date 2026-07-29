@@ -1,4 +1,4 @@
-Defined in: [schema/types.ts:8](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L8)
+Defined in: [schema/types.ts:8](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L8)
 
 ## Properties
 
@@ -6,7 +6,7 @@ Defined in: [schema/types.ts:8](https://github.com/luisdlpr/open-sheets-orm/blob
 
 > `optional` **defaultValue?**: `unknown`
 
-Defined in: [schema/types.ts:13](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L13)
+Defined in: [schema/types.ts:13](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L13)
 
 ***
 
@@ -14,7 +14,7 @@ Defined in: [schema/types.ts:13](https://github.com/luisdlpr/open-sheets-orm/blo
 
 > **optional**: `boolean`
 
-Defined in: [schema/types.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L12)
+Defined in: [schema/types.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L12)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [schema/types.ts:12](https://github.com/luisdlpr/open-sheets-orm/blo
 
 > **primaryKey**: `boolean`
 
-Defined in: [schema/types.ts:10](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L10)
+Defined in: [schema/types.ts:10](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L10)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [schema/types.ts:10](https://github.com/luisdlpr/open-sheets-orm/blo
 
 > **type**: [`SupportedFieldType`](../type-aliases/SupportedFieldType.md)
 
-Defined in: [schema/types.ts:9](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L9)
+Defined in: [schema/types.ts:9](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L9)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [schema/types.ts:9](https://github.com/luisdlpr/open-sheets-orm/blob
 
 > **unique**: `boolean`
 
-Defined in: [schema/types.ts:11](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L11)
+Defined in: [schema/types.ts:11](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L11)

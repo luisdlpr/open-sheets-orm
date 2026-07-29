@@ -1,4 +1,4 @@
-Defined in: [query/errors.ts:11](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/errors.ts#L11)
+Defined in: [query/errors.ts:11](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/query/errors.ts#L11)
 
 Thrown when a referenced model does not exist in the compiled schema.
 
@@ -12,7 +12,7 @@ Thrown when a referenced model does not exist in the compiled schema.
 
 > **new ModelNotFoundError**(`modelName`): `ModelNotFoundError`
 
-Defined in: [query/errors.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/errors.ts#L12)
+Defined in: [query/errors.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/query/errors.ts#L12)
 
 #### Parameters
 

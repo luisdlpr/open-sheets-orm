@@ -2,11 +2,21 @@
 
 ## Installation
 
-```sh
+::: code-group
+
+```sh [npm]
+npm install open-sheets-orm
+```
+
+```sh [pnpm]
 pnpm add open-sheets-orm
 ```
 
-Also available via npm and yarn.
+```sh [yarn]
+yarn add open-sheets-orm
+```
+
+:::
 
 ## Google Sheets Setup
 
