@@ -1,5 +1,4 @@
 /**
- * @file Metadata interfaces and type unions for the schema compiler.
  * @module open-sheets-orm/schema
  */
 
