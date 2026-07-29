@@ -7,7 +7,7 @@
   "description": "A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.",
   "author": "luisdlpr",
   "license": "MIT",
-  "homepage": "https://github.com/luisdlpr/open-sheets-orm",
+  "homepage": "https://luisdlpr.github.io/open-sheets-orm",
   "repository": {
     "type": "git",
     "url": "https://github.com/luisdlpr/open-sheets-orm.git"

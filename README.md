@@ -16,6 +16,7 @@ A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.
 - **Uniqueness constraints** — Primary key and unique field enforcement
 - **Validation** — Input validation with clear error messages
 - **Pluggable adapters** — Abstract adapter layer for future spreadsheet providers
+- **CLI code generation** — Generate a fully typed client from your schema with one command
 
 ## Installation
 
@@ -86,6 +87,85 @@ await db.update('User', { email: 'alice@example.com' }, { age: 31 });
 // Delete a record
 await db.delete('User', { email: 'alice@example.com' });
 ```
+
+## AutoGen Client
+
+The CLI generates a fully typed client from your schema — no manual wiring needed.
+
+### 1. Create a schema file
+
+```ts
+// schema.ts
+import { schema, field } from 'open-sheets-orm';
+
+const mySchema = schema({
+  User: {
+    id: field.string().primaryKey(),
+    email: field.string().unique(),
+    name: field.string(),
+    age: field.number().optional(),
+  },
+});
+
+export default mySchema;
+```
+
+### 2. Run the generator
+
+```sh
+npx open-sheets-orm generate --schema ./schema.ts --output ./generated/client.ts
+```
+
+### 3. Use the generated client
+
+```ts
+import { SheetORMClient } from './generated/client';
+import credentials from './service-account.json';
+
+const client = new SheetORMClient({
+  credentials,
+  sheetId: 'your-spreadsheet-id',
+  provider: 'google',
+});
+
+await client.connect();
+
+// Fully typed CRUD operations
+await client.user.create({
+  data: { email: 'alice@example.com', name: 'Alice' },
+});
+
+const users = await client.user.findMany({
+  where: { name: 'Alice' },
+  limit: 10,
+});
+
+const user = await client.user.findUnique({ id: users[0].id });
+
+await client.user.update({
+  where: { id: users[0].id },
+  data: { name: 'Updated Name' },
+});
+
+await client.user.delete({ id: users[0].id });
+```
+
+### What gets generated
+
+| Output | Description |
+|--------|-------------|
+| Interfaces | One `export interface` per model with correct types |
+| Delegates | One class per model with typed `findMany`, `findUnique`, `create`, `update`, `delete` |
+| `SheetORMClient` | Wrapper class with dot-notation access (`client.user`, `client.post`) |
+
+### CLI Options
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--schema` | `./schema.ts` | Path to your schema file |
+| `--output` | `./generated/client.ts` | Output path for the generated client |
+
+For more details, see the [AutoGen Client guide](https://luisdlpr.github.io/open-sheets-orm/guide/autogen-client).
 
 ## Schema Reference
 
