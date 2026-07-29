@@ -127,6 +127,7 @@ describe('FieldBuilder', () => {
         primaryKey: true,
         unique: true,
         optional: true,
+        hasDefault: true,
         defaultValue: 'hello',
       });
     });
@@ -612,6 +613,7 @@ describe('field factory', () => {
       primaryKey: true,
       unique: true,
       optional: true,
+      hasDefault: false,
     });
   });
 });
@@ -749,24 +751,28 @@ describe('schema', () => {
                 primaryKey: true,
                 unique: false,
                 optional: false,
+                hasDefault: false,
               },
               email: {
                 type: 'string',
                 primaryKey: false,
                 unique: true,
                 optional: false,
+                hasDefault: false,
               },
               name: {
                 type: 'string',
                 primaryKey: false,
                 unique: false,
                 optional: false,
+                hasDefault: false,
               },
               age: {
                 type: 'number',
                 primaryKey: false,
                 unique: false,
                 optional: false,
+                hasDefault: false,
               },
             },
           },
@@ -792,6 +798,7 @@ describe('schema', () => {
         primaryKey: true,
         unique: false,
         optional: false,
+        hasDefault: false,
       });
 
       expect(result.models.Task.fields.title).toEqual({
@@ -799,6 +806,7 @@ describe('schema', () => {
         primaryKey: false,
         unique: true,
         optional: false,
+        hasDefault: true,
         defaultValue: 'Untitled',
       });
 
@@ -807,6 +815,7 @@ describe('schema', () => {
         primaryKey: false,
         unique: false,
         optional: true,
+        hasDefault: true,
         defaultValue: 0,
       });
 
@@ -815,6 +824,7 @@ describe('schema', () => {
         primaryKey: false,
         unique: false,
         optional: true,
+        hasDefault: true,
         defaultValue: [],
       });
 
@@ -823,6 +833,7 @@ describe('schema', () => {
         primaryKey: false,
         unique: false,
         optional: false,
+        hasDefault: true,
         defaultValue: false,
       });
     });

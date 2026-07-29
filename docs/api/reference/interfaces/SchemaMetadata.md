@@ -1,9 +1,9 @@
-Defined in: [schema/types.ts:21](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/schema/types.ts#L21)
+Defined in: [schema/types.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/schema/types.ts#L23)
 
 ## Properties
 
 ### models
 
-> **models**: `Record`\<`string`, [`ModelMetadata`](ModelMetadata.md)\>
+> **models**: `Record`\<`string`, [`ModelMetadata`](ModelMetadata.md)>\>
 
-Defined in: [schema/types.ts:22](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/schema/types.ts#L22)
+Defined in: [schema/types.ts:24](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/schema/types.ts#L24)

@@ -8,7 +8,7 @@ Defined in: [schema/types.ts:9](https://github.com/luisdlpr/open-sheets-orm/blob
 
 Defined in: [schema/types.ts:14](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L14)
 
-***
+---
 
 ### optional
 
@@ -16,7 +16,7 @@ Defined in: [schema/types.ts:14](https://github.com/luisdlpr/open-sheets-orm/blo
 
 Defined in: [schema/types.ts:13](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L13)
 
-***
+---
 
 ### primaryKey
 
@@ -24,7 +24,7 @@ Defined in: [schema/types.ts:13](https://github.com/luisdlpr/open-sheets-orm/blo
 
 Defined in: [schema/types.ts:11](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L11)
 
-***
+---
 
 ### type
 
@@ -32,7 +32,7 @@ Defined in: [schema/types.ts:11](https://github.com/luisdlpr/open-sheets-orm/blo
 
 Defined in: [schema/types.ts:10](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/schema/types.ts#L10)
 
-***
+---
 
 ### unique
 

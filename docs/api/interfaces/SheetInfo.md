@@ -12,7 +12,7 @@ Defined in: [types/index.ts:59](https://github.com/luisdlpr/open-sheets-orm/blob
 
 Total number of columns in the sheet.
 
-***
+---
 
 ### id
 
@@ -22,7 +22,7 @@ Defined in: [types/index.ts:50](https://github.com/luisdlpr/open-sheets-orm/blob
 
 The numeric ID of the sheet.
 
-***
+---
 
 ### rowCount
 
@@ -32,7 +32,7 @@ Defined in: [types/index.ts:56](https://github.com/luisdlpr/open-sheets-orm/blob
 
 Total number of rows in the sheet.
 
-***
+---
 
 ### title
 

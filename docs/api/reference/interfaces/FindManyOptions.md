@@ -1,4 +1,4 @@
-Defined in: [query/types.ts:15](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/query/types.ts#L15)
+Defined in: [query/types.ts:15](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/query/types.ts#L15)
 
 Options for the [Database.findMany](../classes/Database.md#findmany) query.
 
@@ -8,26 +8,26 @@ Options for the [Database.findMany](../classes/Database.md#findmany) query.
 
 > `optional` **limit?**: `number`
 
-Defined in: [query/types.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/query/types.ts#L23)
+Defined in: [query/types.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/query/types.ts#L23)
 
 Maximum number of records to return.
 
-***
+---
 
 ### skip?
 
 > `optional` **skip?**: `number`
 
-Defined in: [query/types.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/query/types.ts#L20)
+Defined in: [query/types.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/query/types.ts#L20)
 
 Number of records to skip before returning results.
 
-***
+---
 
 ### where?
 
 > `optional` **where?**: [`WhereClause`](../type-aliases/WhereClause.md)
 
-Defined in: [query/types.ts:17](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/query/types.ts#L17)
+Defined in: [query/types.ts:17](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/query/types.ts#L17)
 
 Field-value pairs to filter records by (all conditions must match).

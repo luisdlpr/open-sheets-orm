@@ -17,17 +17,17 @@ pnpm install
 
 ## Development commands
 
-| Command                             | What it does                                      |
-| ----------------------------------- | ------------------------------------------------- |
-| `pnpm install`                      | Install dependencies                              |
-| `pnpm build`                        | Build to `dist/` (esm + cjs + types + sourcemaps) |
-| `pnpm dev`                          | Watch build (`tsup --watch`)                      |
-| `pnpm test`                         | Run tests with Vitest                             |
-| `pnpm lint`                         | Lint with ESLint (flat config, v9+)               |
-| `pnpm vitest run tests/Foo.test.ts` | Run a single test file                            |
+| Command                             | What it does                                              |
+| ----------------------------------- | --------------------------------------------------------- |
+| `pnpm install`                      | Install dependencies                                      |
+| `pnpm build`                        | Build to `dist/` (esm + cjs + types + sourcemaps)         |
+| `pnpm dev`                          | Watch build (`tsup --watch`)                              |
+| `pnpm test`                         | Run tests with Vitest                                     |
+| `pnpm lint`                         | Lint with ESLint (flat config, v9+)                       |
+| `pnpm vitest run tests/Foo.test.ts` | Run a single test file                                    |
 | `pnpm docs:api`                     | Generate TypeDoc API reference into `docs/api/reference/` |
-| `pnpm docs:dev`                     | VitePress dev server (local preview)              |
-| `pnpm docs:build`                   | Build full docs site (TypeDoc + VitePress)        |
+| `pnpm docs:dev`                     | VitePress dev server (local preview)                      |
+| `pnpm docs:build`                   | Build full docs site (TypeDoc + VitePress)                |
 
 ## How to contribute
 
@@ -52,14 +52,14 @@ Open a [feature request](https://github.com/luisdlpr/open-sheets-orm/issues/new?
 
 Docs are built with [VitePress](https://vitepress.dev/) and [TypeDoc](https://typedoc.org/).
 
-| Path | Content |
-|---|---|
-| `docs/index.md` | Landing page |
-| `docs/guide/getting-started.md` | Installation, setup, quick start |
-| `docs/guide/manual-api.md` | Schema, adapter, and Database usage |
-| `docs/guide/autogen-client.md` | CLI code generation |
-| `docs/api/index.md` | API reference landing page |
-| `docs/api/reference/` | TypeDoc-generated (do not edit manually) |
+| Path                            | Content                                  |
+| ------------------------------- | ---------------------------------------- |
+| `docs/index.md`                 | Landing page                             |
+| `docs/guide/getting-started.md` | Installation, setup, quick start         |
+| `docs/guide/manual-api.md`      | Schema, adapter, and Database usage      |
+| `docs/guide/autogen-client.md`  | CLI code generation                      |
+| `docs/api/index.md`             | API reference landing page               |
+| `docs/api/reference/`           | TypeDoc-generated (do not edit manually) |
 
 ### When to update docs
 

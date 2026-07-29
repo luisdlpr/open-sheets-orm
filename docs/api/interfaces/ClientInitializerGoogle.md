@@ -12,7 +12,7 @@ Defined in: [types/index.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob
 
 Google service account credentials (JWT) or external account credentials.
 
-***
+---
 
 ### provider
 
@@ -22,7 +22,7 @@ Defined in: [types/index.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob
 
 The spreadsheet provider identifier. Must be "google".
 
-***
+---
 
 ### sheetId
 
@@ -32,7 +32,7 @@ Defined in: [types/index.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob
 
 The unique ID of the target spreadsheet.
 
-***
+---
 
 ### sheetName?
 

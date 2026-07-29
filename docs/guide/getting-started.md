@@ -24,11 +24,11 @@ yarn add open-sheets-orm
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
 2. Create a new project (or select an existing one).
-3. Enable the **Google Sheets API** under *APIs & Services > Library*.
+3. Enable the **Google Sheets API** under _APIs & Services > Library_.
 
 ### 2. Create a Service Account
 
-1. Go to *APIs & Services > Credentials*.
+1. Go to _APIs & Services > Credentials_.
 2. Click **Create Credentials > Service Account**.
 3. Fill in a name and click **Done**.
 4. Under the new service account, go to the **Keys** tab.
@@ -43,6 +43,8 @@ Open the Google Spreadsheet you want to use and share it with the **client email
 
 ```ts
 import { schema, field, Database, GoogleSheetsAdapter } from 'open-sheets-orm';
+// Import your credentials file
+import credentials from 'path/to/creds.json';
 
 // 1. Define your schema
 const mySchema = schema({
@@ -56,9 +58,9 @@ const mySchema = schema({
 
 // 2. Create the adapter and connect
 const adapter = new GoogleSheetsAdapter(
-  credentials,      // Service account JSON (Auth.JWTInput)
+  credentials, // Service account JSON (Auth.JWTInput)
   'spreadsheet-id', // The ID from your spreadsheet URL
-  'Users',          // Sheet name (optional, defaults to first sheet)
+  'Users', // Sheet name (optional, defaults to first sheet)
 );
 await adapter.connect();
 
@@ -75,11 +77,11 @@ const alice = await db.findUnique('User', { email: 'alice@example.com' });
 
 open-sheets-orm has three layers:
 
-| Layer | Purpose |
-|---|---|
-| **Schema** | Define models and field types using `field` and `schema()` |
+| Layer        | Purpose                                                                  |
+| ------------ | ------------------------------------------------------------------------ |
+| **Schema**   | Define models and field types using `field` and `schema()`               |
 | **Database** | Query engine with `findMany`, `findUnique`, `create`, `update`, `delete` |
-| **Adapter** | I/O boundary — `GoogleSheetsAdapter` handles Google Sheets API calls |
+| **Adapter**  | I/O boundary — `GoogleSheetsAdapter` handles Google Sheets API calls     |
 
 You can use the adapter directly for low-level spreadsheet operations, or use the `Database` class for ORM-style queries with schema validation and type coercion.
 

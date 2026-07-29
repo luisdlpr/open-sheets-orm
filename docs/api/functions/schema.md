@@ -27,10 +27,10 @@ When the definition violates validation rules.
 ```ts
 const meta = schema({
   User: {
-    id:    field.string().primaryKey(),
+    id: field.string().primaryKey(),
     email: field.string().unique(),
-    name:  field.string().optional(),
-    age:   field.number().optional().default(0),
+    name: field.string().optional(),
+    age: field.number().optional().default(0),
   },
 });
 ```

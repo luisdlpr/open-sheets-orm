@@ -11,6 +11,7 @@ function field(
     primaryKey: false,
     unique: false,
     optional: false,
+    hasDefault: false,
     ...overrides,
   };
 }

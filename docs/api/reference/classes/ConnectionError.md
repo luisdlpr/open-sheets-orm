@@ -1,4 +1,4 @@
-Defined in: [errors/index.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/errors/index.ts#L23)
+Defined in: [errors/index.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/errors/index.ts#L23)
 
 Thrown when the adapter fails to authenticate or establish a connection
 with the underlying spreadsheet API.
@@ -13,7 +13,7 @@ with the underlying spreadsheet API.
 
 > **new ConnectionError**(`message`, `options?`): `ConnectionError`
 
-Defined in: [errors/index.ts:24](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/errors/index.ts#L24)
+Defined in: [errors/index.ts:24](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/errors/index.ts#L24)
 
 #### Parameters
 

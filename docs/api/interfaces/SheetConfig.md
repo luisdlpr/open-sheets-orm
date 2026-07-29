@@ -12,7 +12,7 @@ Defined in: [types/index.ts:14](https://github.com/luisdlpr/open-sheets-orm/blob
 
 The default sheet name to operate on. When omitted, the first sheet is used.
 
-***
+---
 
 ### spreadsheetId
 

@@ -31,7 +31,7 @@ export function validateInput(
       action === 'create' &&
       !isPresent &&
       !metadata.optional &&
-      metadata.defaultValue === undefined
+      !metadata.hasDefault
     ) {
       throw new ValidationError(`Field "${fieldName}" is required`);
     }
