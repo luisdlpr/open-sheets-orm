@@ -1,6 +1,6 @@
 > **schema**(`definitions`): [`SchemaMetadata`](../interfaces/SchemaMetadata.md)
 
-Defined in: [schema/schema.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/schema/schema.ts#L29)
+Defined in: [schema/schema.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/schema.ts#L29)
 
 Compiles a schema definition into a normalized metadata object.
 

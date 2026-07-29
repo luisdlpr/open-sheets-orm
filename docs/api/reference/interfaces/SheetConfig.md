@@ -1,4 +1,4 @@
-Defined in: [types/index.ts:9](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/types/index.ts#L9)
+Defined in: [types/index.ts:9](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/types/index.ts#L9)
 
 Configuration for initializing a sheets adapter instance.
 
@@ -8,7 +8,7 @@ Configuration for initializing a sheets adapter instance.
 
 > `optional` **sheetName?**: `string`
 
-Defined in: [types/index.ts:14](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/types/index.ts#L14)
+Defined in: [types/index.ts:14](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/types/index.ts#L14)
 
 The default sheet name to operate on. When omitted, the first sheet is used.
 
@@ -18,6 +18,6 @@ The default sheet name to operate on. When omitted, the first sheet is used.
 
 > **spreadsheetId**: `string`
 
-Defined in: [types/index.ts:11](https://github.com/luisdlpr/open-sheets-orm/blob/737579583cde5a6b2cf0aa3137f06fd3bc88edd4/src/types/index.ts#L11)
+Defined in: [types/index.ts:11](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/types/index.ts#L11)
 
 The unique identifier of the target spreadsheet.
