@@ -1,4 +1,4 @@
-Defined in: [schema/errors.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/schema/errors.ts#L12)
+Defined in: [schema/errors.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/schema/errors.ts#L12)
 
 Thrown when a schema definition violates a validation rule.
 
@@ -15,7 +15,7 @@ is a pure compile-time concern with no I/O.
 
 > **new SchemaValidationError**(`message`): `SchemaValidationError`
 
-Defined in: [schema/errors.ts:15](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/schema/errors.ts#L15)
+Defined in: [schema/errors.ts:15](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/schema/errors.ts#L15)
 
 #### Parameters
 
@@ -37,7 +37,7 @@ Defined in: [schema/errors.ts:15](https://github.com/luisdlpr/open-sheets-orm/bl
 
 > **name**: `"SchemaValidationError"`
 
-Defined in: [schema/errors.ts:13](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/schema/errors.ts#L13)
+Defined in: [schema/errors.ts:13](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/schema/errors.ts#L13)
 
 #### Overrides
 

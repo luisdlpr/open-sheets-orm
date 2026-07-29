@@ -1,4 +1,4 @@
-Defined in: [types/index.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L33)
+Defined in: [types/index.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/types/index.ts#L33)
 
 Metadata for a spreadsheet and its contained sheets.
 
@@ -8,7 +8,7 @@ Metadata for a spreadsheet and its contained sheets.
 
 > **id**: `string`
 
-Defined in: [types/index.ts:35](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L35)
+Defined in: [types/index.ts:35](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/types/index.ts#L35)
 
 The unique identifier of the spreadsheet.
 
@@ -18,7 +18,7 @@ The unique identifier of the spreadsheet.
 
 > **sheets**: [`SheetInfo`](SheetInfo.md)[]
 
-Defined in: [types/index.ts:44](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L44)
+Defined in: [types/index.ts:44](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/types/index.ts#L44)
 
 Metadata for each sheet (tab) within the spreadsheet.
 
@@ -28,7 +28,7 @@ Metadata for each sheet (tab) within the spreadsheet.
 
 > **title**: `string`
 
-Defined in: [types/index.ts:38](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L38)
+Defined in: [types/index.ts:38](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/types/index.ts#L38)
 
 The human-readable title of the spreadsheet.
 
@@ -38,6 +38,6 @@ The human-readable title of the spreadsheet.
 
 > **url**: `string`
 
-Defined in: [types/index.ts:41](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L41)
+Defined in: [types/index.ts:41](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/types/index.ts#L41)
 
 The full URL to open the spreadsheet in Google Sheets.
