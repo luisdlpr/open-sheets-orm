@@ -11,6 +11,7 @@ function field(
     primaryKey: false,
     unique: false,
     optional: false,
+    hasDefault: false,
     ...overrides,
   };
 }
@@ -155,6 +156,67 @@ describe('generateInterfaces', () => {
       expect(result).toContain('  name: string;');
       expect(result).not.toContain('id?:');
       expect(result).not.toContain('name?:');
+    });
+
+    it('marks fields with a default value as optional (?)', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          Post: {
+            name: 'Post',
+            fields: {
+              id: field('string'),
+              published: field('boolean', {
+                hasDefault: true,
+                defaultValue: false,
+              }),
+            },
+          },
+        },
+      };
+      expect(generateInterfaces(schema)).toContain('  published?: boolean;');
+    });
+
+    it('marks field with falsy default 0 as optional', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          Item: {
+            name: 'Item',
+            fields: {
+              count: field('number', { hasDefault: true, defaultValue: 0 }),
+            },
+          },
+        },
+      };
+      expect(generateInterfaces(schema)).toContain('  count?: number;');
+    });
+
+    it('marks field with empty-string default as optional', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          Item: {
+            name: 'Item',
+            fields: {
+              label: field('string', { hasDefault: true, defaultValue: '' }),
+            },
+          },
+        },
+      };
+      expect(generateInterfaces(schema)).toContain('  label?: string;');
+    });
+
+    it('does not add ? for fields without a default that are not optional', () => {
+      const schema: SchemaMetadata = {
+        models: {
+          Post: {
+            name: 'Post',
+            fields: {
+              title: field('string', { hasDefault: false }),
+            },
+          },
+        },
+      };
+      expect(generateInterfaces(schema)).toContain('  title: string;');
+      expect(generateInterfaces(schema)).not.toContain('title?:');
     });
   });
 

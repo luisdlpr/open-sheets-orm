@@ -29,22 +29,22 @@ const mySchema = schema({
 
 ### Field Types
 
-| Factory | TypeScript Type | Cell Parsing |
-|---|---|---|
-| `field.string()` | `string` | Raw string value |
-| `field.number()` | `number` | `Number(value)` |
-| `field.boolean()` | `boolean` | `true` if value is `"true"`, `"TRUE"`, or `"1"` |
-| `field.date()` | `Date` | `new Date(value)` |
-| `field.json()` | `unknown` | `JSON.parse(value)` |
+| Factory           | TypeScript Type | Cell Parsing                                    |
+| ----------------- | --------------- | ----------------------------------------------- |
+| `field.string()`  | `string`        | Raw string value                                |
+| `field.number()`  | `number`        | `Number(value)`                                 |
+| `field.boolean()` | `boolean`       | `true` if value is `"true"`, `"TRUE"`, or `"1"` |
+| `field.date()`    | `Date`          | `new Date(value)`                               |
+| `field.json()`    | `unknown`       | `JSON.parse(value)`                             |
 
 ### Field Modifiers
 
-| Modifier | Effect |
-|---|---|
-| `.primaryKey()` | Marks as the primary key. Auto-generates a UUID on `create` if omitted from input. Enforces uniqueness. |
-| `.unique()` | Enforces uniqueness across all rows on `create` and `update`. |
-| `.optional()` | Field is not required on create. |
-| `.default(value)` | Used when the field is omitted from input data. |
+| Modifier          | Effect                                                                                                  |
+| ----------------- | ------------------------------------------------------------------------------------------------------- |
+| `.primaryKey()`   | Marks as the primary key. Auto-generates a UUID on `create` if omitted from input. Enforces uniqueness. |
+| `.unique()`       | Enforces uniqueness across all rows on `create` and `update`.                                           |
+| `.optional()`     | Field is not required on create.                                                                        |
+| `.default(value)` | Used when the field is omitted from input data.                                                         |
 
 ## Adapter (Low-Level)
 
@@ -56,9 +56,9 @@ The adapter provides direct spreadsheet operations without schema validation.
 import { GoogleSheetsAdapter } from 'open-sheets-orm';
 
 const adapter = new GoogleSheetsAdapter(
-  credentials,      // Auth.JWTInput — service account JSON
+  credentials, // Auth.JWTInput — service account JSON
   'spreadsheet-id', // Target spreadsheet ID
-  'Sheet1',         // Default sheet name (optional)
+  'Sheet1', // Default sheet name (optional)
 );
 await adapter.connect();
 ```
@@ -182,11 +182,7 @@ Update a record matching the where clause. Throws `RecordNotFoundError` if no ma
 import { UniqueConstraintError } from 'open-sheets-orm';
 
 try {
-  const updated = await db.update(
-    'User',
-    { id: '123' },
-    { name: 'New Name' },
-  );
+  const updated = await db.update('User', { id: '123' }, { name: 'New Name' });
 } catch (e) {
   if (e instanceof UniqueConstraintError) {
     console.log('Unique constraint violated');
@@ -206,16 +202,16 @@ await db.delete('User', { id: '123' });
 
 All domain errors extend `SheetsError`:
 
-| Error | When |
-|---|---|
-| `ConnectionError` | Adapter method called before `connect()` |
-| `SheetNotFoundError` | Referenced sheet does not exist |
-| `RowNotFoundError` | Row index is out of bounds |
-| `ModelNotFoundError` | Model name not in schema |
-| `RecordNotFoundError` | No record matches the where clause |
-| `UniqueConstraintError` | Duplicate PK/unique field value |
-| `ValidationError` | Required field missing or type mismatch |
-| `SchemaValidationError` | Invalid schema definition |
+| Error                   | When                                     |
+| ----------------------- | ---------------------------------------- |
+| `ConnectionError`       | Adapter method called before `connect()` |
+| `SheetNotFoundError`    | Referenced sheet does not exist          |
+| `RowNotFoundError`      | Row index is out of bounds               |
+| `ModelNotFoundError`    | Model name not in schema                 |
+| `RecordNotFoundError`   | No record matches the where clause       |
+| `UniqueConstraintError` | Duplicate PK/unique field value          |
+| `ValidationError`       | Required field missing or type mismatch  |
+| `SchemaValidationError` | Invalid schema definition                |
 
 ```ts
 import {

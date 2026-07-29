@@ -12,7 +12,7 @@ Defined in: [types/index.ts:35](https://github.com/luisdlpr/open-sheets-orm/blob
 
 The unique identifier of the spreadsheet.
 
-***
+---
 
 ### sheets
 
@@ -22,7 +22,7 @@ Defined in: [types/index.ts:44](https://github.com/luisdlpr/open-sheets-orm/blob
 
 Metadata for each sheet (tab) within the spreadsheet.
 
-***
+---
 
 ### title
 
@@ -32,7 +32,7 @@ Defined in: [types/index.ts:38](https://github.com/luisdlpr/open-sheets-orm/blob
 
 The human-readable title of the spreadsheet.
 
-***
+---
 
 ### url
 

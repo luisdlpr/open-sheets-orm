@@ -124,7 +124,7 @@ export class Database {
     const pkEntry = Object.entries(model.fields).find(([, f]) => f.primaryKey);
     if (pkEntry) {
       const [pkName, pkMeta] = pkEntry;
-      if (!(pkName in data) && pkMeta.defaultValue === undefined) {
+      if (!(pkName in data) && !pkMeta.hasDefault) {
         data[pkName] = randomUUID();
       }
     }
@@ -150,7 +150,7 @@ export class Database {
         return data[header];
       }
       const field = model.fields[header];
-      if (field?.defaultValue !== undefined) {
+      if (field?.hasDefault) {
         return field.defaultValue;
       }
       return '';
@@ -160,7 +160,7 @@ export class Database {
 
     const record: Record<string, unknown> = { ...data };
     for (const [fieldName, field] of Object.entries(model.fields)) {
-      if (!(fieldName in record) && field.defaultValue !== undefined) {
+      if (!(fieldName in record) && field.hasDefault) {
         record[fieldName] = field.defaultValue;
       }
     }

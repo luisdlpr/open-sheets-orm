@@ -17,16 +17,16 @@ Do not stage, commit, amend, or push changes. Leave all git operations to the us
 
 ## Dev Commands
 
-| Command        | What it does                                      |
-| -------------- | ------------------------------------------------- |
-| `pnpm install` | Install dependencies                              |
-| `pnpm build`   | Build to `dist/` (esm + cjs + types)              |
-| `pnpm dev`     | Watch build (`tsup --watch`)                      |
-| `pnpm test`    | Run all tests (watch mode in TTY, run mode in CI) |
-| `pnpm lint`    | Lint with ESLint (flat config, v9+)               |
-| `pnpm docs:api`    | Generate TypeDoc API reference into `docs/api/reference/` |
-| `pnpm docs:dev`    | VitePress dev server (local preview)              |
-| `pnpm docs:build`  | Build full docs site (TypeDoc + VitePress)        |
+| Command           | What it does                                              |
+| ----------------- | --------------------------------------------------------- |
+| `pnpm install`    | Install dependencies                                      |
+| `pnpm build`      | Build to `dist/` (esm + cjs + types)                      |
+| `pnpm dev`        | Watch build (`tsup --watch`)                              |
+| `pnpm test`       | Run all tests (watch mode in TTY, run mode in CI)         |
+| `pnpm lint`       | Lint with ESLint (flat config, v9+)                       |
+| `pnpm docs:api`   | Generate TypeDoc API reference into `docs/api/reference/` |
+| `pnpm docs:dev`   | VitePress dev server (local preview)                      |
+| `pnpm docs:build` | Build full docs site (TypeDoc + VitePress)                |
 
 **No `typecheck` script exists.** Type checking happens implicitly via `dts: true` in tsup during `pnpm build`. There is no `tsc --noEmit` shortcut.
 

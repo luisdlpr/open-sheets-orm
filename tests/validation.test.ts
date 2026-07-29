@@ -12,6 +12,7 @@ function field(
     primaryKey: false,
     unique: false,
     optional: false,
+    hasDefault: false,
     ...overrides,
   };
 }
@@ -70,6 +71,51 @@ describe('validateInput - create', () => {
   it('includes the field name and expected type in the error message', () => {
     expect(() => validateInput('create', fields, { name: 42 })).toThrow(
       'Field "name" expected string, received number',
+    );
+  });
+});
+
+describe('validateInput - create with defaults', () => {
+  it('does not throw when a field with a truthy default is omitted', () => {
+    const fieldsWithDefault = {
+      name: field('string', { hasDefault: true, defaultValue: 'Anonymous' }),
+    };
+    expect(() => validateInput('create', fieldsWithDefault, {})).not.toThrow();
+  });
+
+  it('does not throw when a field with a falsy boolean default (false) is omitted', () => {
+    const fieldsWithDefault = {
+      title: field('string'),
+      published: field('boolean', { hasDefault: true, defaultValue: false }),
+    };
+    expect(() =>
+      validateInput('create', fieldsWithDefault, { title: 'Hello' }),
+    ).not.toThrow();
+  });
+
+  it('does not throw when a field with a falsy numeric default (0) is omitted', () => {
+    const fieldsWithDefault = {
+      title: field('string'),
+      count: field('number', { hasDefault: true, defaultValue: 0 }),
+    };
+    expect(() =>
+      validateInput('create', fieldsWithDefault, { title: 'Hello' }),
+    ).not.toThrow();
+  });
+
+  it('does not throw when a field with an empty-string default is omitted', () => {
+    const fieldsWithDefault = {
+      label: field('string', { hasDefault: true, defaultValue: '' }),
+    };
+    expect(() => validateInput('create', fieldsWithDefault, {})).not.toThrow();
+  });
+
+  it('throws when a field with no default is omitted', () => {
+    const fieldsNoDefault = {
+      title: field('string', { hasDefault: false }),
+    };
+    expect(() => validateInput('create', fieldsNoDefault, {})).toThrow(
+      ValidationError,
     );
   });
 });

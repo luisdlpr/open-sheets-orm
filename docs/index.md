@@ -18,7 +18,7 @@ hero:
       link: https://npmjs.com/package/open-sheets-orm
 features:
   - title: TypeScript/JavaScript
-    details: "Built with TypeScript, works in any JS/TS project. Install via npm"
+    details: 'Built with TypeScript, works in any JS/TS project. Install via npm'
   - title: Schema Compiler
     details: Define models and fields with a fluent builder API. Supports string, number, boolean, date, and JSON field types.
   - title: Type Coercion

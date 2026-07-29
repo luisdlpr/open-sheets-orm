@@ -10,6 +10,8 @@ export interface FieldMetadata {
   primaryKey: boolean;
   unique: boolean;
   optional: boolean;
+  /** Whether a default value was explicitly set. Always present alongside `defaultValue`. */
+  hasDefault: boolean;
   defaultValue?: unknown;
 }
 

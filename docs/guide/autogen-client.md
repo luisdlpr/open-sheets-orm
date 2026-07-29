@@ -8,9 +8,9 @@ The CLI tool generates a fully typed client from your schema definition — no m
 open-sheets-orm generate --schema ./schema.ts --output ./generated/client.ts
 ```
 
-| Flag | Default | Description |
-|---|---|---|
-| `--schema` | `./schema.ts` | Path to your schema file |
+| Flag       | Default                 | Description                          |
+| ---------- | ----------------------- | ------------------------------------ |
+| `--schema` | `./schema.ts`           | Path to your schema file             |
 | `--output` | `./generated/client.ts` | Output path for the generated client |
 
 The schema file must have a **default export** that is a compiled schema object (the result of calling `schema()`):
@@ -69,7 +69,11 @@ One delegate per model with typed CRUD methods:
 export class UserDelegate {
   constructor(private db: Database) {}
 
-  async findMany(opts?: { where?: Partial<User>; skip?: number; limit?: number }): Promise<User[]> {
+  async findMany(opts?: {
+    where?: Partial<User>;
+    skip?: number;
+    limit?: number;
+  }): Promise<User[]> {
     return this.db.findMany<User>('User', opts);
   }
 
@@ -77,11 +81,16 @@ export class UserDelegate {
     return this.db.findUnique<User>('User', where);
   }
 
-  async create(args: { data: Omit<User, 'id'> & { id?: string } }): Promise<User> {
+  async create(args: {
+    data: Omit<User, 'id'> & { id?: string };
+  }): Promise<User> {
     return this.db.create<User>('User', args.data);
   }
 
-  async update(args: { where: { id: string }; data: Partial<User> }): Promise<User> {
+  async update(args: {
+    where: { id: string };
+    data: Partial<User>;
+  }): Promise<User> {
     return this.db.update<User>('User', args.where, args.data);
   }
 
@@ -104,7 +113,11 @@ export class SheetORMClient {
   public post!: PostDelegate;
 
   constructor(config: ClientInitializerGoogle) {
-    this.adapter = new GoogleSheetsAdapter(config.credentials, config.sheetId, config.sheetName);
+    this.adapter = new GoogleSheetsAdapter(
+      config.credentials,
+      config.sheetId,
+      config.sheetName,
+    );
     this.db = new Database(_schema, this.adapter);
   }
 
@@ -120,11 +133,13 @@ export class SheetORMClient {
 
 ```ts
 import { SheetORMClient } from './generated/client';
+// Import your credentials file
+import credentials from 'path/to/creds.json';
 
 const client = new SheetORMClient({
-  credentials: serviceAccountJson,
+  credentials,
   sheetId: 'your-spreadsheet-id',
-  sheetName: 'Users',  // optional
+  sheetName: 'Users', // optional
   provider: 'google',
 });
 
@@ -140,14 +155,16 @@ const users = await client.user.findMany({
   limit: 10,
 });
 
-const user = await client.user.findUnique({ id: 'some-id' });
+const id = users[0].id;
+
+const user = await client.user.findUnique({ id });
 
 await client.user.update({
-  where: { id: 'some-id' },
+  where: { id },
   data: { name: 'Updated Name' },
 });
 
-await client.user.delete({ id: 'some-id' });
+await client.user.delete({ id });
 
 // Same pattern for other models
 await client.post.create({
@@ -165,18 +182,18 @@ The generated client uses `ClientInitializerGoogle` for configuration:
 
 ```ts
 interface ClientInitializerGoogle {
-  credentials: Auth.JWTInput;  // Google service account JSON
-  sheetId: string;             // Spreadsheet ID
-  sheetName?: string;          // Default sheet name
-  provider: 'google';          // Must be "google"
+  credentials: Auth.JWTInput; // Google service account JSON
+  sheetId: string; // Spreadsheet ID
+  sheetName?: string; // Default sheet name
+  provider: 'google'; // Must be "google"
 }
 ```
 
 ## Key Differences from Manual API
 
-| Feature | Manual API | AutoGen Client |
-|---|---|---|
-| Setup | Wire adapter + Database manually | Single `SheetORMClient` class |
-| Type safety | Generic `Record<string, unknown>` | Model-specific interfaces |
-| Method signatures | String model names | Dot-notation delegates (`client.user.findMany`) |
-| Schema | Passed to `Database` constructor | Embedded in generated file |
+| Feature           | Manual API                        | AutoGen Client                                  |
+| ----------------- | --------------------------------- | ----------------------------------------------- |
+| Setup             | Wire adapter + Database manually  | Single `SheetORMClient` class                   |
+| Type safety       | Generic `Record<string, unknown>` | Model-specific interfaces                       |
+| Method signatures | String model names                | Dot-notation delegates (`client.user.findMany`) |
+| Schema            | Passed to `Database` constructor  | Embedded in generated file                      |

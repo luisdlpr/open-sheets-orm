@@ -12,6 +12,7 @@ function field(
     primaryKey: false,
     unique: false,
     optional: false,
+    hasDefault: false,
     ...overrides,
   };
 }
@@ -194,7 +195,7 @@ describe('Database - create (auto-creation)', () => {
           name: 'Task',
           fields: {
             title: field('string'),
-            done: field('boolean', { defaultValue: false }),
+            done: field('boolean', { defaultValue: false, hasDefault: true }),
           },
         },
       },

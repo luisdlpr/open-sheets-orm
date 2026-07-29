@@ -21,6 +21,7 @@ function field(
     primaryKey: false,
     unique: false,
     optional: false,
+    hasDefault: false,
     ...overrides,
   };
 }
@@ -422,7 +423,7 @@ describe('Database - create', () => {
           name: 'Task',
           fields: {
             title: field('string'),
-            done: field('boolean', { defaultValue: false }),
+            done: field('boolean', { defaultValue: false, hasDefault: true }),
           },
         },
       },
@@ -441,7 +442,7 @@ describe('Database - create', () => {
           name: 'Task',
           fields: {
             title: field('string'),
-            done: field('boolean', { defaultValue: false }),
+            done: field('boolean', { defaultValue: false, hasDefault: true }),
           },
         },
       },
@@ -460,7 +461,7 @@ describe('Database - create', () => {
           name: 'Task',
           fields: {
             title: field('string'),
-            done: field('boolean', { defaultValue: false }),
+            done: field('boolean', { defaultValue: false, hasDefault: true }),
           },
         },
       },
@@ -469,6 +470,69 @@ describe('Database - create', () => {
     adapter.setData('Task', ['title', 'done'], []);
     const result = await db2.create('Task', { title: 'Test' });
     expect(result).toMatchObject({ title: 'Test', done: false });
+  });
+
+  it('applies falsy numeric default (0) when field is omitted', async () => {
+    const schema: SchemaMetadata = {
+      models: {
+        Counter: {
+          name: 'Counter',
+          fields: {
+            label: field('string'),
+            count: field('number', { defaultValue: 0, hasDefault: true }),
+          },
+        },
+      },
+    };
+    const db2 = new Database(schema, adapter);
+    adapter.setData('Counter', ['label', 'count'], []);
+    const result = await db2.create('Counter', { label: 'hits' });
+    expect(result).toMatchObject({ label: 'hits', count: 0 });
+    const rows = await db2.findMany('Counter');
+    expect(rows[0]).toMatchObject({ label: 'hits', count: 0 });
+  });
+
+  it('applies falsy empty-string default when field is omitted', async () => {
+    const schema: SchemaMetadata = {
+      models: {
+        Article: {
+          name: 'Article',
+          fields: {
+            id: field('string', { primaryKey: true, unique: true }),
+            subtitle: field('string', { defaultValue: '', hasDefault: true }),
+          },
+        },
+      },
+    };
+    const db2 = new Database(schema, adapter);
+    adapter.setData('Article', ['id', 'subtitle'], []);
+    const result = await db2.create('Article', { id: 'a1' });
+    expect(result).toMatchObject({ id: 'a1', subtitle: '' });
+  });
+
+  it('does not throw when a field with a falsy default is omitted', async () => {
+    const schema: SchemaMetadata = {
+      models: {
+        Post: {
+          name: 'Post',
+          fields: {
+            title: field('string'),
+            published: field('boolean', {
+              defaultValue: false,
+              hasDefault: true,
+            }),
+          },
+        },
+      },
+    };
+    const db2 = new Database(schema, adapter);
+    adapter.setData('Post', ['title', 'published'], []);
+    await expect(db2.create('Post', { title: 'Hello' })).resolves.toMatchObject(
+      {
+        title: 'Hello',
+        published: false,
+      },
+    );
   });
 
   it('throws ValidationError when a required field is missing', async () => {

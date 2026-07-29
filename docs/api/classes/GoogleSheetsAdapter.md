@@ -40,7 +40,7 @@ Defined in: [adapters/GoogleSheetsAdapter.ts:48](https://github.com/luisdlpr/ope
 `JWTInput`
 
 Google service account credentials (JWT) or
-  external account credentials.
+external account credentials.
 
 ##### spreadsheetId
 
@@ -53,7 +53,7 @@ The unique ID of the target spreadsheet.
 `string`
 
 The default sheet to operate on. When omitted,
-  the first sheet is used.
+the first sheet is used.
 
 #### Returns
 
@@ -80,7 +80,7 @@ Checked in [ensureConnected](SheetsAdapter.md#ensureconnected) before every data
 
 [`SheetsAdapter`](SheetsAdapter.md).[`_connected`](SheetsAdapter.md#_connected)
 
-***
+---
 
 ### config
 
@@ -98,7 +98,7 @@ The spreadsheet configuration for this adapter instance.
 
 ### appendRow()
 
-> **appendRow**(`row`, `sheetName?`): `Promise`\<`void`\>
+> **appendRow**(`row`, `sheetName?`): `Promise`\<`void`>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:179](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L179)
 
@@ -117,7 +117,7 @@ The cell values for the new row.
 `string`
 
 The target sheet. Falls back to the sheet
-  name provided at construction time.
+name provided at construction time.
 
 #### Returns
 
@@ -127,11 +127,11 @@ The target sheet. Falls back to the sheet
 
 [`SheetsAdapter`](SheetsAdapter.md).[`appendRow`](SheetsAdapter.md#appendrow)
 
-***
+---
 
 ### connect()
 
-> **connect**(): `Promise`\<`void`\>
+> **connect**(): `Promise`\<`void`>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:62](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L62)
 
@@ -147,11 +147,11 @@ Must be called before any other adapter method.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`connect`](SheetsAdapter.md#connect)
 
-***
+---
 
 ### createSheet()
 
-> **createSheet**(`title`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)\>
+> **createSheet**(`title`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:96](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L96)
 
@@ -175,11 +175,11 @@ Metadata for the newly created sheet.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`createSheet`](SheetsAdapter.md#createsheet)
 
-***
+---
 
 ### deleteRow()
 
-> **deleteRow**(`rowIndex`, `sheetName?`): `Promise`\<`void`\>
+> **deleteRow**(`rowIndex`, `sheetName?`): `Promise`\<`void`>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:217](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L217)
 
@@ -198,7 +198,7 @@ Zero-based index of the row to delete.
 `string`
 
 The target sheet. Falls back to the sheet
-  name provided at construction time.
+name provided at construction time.
 
 #### Returns
 
@@ -208,11 +208,11 @@ The target sheet. Falls back to the sheet
 
 [`SheetsAdapter`](SheetsAdapter.md).[`deleteRow`](SheetsAdapter.md#deleterow)
 
-***
+---
 
 ### deleteSheet()
 
-> **deleteSheet**(`sheetName`): `Promise`\<`void`\>
+> **deleteSheet**(`sheetName`): `Promise`\<`void`>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:117](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L117)
 
@@ -234,11 +234,11 @@ The title of the sheet to delete.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`deleteSheet`](SheetsAdapter.md#deletesheet)
 
-***
+---
 
 ### disconnect()
 
-> **disconnect**(): `Promise`\<`void`\>
+> **disconnect**(): `Promise`\<`void`>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:76](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L76)
 
@@ -255,7 +255,7 @@ Service references are preserved for reuse on next connect.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`disconnect`](SheetsAdapter.md#disconnect)
 
-***
+---
 
 ### ensureConnected()
 
@@ -272,7 +272,7 @@ Guards data-access methods against being called before [connect](SheetsAdapter.m
 `string`
 
 The name of the calling method, included in
-  the error message for diagnostic clarity.
+the error message for diagnostic clarity.
 
 #### Returns
 
@@ -286,11 +286,11 @@ If the adapter has not been connected.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`ensureConnected`](SheetsAdapter.md#ensureconnected)
 
-***
+---
 
 ### ensureSheet()
 
-> **ensureSheet**(`sheetName`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)\>
+> **ensureSheet**(`sheetName`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:107](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L107)
 
@@ -314,7 +314,7 @@ Metadata for the sheet.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`ensureSheet`](SheetsAdapter.md#ensuresheet)
 
-***
+---
 
 ### getHeaders()
 
@@ -331,7 +331,7 @@ Reads the header row from the specified (or default) sheet.
 `string`
 
 The sheet to read from. Falls back to the
-  sheet name provided at construction time.
+sheet name provided at construction time.
 
 #### Returns
 
@@ -343,11 +343,11 @@ An array of header cell values.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`getHeaders`](SheetsAdapter.md#getheaders)
 
-***
+---
 
 ### getSpreadsheet()
 
-> **getSpreadsheet**(): `Promise`\<[`SpreadsheetInfo`](../interfaces/SpreadsheetInfo.md)\>
+> **getSpreadsheet**(): `Promise`\<[`SpreadsheetInfo`](../interfaces/SpreadsheetInfo.md)>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:85](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L85)
 
@@ -363,11 +363,11 @@ The spreadsheet's title, URL, and contained sheet summaries.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`getSpreadsheet`](SheetsAdapter.md#getspreadsheet)
 
-***
+---
 
 ### readSheet()
 
-> **readSheet**\<`T`\>(`sheetName?`): `Promise`\<`T`[]\>
+> **readSheet**\<`T`>>>\>(`sheetName?`): `Promise`\<`T`[]\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:162](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L162)
 
@@ -378,7 +378,7 @@ mapped to objects keyed by header values.
 
 ##### T
 
-`T` *extends* `Record`\<`string`, `string`\> = `Record`\<`string`, `string`\>
+`T` _extends_ `Record`\<`string`, `string`\> = `Record`\<`string`, `string`\>
 
 #### Parameters
 
@@ -387,7 +387,7 @@ mapped to objects keyed by header values.
 `string`
 
 The sheet to read from. Falls back to the
-  sheet name provided at construction time.
+sheet name provided at construction time.
 
 #### Returns
 
@@ -399,11 +399,11 @@ An array of row objects keyed by header values.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`readSheet`](SheetsAdapter.md#readsheet)
 
-***
+---
 
 ### updateRow()
 
-> **updateRow**(`rowIndex`, `row`, `sheetName?`): `Promise`\<`void`\>
+> **updateRow**(`rowIndex`, `row`, `sheetName?`): `Promise`\<`void`>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:196](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L196)
 
@@ -428,7 +428,7 @@ The new cell values for the row.
 `string`
 
 The target sheet. Falls back to the sheet
-  name provided at construction time.
+name provided at construction time.
 
 #### Returns
 
@@ -438,11 +438,11 @@ The target sheet. Falls back to the sheet
 
 [`SheetsAdapter`](SheetsAdapter.md).[`updateRow`](SheetsAdapter.md#updaterow)
 
-***
+---
 
 ### writeHeaders()
 
-> **writeHeaders**(`headers`, `sheetName?`): `Promise`\<`void`\>
+> **writeHeaders**(`headers`, `sheetName?`): `Promise`\<`void`>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:144](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L144)
 
@@ -461,7 +461,7 @@ The header values to write.
 `string`
 
 The target sheet. Falls back to the sheet
-  name provided at construction time.
+name provided at construction time.
 
 #### Returns
 

@@ -56,10 +56,7 @@ export default defineConfig({
       },
       {
         text: 'Reference',
-        items: [
-          { text: 'Overview', link: '/api/' },
-          ...getApiSidebar(),
-        ],
+        items: [{ text: 'Overview', link: '/api/' }, ...getApiSidebar()],
       },
     ],
     footer: {

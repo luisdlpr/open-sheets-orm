@@ -22,6 +22,7 @@ export class FieldBuilder {
   private _primaryKey = false;
   private _unique = false;
   private _optional = false;
+  private _hasDefault = false;
   private _defaultValue?: unknown;
 
   constructor(type: SupportedFieldType) {
@@ -50,6 +51,7 @@ export class FieldBuilder {
    *   (validated by `validateSchema` at compile time).
    */
   default(value: unknown): this {
+    this._hasDefault = true;
     this._defaultValue = value;
     return this;
   }
@@ -65,9 +67,10 @@ export class FieldBuilder {
       primaryKey: this._primaryKey,
       unique: this._unique,
       optional: this._optional,
+      hasDefault: this._hasDefault,
     };
 
-    if (this._defaultValue !== undefined) {
+    if (this._hasDefault) {
       meta.defaultValue = this._defaultValue;
     }
 

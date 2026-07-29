@@ -41,7 +41,7 @@ The sheets adapter used for low-level spreadsheet I/O.
 
 ### create()
 
-> **create**\<`T`\>(`modelName`, `data`): `Promise`\<`T`\>
+> **create**\<`T`>>>\>(`modelName`, `data`): `Promise`\<`T`>>>\>
 
 Defined in: [query/Database.ts:115](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/Database.ts#L115)
 
@@ -73,11 +73,11 @@ The field values for the new record.
 
 The created record with any applied defaults.
 
-***
+---
 
 ### delete()
 
-> **delete**(`modelName`, `where`): `Promise`\<`void`\>
+> **delete**(`modelName`, `where`): `Promise`\<`void`>>>\>
 
 Defined in: [query/Database.ts:226](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/Database.ts#L226)
 
@@ -105,11 +105,11 @@ Field-value pairs identifying the record.
 
 If no record matches the where clause.
 
-***
+---
 
 ### findMany()
 
-> **findMany**\<`T`\>(`modelName`, `options?`): `Promise`\<`T`[]\>
+> **findMany**\<`T`>>>\>(`modelName`, `options?`): `Promise`\<`T`[]\>
 
 Defined in: [query/Database.ts:50](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/Database.ts#L50)
 
@@ -146,11 +146,11 @@ An array of record objects keyed by field names.
 
 If the model does not exist in the schema.
 
-***
+---
 
 ### findUnique()
 
-> **findUnique**\<`T`\>(`modelName`, `where`): `Promise`\<`T`\>
+> **findUnique**\<`T`>>>\>(`modelName`, `where`): `Promise`\<`T`>>>\>
 
 Defined in: [query/Database.ts:86](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/Database.ts#L86)
 
@@ -186,11 +186,11 @@ The matching record.
 
 If no record matches the where clause.
 
-***
+---
 
 ### update()
 
-> **update**\<`T`\>(`modelName`, `where`, `data`): `Promise`\<`T`\>
+> **update**\<`T`>>>\>(`modelName`, `where`, `data`): `Promise`\<`T`>>>\>
 
 Defined in: [query/Database.ts:179](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/query/Database.ts#L179)
 

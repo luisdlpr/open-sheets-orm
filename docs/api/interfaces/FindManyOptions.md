@@ -12,7 +12,7 @@ Defined in: [query/types.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob
 
 Maximum number of records to return.
 
-***
+---
 
 ### skip?
 
@@ -22,7 +22,7 @@ Defined in: [query/types.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob
 
 Number of records to skip before returning results.
 
-***
+---
 
 ### where?
 

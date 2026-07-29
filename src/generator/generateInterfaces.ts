@@ -17,10 +17,13 @@ export function generateInterfaces(schema: SchemaMetadata): string {
 
 function generateModelInterface(model: {
   name: string;
-  fields: Record<string, { type: string; optional: boolean }>;
+  fields: Record<
+    string,
+    { type: string; optional: boolean; hasDefault: boolean }
+  >;
 }): string {
   const fields = Object.entries(model.fields).map(([name, field]) => {
-    const opt = field.optional ? '?' : '';
+    const opt = field.optional || field.hasDefault ? '?' : '';
     const tsType = TYPE_MAP[field.type] ?? 'unknown';
     return `  ${name}${opt}: ${tsType};`;
   });
