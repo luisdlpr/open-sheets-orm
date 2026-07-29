@@ -1,4 +1,4 @@
-Defined in: [types/index.ts:18](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/types/index.ts#L18)
+Defined in: [types/index.ts:18](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/types/index.ts#L18)
 
 Parameters for initializing the generated client with a Google Sheets provider.
 
@@ -8,7 +8,7 @@ Parameters for initializing the generated client with a Google Sheets provider.
 
 > **credentials**: `JWTInput`
 
-Defined in: [types/index.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/types/index.ts#L20)
+Defined in: [types/index.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/types/index.ts#L20)
 
 Google service account credentials (JWT) or external account credentials.
 
@@ -18,7 +18,7 @@ Google service account credentials (JWT) or external account credentials.
 
 > **provider**: `"google"`
 
-Defined in: [types/index.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/types/index.ts#L29)
+Defined in: [types/index.ts:26](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/types/index.ts#L26)
 
 The spreadsheet provider identifier. Must be "google".
 
@@ -28,16 +28,6 @@ The spreadsheet provider identifier. Must be "google".
 
 > **sheetId**: `string`
 
-Defined in: [types/index.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/types/index.ts#L23)
+Defined in: [types/index.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/types/index.ts#L23)
 
 The unique ID of the target spreadsheet.
-
----
-
-### sheetName?
-
-> `optional` **sheetName?**: `string`
-
-Defined in: [types/index.ts:26](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/types/index.ts#L26)
-
-The default sheet name to operate on. When omitted, the first sheet is used.

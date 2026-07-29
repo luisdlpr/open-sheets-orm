@@ -1,4 +1,4 @@
-Defined in: [query/errors.ts:22](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/errors.ts#L22)
+Defined in: [query/errors.ts:22](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/errors.ts#L22)
 
 Thrown when input data fails schema validation during
 create or update operations.
@@ -13,7 +13,7 @@ create or update operations.
 
 > **new ValidationError**(`message`): `ValidationError`
 
-Defined in: [query/errors.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/errors.ts#L23)
+Defined in: [query/errors.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/errors.ts#L23)
 
 #### Parameters
 

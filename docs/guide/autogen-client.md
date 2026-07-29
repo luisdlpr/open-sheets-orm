@@ -113,11 +113,7 @@ export class SheetORMClient {
   public post!: PostDelegate;
 
   constructor(config: ClientInitializerGoogle) {
-    this.adapter = new GoogleSheetsAdapter(
-      config.credentials,
-      config.sheetId,
-      config.sheetName,
-    );
+    this.adapter = new GoogleSheetsAdapter(config.credentials, config.sheetId);
     this.db = new Database(_schema, this.adapter);
   }
 
@@ -183,7 +179,6 @@ The generated client uses `ClientInitializerGoogle` for configuration:
 interface ClientInitializerGoogle {
   credentials: Auth.JWTInput; // Google service account JSON
   sheetId: string; // Spreadsheet ID
-  sheetName?: string; // Default sheet name
   provider: 'google'; // Must be "google"
 }
 ```

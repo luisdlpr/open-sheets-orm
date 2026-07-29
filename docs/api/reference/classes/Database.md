@@ -1,4 +1,4 @@
-Defined in: [query/Database.ts:28](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/Database.ts#L28)
+Defined in: [query/Database.ts:28](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/Database.ts#L28)
 
 High-level query engine that translates ORM-style operations into
 adapter-level spreadsheet operations.
@@ -17,7 +17,7 @@ const user = await db.findUnique('User', { id: '1' });
 
 > **new Database**(`schema`, `adapter`): `Database`
 
-Defined in: [query/Database.ts:36](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/Database.ts#L36)
+Defined in: [query/Database.ts:36](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/Database.ts#L36)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ The sheets adapter used for low-level spreadsheet I/O.
 
 > **create**\<`T`>\>(`modelName`, `data`): `Promise`\<`T`>\>
 
-Defined in: [query/Database.ts:115](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/Database.ts#L115)
+Defined in: [query/Database.ts:115](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/Database.ts#L115)
 
 Creates a new record in the given model.
 
@@ -79,7 +79,7 @@ The created record with any applied defaults.
 
 > **delete**(`modelName`, `where`): `Promise`\<`void`>\>
 
-Defined in: [query/Database.ts:226](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/Database.ts#L226)
+Defined in: [query/Database.ts:226](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/Database.ts#L226)
 
 Deletes a record matching the given where clause.
 
@@ -111,7 +111,7 @@ If no record matches the where clause.
 
 > **findMany**\<`T`>\>(`modelName`, `options?`): `Promise`\<`T`[]\>
 
-Defined in: [query/Database.ts:50](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/Database.ts#L50)
+Defined in: [query/Database.ts:50](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/Database.ts#L50)
 
 Retrieves all records for the given model, with optional filtering
 and pagination.
@@ -152,7 +152,7 @@ If the model does not exist in the schema.
 
 > **findUnique**\<`T`>\>(`modelName`, `where`): `Promise`\<`T`>\>
 
-Defined in: [query/Database.ts:86](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/Database.ts#L86)
+Defined in: [query/Database.ts:86](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/Database.ts#L86)
 
 Finds a single record matching the given where clause.
 
@@ -192,7 +192,7 @@ If no record matches the where clause.
 
 > **update**\<`T`>\>(`modelName`, `where`, `data`): `Promise`\<`T`>\>
 
-Defined in: [query/Database.ts:179](https://github.com/luisdlpr/open-sheets-orm/blob/e7ccd68c235c7f9abf1e18d89bd40374c6228592/src/query/Database.ts#L179)
+Defined in: [query/Database.ts:179](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/query/Database.ts#L179)
 
 Updates a record matching the given where clause.
 

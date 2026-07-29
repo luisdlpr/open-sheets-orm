@@ -338,7 +338,7 @@ describe('generateClientCode', () => {
           '  public user!: UserDelegate;',
           '',
           '  constructor(config: ClientInitializerGoogle) {',
-          '    this.adapter = new GoogleSheetsAdapter(config.credentials, config.sheetId, config.sheetName);',
+          '    this.adapter = new GoogleSheetsAdapter(config.credentials, config.sheetId);',
           '    this.db = new Database(_schema, this.adapter);',
           '  }',
           '',
