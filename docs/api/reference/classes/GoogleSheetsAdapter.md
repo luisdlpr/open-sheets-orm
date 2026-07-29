@@ -1,4 +1,4 @@
-Defined in: [adapters/GoogleSheetsAdapter.ts:34](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L34)
+Defined in: [adapters/GoogleSheetsAdapter.ts:34](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L34)
 
 Google Sheets implementation of the [SheetsAdapter](SheetsAdapter.md) contract.
 
@@ -30,7 +30,7 @@ await adapter.disconnect();
 
 > **new GoogleSheetsAdapter**(`credentials`, `spreadsheetId`, `sheetName?`): `GoogleSheetsAdapter`
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:47](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L47)
+Defined in: [adapters/GoogleSheetsAdapter.ts:47](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L47)
 
 #### Parameters
 
@@ -39,7 +39,7 @@ Defined in: [adapters/GoogleSheetsAdapter.ts:47](https://github.com/luisdlpr/ope
 `JWTInput`
 
 Google service account credentials (JWT) or
-external account credentials.
+  external account credentials.
 
 ##### spreadsheetId
 
@@ -52,7 +52,7 @@ The unique ID of the target spreadsheet.
 `string`
 
 The default sheet to operate on. When omitted,
-the first sheet is used.
+  the first sheet is used.
 
 #### Returns
 
@@ -68,7 +68,7 @@ the first sheet is used.
 
 > `protected` **\_connected**: `boolean` = `false`
 
-Defined in: [adapters/SheetsAdapter.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/SheetsAdapter.ts#L33)
+Defined in: [adapters/SheetsAdapter.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/SheetsAdapter.ts#L33)
 
 Whether the adapter has been successfully connected.
 
@@ -79,13 +79,13 @@ Checked in [ensureConnected](SheetsAdapter.md#ensureconnected) before every data
 
 [`SheetsAdapter`](SheetsAdapter.md).[`_connected`](SheetsAdapter.md#_connected)
 
----
+***
 
 ### config
 
 > `protected` **config**: [`SheetConfig`](../interfaces/SheetConfig.md)
 
-Defined in: [adapters/SheetsAdapter.ts:25](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/SheetsAdapter.ts#L25)
+Defined in: [adapters/SheetsAdapter.ts:25](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/SheetsAdapter.ts#L25)
 
 The spreadsheet configuration for this adapter instance.
 
@@ -97,9 +97,9 @@ The spreadsheet configuration for this adapter instance.
 
 ### appendRow()
 
-> **appendRow**(`row`, `sheetName?`): `Promise`\<`void`>\>
+> **appendRow**(`row`, `sheetName?`): `Promise`\<`void`\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:178](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L178)
+Defined in: [adapters/GoogleSheetsAdapter.ts:178](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L178)
 
 Appends a new row after the last existing row in the sheet.
 
@@ -116,7 +116,7 @@ The cell values for the new row.
 `string`
 
 The target sheet. Falls back to the sheet
-name provided at construction time.
+  name provided at construction time.
 
 #### Returns
 
@@ -126,13 +126,13 @@ name provided at construction time.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`appendRow`](SheetsAdapter.md#appendrow)
 
----
+***
 
 ### connect()
 
-> **connect**(): `Promise`\<`void`>\>
+> **connect**(): `Promise`\<`void`\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:61](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L61)
+Defined in: [adapters/GoogleSheetsAdapter.ts:61](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L61)
 
 Authenticates and initializes all internal services.
 
@@ -146,13 +146,13 @@ Must be called before any other adapter method.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`connect`](SheetsAdapter.md#connect)
 
----
+***
 
 ### createSheet()
 
-> **createSheet**(`title`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>\>
+> **createSheet**(`title`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:95](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L95)
+Defined in: [adapters/GoogleSheetsAdapter.ts:95](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L95)
 
 Creates a new sheet (tab) within the configured spreadsheet.
 
@@ -174,13 +174,13 @@ Metadata for the newly created sheet.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`createSheet`](SheetsAdapter.md#createsheet)
 
----
+***
 
 ### deleteRow()
 
-> **deleteRow**(`rowIndex`, `sheetName?`): `Promise`\<`void`>\>
+> **deleteRow**(`rowIndex`, `sheetName?`): `Promise`\<`void`\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:216](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L216)
+Defined in: [adapters/GoogleSheetsAdapter.ts:216](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L216)
 
 Deletes a row by its zero-based data index.
 
@@ -197,7 +197,7 @@ Zero-based index of the row to delete.
 `string`
 
 The target sheet. Falls back to the sheet
-name provided at construction time.
+  name provided at construction time.
 
 #### Returns
 
@@ -207,13 +207,13 @@ name provided at construction time.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`deleteRow`](SheetsAdapter.md#deleterow)
 
----
+***
 
 ### deleteSheet()
 
-> **deleteSheet**(`sheetName`): `Promise`\<`void`>\>
+> **deleteSheet**(`sheetName`): `Promise`\<`void`\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:116](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L116)
+Defined in: [adapters/GoogleSheetsAdapter.ts:116](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L116)
 
 Deletes a sheet (tab) from the configured spreadsheet.
 
@@ -233,13 +233,13 @@ The title of the sheet to delete.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`deleteSheet`](SheetsAdapter.md#deletesheet)
 
----
+***
 
 ### disconnect()
 
-> **disconnect**(): `Promise`\<`void`>\>
+> **disconnect**(): `Promise`\<`void`\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:75](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L75)
+Defined in: [adapters/GoogleSheetsAdapter.ts:75](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L75)
 
 Releases resources held by this adapter.
 
@@ -254,13 +254,13 @@ Service references are preserved for reuse on next connect.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`disconnect`](SheetsAdapter.md#disconnect)
 
----
+***
 
 ### ensureConnected()
 
 > `protected` **ensureConnected**(`methodName`): `void`
 
-Defined in: [adapters/SheetsAdapter.ts:66](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/SheetsAdapter.ts#L66)
+Defined in: [adapters/SheetsAdapter.ts:66](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/SheetsAdapter.ts#L66)
 
 Guards data-access methods against being called before [connect](SheetsAdapter.md#connect).
 
@@ -271,7 +271,7 @@ Guards data-access methods against being called before [connect](SheetsAdapter.m
 `string`
 
 The name of the calling method, included in
-the error message for diagnostic clarity.
+  the error message for diagnostic clarity.
 
 #### Returns
 
@@ -285,13 +285,13 @@ If the adapter has not been connected.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`ensureConnected`](SheetsAdapter.md#ensureconnected)
 
----
+***
 
 ### ensureSheet()
 
-> **ensureSheet**(`sheetName`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>\>
+> **ensureSheet**(`sheetName`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:106](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L106)
+Defined in: [adapters/GoogleSheetsAdapter.ts:106](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L106)
 
 Ensures a sheet exists, creating it if missing.
 
@@ -313,13 +313,13 @@ Metadata for the sheet.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`ensureSheet`](SheetsAdapter.md#ensuresheet)
 
----
+***
 
 ### getHeaders()
 
 > **getHeaders**(`sheetName?`): `Promise`\<`string`[]\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:128](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L128)
+Defined in: [adapters/GoogleSheetsAdapter.ts:128](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L128)
 
 Reads the header row from the specified (or default) sheet.
 
@@ -330,7 +330,7 @@ Reads the header row from the specified (or default) sheet.
 `string`
 
 The sheet to read from. Falls back to the
-sheet name provided at construction time.
+  sheet name provided at construction time.
 
 #### Returns
 
@@ -342,13 +342,13 @@ An array of header cell values.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`getHeaders`](SheetsAdapter.md#getheaders)
 
----
+***
 
 ### getSpreadsheet()
 
-> **getSpreadsheet**(): `Promise`\<[`SpreadsheetInfo`](../interfaces/SpreadsheetInfo.md)>\>
+> **getSpreadsheet**(): `Promise`\<[`SpreadsheetInfo`](../interfaces/SpreadsheetInfo.md)\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:84](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L84)
+Defined in: [adapters/GoogleSheetsAdapter.ts:84](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L84)
 
 Retrieves metadata for the configured spreadsheet.
 
@@ -362,13 +362,13 @@ The spreadsheet's title, URL, and contained sheet summaries.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`getSpreadsheet`](SheetsAdapter.md#getspreadsheet)
 
----
+***
 
 ### readSheet()
 
-> **readSheet**\<`T`>\>(`sheetName?`): `Promise`\<`T`[]\>
+> **readSheet**\<`T`\>(`sheetName?`): `Promise`\<`T`[]\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:161](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L161)
+Defined in: [adapters/GoogleSheetsAdapter.ts:161](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L161)
 
 Reads all data rows from the specified (or default) sheet,
 mapped to objects keyed by header values.
@@ -377,7 +377,7 @@ mapped to objects keyed by header values.
 
 ##### T
 
-`T` _extends_ `Record`\<`string`, `string`\> = `Record`\<`string`, `string`\>
+`T` *extends* `Record`\<`string`, `string`\> = `Record`\<`string`, `string`\>
 
 #### Parameters
 
@@ -386,7 +386,7 @@ mapped to objects keyed by header values.
 `string`
 
 The sheet to read from. Falls back to the
-sheet name provided at construction time.
+  sheet name provided at construction time.
 
 #### Returns
 
@@ -398,13 +398,13 @@ An array of row objects keyed by header values.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`readSheet`](SheetsAdapter.md#readsheet)
 
----
+***
 
 ### updateRow()
 
-> **updateRow**(`rowIndex`, `row`, `sheetName?`): `Promise`\<`void`>\>
+> **updateRow**(`rowIndex`, `row`, `sheetName?`): `Promise`\<`void`\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:195](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L195)
+Defined in: [adapters/GoogleSheetsAdapter.ts:195](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L195)
 
 Updates an existing row by its zero-based data index.
 
@@ -427,7 +427,7 @@ The new cell values for the row.
 `string`
 
 The target sheet. Falls back to the sheet
-name provided at construction time.
+  name provided at construction time.
 
 #### Returns
 
@@ -437,13 +437,13 @@ name provided at construction time.
 
 [`SheetsAdapter`](SheetsAdapter.md).[`updateRow`](SheetsAdapter.md#updaterow)
 
----
+***
 
 ### writeHeaders()
 
-> **writeHeaders**(`headers`, `sheetName?`): `Promise`\<`void`>\>
+> **writeHeaders**(`headers`, `sheetName?`): `Promise`\<`void`\>
 
-Defined in: [adapters/GoogleSheetsAdapter.ts:143](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/adapters/GoogleSheetsAdapter.ts#L143)
+Defined in: [adapters/GoogleSheetsAdapter.ts:143](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/adapters/GoogleSheetsAdapter.ts#L143)
 
 Writes header values to row 1 of the specified (or default) sheet.
 
@@ -460,7 +460,7 @@ The header values to write.
 `string`
 
 The target sheet. Falls back to the sheet
-name provided at construction time.
+  name provided at construction time.
 
 #### Returns
 

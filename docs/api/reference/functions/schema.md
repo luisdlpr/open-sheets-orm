@@ -1,6 +1,6 @@
 > **schema**(`definitions`): [`SchemaMetadata`](../interfaces/SchemaMetadata.md)
 
-Defined in: [schema/schema.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/schema.ts#L29)
+Defined in: [schema/schema.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob/c7e5166b5c3fab65fd99061a9e5030086b4bff84/src/schema/schema.ts#L29)
 
 Compiles a schema definition into a normalized metadata object.
 
@@ -27,10 +27,10 @@ When the definition violates validation rules.
 ```ts
 const meta = schema({
   User: {
-    id: field.string().primaryKey(),
+    id:    field.string().primaryKey(),
     email: field.string().unique(),
-    name: field.string().optional(),
-    age: field.number().optional().default(0),
+    name:  field.string().optional(),
+    age:   field.number().optional().default(0),
   },
 });
 ```
