@@ -1,4 +1,4 @@
-Defined in: [schema/FieldBuilder.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/FieldBuilder.ts#L20)
+Defined in: [schema/FieldBuilder.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/FieldBuilder.ts#L20)
 
 Fluent builder for defining a single field's properties.
 
@@ -18,7 +18,7 @@ field.string().primaryKey().unique().default('hello').build();
 
 > **new FieldBuilder**(`type`): `FieldBuilder`
 
-Defined in: [schema/FieldBuilder.ts:28](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/FieldBuilder.ts#L28)
+Defined in: [schema/FieldBuilder.ts:28](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/FieldBuilder.ts#L28)
 
 #### Parameters
 
@@ -36,7 +36,7 @@ Defined in: [schema/FieldBuilder.ts:28](https://github.com/luisdlpr/open-sheets-
 
 > **build**(): [`FieldMetadata`](../interfaces/FieldMetadata.md)
 
-Defined in: [schema/FieldBuilder.ts:64](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/FieldBuilder.ts#L64)
+Defined in: [schema/FieldBuilder.ts:64](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/FieldBuilder.ts#L64)
 
 Compiles the builder into a plain metadata object.
 
@@ -52,7 +52,7 @@ The field metadata.
 
 > **default**(`value`): `this`
 
-Defined in: [schema/FieldBuilder.ts:53](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/FieldBuilder.ts#L53)
+Defined in: [schema/FieldBuilder.ts:53](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/FieldBuilder.ts#L53)
 
 Sets a default value for the field.
 
@@ -75,7 +75,7 @@ The default value. Its type must match the field type
 
 > **optional**(): `this`
 
-Defined in: [schema/FieldBuilder.ts:42](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/FieldBuilder.ts#L42)
+Defined in: [schema/FieldBuilder.ts:42](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/FieldBuilder.ts#L42)
 
 #### Returns
 
@@ -87,7 +87,7 @@ Defined in: [schema/FieldBuilder.ts:42](https://github.com/luisdlpr/open-sheets-
 
 > **primaryKey**(): `this`
 
-Defined in: [schema/FieldBuilder.ts:32](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/FieldBuilder.ts#L32)
+Defined in: [schema/FieldBuilder.ts:32](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/FieldBuilder.ts#L32)
 
 #### Returns
 
@@ -99,7 +99,7 @@ Defined in: [schema/FieldBuilder.ts:32](https://github.com/luisdlpr/open-sheets-
 
 > **unique**(): `this`
 
-Defined in: [schema/FieldBuilder.ts:37](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/FieldBuilder.ts#L37)
+Defined in: [schema/FieldBuilder.ts:37](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/schema/FieldBuilder.ts#L37)
 
 #### Returns
 

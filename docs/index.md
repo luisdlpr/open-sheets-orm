@@ -14,8 +14,11 @@ hero:
       text: API Reference
       link: /api/
     - theme: alt
-      text: NPM Package
+      text: NPM
       link: https://npmjs.com/package/open-sheets-orm
+    - theme: alt
+      text: GitHub
+      link: https://github.com/luisdlpr/open-sheets-orm
 features:
   - title: TypeScript/JavaScript
     details: 'Built with TypeScript, works in any JS/TS project. Install via npm'
