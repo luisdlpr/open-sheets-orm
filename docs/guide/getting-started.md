@@ -86,5 +86,5 @@ You can use the adapter directly for low-level spreadsheet operations, or use th
 ## What's Next
 
 - [Manual API Usage](./manual-api.md) — Detailed guide to schemas, adapters, and the query engine
-- [AutoGen Client](./autogen-client.md) — Generate a Prisma-like typed client from your schema
+- [AutoGen Client](./autogen-client.md) — Generate a typed client from your schema
 - [API Reference](../api/reference/) — Full TypeScript API documentation

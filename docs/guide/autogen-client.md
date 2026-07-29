@@ -1,6 +1,6 @@
 # AutoGen Client
 
-The CLI tool generates a fully typed, Prisma-like client from your schema definition — no manual adapter or Database wiring required.
+The CLI tool generates a fully typed client from your schema definition — no manual adapter or Database wiring required.
 
 ## CLI Usage
 

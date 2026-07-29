@@ -1,4 +1,4 @@
-Defined in: [errors/index.ts:44](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/errors/index.ts#L44)
+Defined in: [errors/index.ts:44](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/errors/index.ts#L44)
 
 Thrown when a row operation targets a row index that does not exist
 or contains no data.
@@ -13,7 +13,7 @@ or contains no data.
 
 > **new RowNotFoundError**(`rowIndex`): `RowNotFoundError`
 
-Defined in: [errors/index.ts:45](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/errors/index.ts#L45)
+Defined in: [errors/index.ts:45](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/errors/index.ts#L45)
 
 #### Parameters
 

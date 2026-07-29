@@ -1,4 +1,4 @@
-Defined in: [schema/types.ts:21](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L21)
+Defined in: [schema/types.ts:21](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/schema/types.ts#L21)
 
 ## Properties
 
@@ -6,4 +6,4 @@ Defined in: [schema/types.ts:21](https://github.com/luisdlpr/open-sheets-orm/blo
 
 > **models**: `Record`\<`string`, [`ModelMetadata`](ModelMetadata.md)\>
 
-Defined in: [schema/types.ts:22](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/schema/types.ts#L22)
+Defined in: [schema/types.ts:22](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/schema/types.ts#L22)

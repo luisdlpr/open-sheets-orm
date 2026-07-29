@@ -1,4 +1,4 @@
-Defined in: [types/index.ts:18](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/types/index.ts#L18)
+Defined in: [types/index.ts:18](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L18)
 
 Parameters for initializing the generated client with a Google Sheets provider.
 
@@ -8,7 +8,7 @@ Parameters for initializing the generated client with a Google Sheets provider.
 
 > **credentials**: `JWTInput`
 
-Defined in: [types/index.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/types/index.ts#L20)
+Defined in: [types/index.ts:20](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L20)
 
 Google service account credentials (JWT) or external account credentials.
 
@@ -18,7 +18,7 @@ Google service account credentials (JWT) or external account credentials.
 
 > **provider**: `"google"`
 
-Defined in: [types/index.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/types/index.ts#L29)
+Defined in: [types/index.ts:29](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L29)
 
 The spreadsheet provider identifier. Must be "google".
 
@@ -28,7 +28,7 @@ The spreadsheet provider identifier. Must be "google".
 
 > **sheetId**: `string`
 
-Defined in: [types/index.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/types/index.ts#L23)
+Defined in: [types/index.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L23)
 
 The unique ID of the target spreadsheet.
 
@@ -38,6 +38,6 @@ The unique ID of the target spreadsheet.
 
 > `optional` **sheetName?**: `string`
 
-Defined in: [types/index.ts:26](https://github.com/luisdlpr/open-sheets-orm/blob/7eae837e1b11ed16078e024a017a99fcc7a751f3/src/types/index.ts#L26)
+Defined in: [types/index.ts:26](https://github.com/luisdlpr/open-sheets-orm/blob/c8776ff3a88bbdbacb7986a611baa102a7127cb1/src/types/index.ts#L26)
 
 The default sheet name to operate on. When omitted, the first sheet is used.
