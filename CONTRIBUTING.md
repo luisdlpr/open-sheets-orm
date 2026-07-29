@@ -25,6 +25,9 @@ pnpm install
 | `pnpm test`                         | Run tests with Vitest                             |
 | `pnpm lint`                         | Lint with ESLint (flat config, v9+)               |
 | `pnpm vitest run tests/Foo.test.ts` | Run a single test file                            |
+| `pnpm docs:api`                     | Generate TypeDoc API reference into `docs/api/reference/` |
+| `pnpm docs:dev`                     | VitePress dev server (local preview)              |
+| `pnpm docs:build`                   | Build full docs site (TypeDoc + VitePress)        |
 
 ## How to contribute
 
@@ -41,7 +44,36 @@ Open a [feature request](https://github.com/luisdlpr/open-sheets-orm/issues/new?
 1. Fork the repo and create a branch from `main`.
 2. Make your changes following the conventions below.
 3. Run `pnpm build`, `pnpm test`, and `pnpm lint` to verify.
-4. Open a PR against `main` using the [PR template](.github/PULL_REQUEST_TEMPLATE.md).
+4. If you changed any public API (exports in `src/index.ts`), run `pnpm docs:api` to regenerate the API reference.
+5. If you added/changed user-facing functionality, update the relevant guide page in `docs/guide/`.
+6. Open a PR against `main` using the [PR template](.github/PULL_REQUEST_TEMPLATE.md).
+
+## Documentation
+
+Docs are built with [VitePress](https://vitepress.dev/) and [TypeDoc](https://typedoc.org/).
+
+| Path | Content |
+|---|---|
+| `docs/index.md` | Landing page |
+| `docs/guide/getting-started.md` | Installation, setup, quick start |
+| `docs/guide/manual-api.md` | Schema, adapter, and Database usage |
+| `docs/guide/autogen-client.md` | CLI code generation |
+| `docs/api/index.md` | API reference landing page |
+| `docs/api/reference/` | TypeDoc-generated (do not edit manually) |
+
+### When to update docs
+
+- **New/changed exports** — run `pnpm docs:api` to regenerate the API reference.
+- **New/changed features** — update or add the relevant guide page in `docs/guide/`.
+- **New/changed error classes** — add them to the error table in `docs/guide/manual-api.md`.
+- **Schema field types or modifiers** — update the tables in `docs/guide/manual-api.md`.
+
+### Verifying docs locally
+
+```sh
+pnpm docs:build   # full build (TypeDoc + VitePress)
+pnpm docs:dev     # dev server with hot reload at http://localhost:5173
+```
 
 ## Code conventions
 

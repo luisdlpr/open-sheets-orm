@@ -1,4 +1,4 @@
-Defined in: [errors/index.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/errors/index.ts#L33)
+Defined in: [errors/index.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/errors/index.ts#L33)
 
 Thrown when a referenced sheet (tab) cannot be found in the spreadsheet.
 
@@ -12,7 +12,7 @@ Thrown when a referenced sheet (tab) cannot be found in the spreadsheet.
 
 > **new SheetNotFoundError**(`sheetName`): `SheetNotFoundError`
 
-Defined in: [errors/index.ts:34](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/errors/index.ts#L34)
+Defined in: [errors/index.ts:34](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/errors/index.ts#L34)
 
 #### Parameters
 

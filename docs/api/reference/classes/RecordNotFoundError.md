@@ -1,4 +1,4 @@
-Defined in: [query/errors.ts:46](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/query/errors.ts#L46)
+Defined in: [query/errors.ts:46](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/query/errors.ts#L46)
 
 Thrown when a query operation cannot find a record matching
 the supplied where clause.
@@ -13,7 +13,7 @@ the supplied where clause.
 
 > **new RecordNotFoundError**(`modelName`, `where`): `RecordNotFoundError`
 
-Defined in: [query/errors.ts:47](https://github.com/luisdlpr/open-sheets-orm/blob/c84008df19a5b68ec49cf1f996007eb10eca1f41/src/query/errors.ts#L47)
+Defined in: [query/errors.ts:47](https://github.com/luisdlpr/open-sheets-orm/blob/0b3f629e9322205d3fe38495bbe9dfb477a957c5/src/query/errors.ts#L47)
 
 #### Parameters
 
