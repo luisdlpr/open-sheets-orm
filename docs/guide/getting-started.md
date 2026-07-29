@@ -60,7 +60,6 @@ const mySchema = schema({
 const adapter = new GoogleSheetsAdapter(
   credentials, // Service account JSON (Auth.JWTInput)
   'spreadsheet-id', // The ID from your spreadsheet URL
-  'Users', // Sheet name (optional, defaults to first sheet)
 );
 await adapter.connect();
 

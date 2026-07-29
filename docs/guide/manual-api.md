@@ -58,9 +58,39 @@ import { GoogleSheetsAdapter } from 'open-sheets-orm';
 const adapter = new GoogleSheetsAdapter(
   credentials, // Auth.JWTInput — service account JSON
   'spreadsheet-id', // Target spreadsheet ID
-  'Sheet1', // Default sheet name (optional)
 );
 await adapter.connect();
+```
+
+### Default Sheet Name
+
+The adapter constructor accepts an optional third argument — `sheetName`. This sets a **default sheet** used by all low-level adapter methods when no explicit sheet name is passed at call time.
+
+When using the `Database` class, you **do not** set this parameter. The ORM resolves the target sheet automatically by using the **model name** as the sheet name. For example, `db.create('User', data)` always operates on the sheet called `"User"`, regardless of any default set on the adapter.
+
+The default sheet name is only useful when working with the adapter **directly** (without the `Database` class). For example, if you have a single sheet and want to avoid passing the name to every call:
+
+```ts
+const adapter = new GoogleSheetsAdapter(
+  credentials,
+  'spreadsheet-id',
+  'Sheet1',
+);
+await adapter.connect();
+
+// These calls all target "Sheet1" without specifying the name
+const rows = await adapter.readSheet();
+await adapter.appendRow(['1', 'Alice']);
+const headers = await adapter.getHeaders();
+```
+
+If no default is set (and no explicit name is passed to a method), the adapter defaults to the **first sheet** in the spreadsheet.
+
+Every adapter method also accepts an optional `sheetName` argument that **overrides** the constructor default:
+
+```ts
+// Targets "OtherSheet" even though the default is "Sheet1"
+const rows = await adapter.readSheet('OtherSheet');
 ```
 
 ### Row Operations
@@ -115,6 +145,8 @@ import { Database } from 'open-sheets-orm';
 
 const db = new Database(mySchema, adapter);
 ```
+
+When using the `Database` class, the **model name** is used as the **sheet name** automatically. For example, `db.findMany('User')` reads from the sheet called `"User"`, and `db.create('Product', data)` writes to the sheet called `"Product"`. There is no need to configure sheet names separately — each model in your schema maps directly to a sheet tab in the spreadsheet. If the sheet does not exist when you first write to it, the `Database` class creates it automatically.
 
 ### findMany
 

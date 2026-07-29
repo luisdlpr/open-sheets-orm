@@ -22,9 +22,6 @@ export interface ClientInitializerGoogle {
   /** The unique ID of the target spreadsheet. */
   sheetId: string;
 
-  /** The default sheet name to operate on. When omitted, the first sheet is used. */
-  sheetName?: string;
-
   /** The spreadsheet provider identifier. Must be "google". */
   provider: 'google';
 }

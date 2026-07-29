@@ -1,6 +1,6 @@
 > `const` **field**: `object`
 
-Defined in: [schema/field.ts:17](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/schema/field.ts#L17)
+Defined in: [schema/field.ts:17](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/schema/field.ts#L17)
 
 ## Type Declaration
 

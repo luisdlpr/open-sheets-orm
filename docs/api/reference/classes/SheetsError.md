@@ -1,4 +1,4 @@
-Defined in: [errors/index.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/errors/index.ts#L12)
+Defined in: [errors/index.ts:12](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/errors/index.ts#L12)
 
 Base error class for all sheets adapter errors.
 
@@ -25,7 +25,7 @@ to catch all adapter errors with a single `instanceof` check.
 
 > **new SheetsError**(`message`, `options?`): `SheetsError`
 
-Defined in: [errors/index.ts:13](https://github.com/luisdlpr/open-sheets-orm/blob/3d4177e60cfa3e944a0b9a508ec8ff0039f438d1/src/errors/index.ts#L13)
+Defined in: [errors/index.ts:13](https://github.com/luisdlpr/open-sheets-orm/blob/a57eb7841436741a4d19cbfa4bece3dfdf93aaf9/src/errors/index.ts#L13)
 
 #### Parameters
 
