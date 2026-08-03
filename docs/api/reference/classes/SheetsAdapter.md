@@ -1,4 +1,4 @@
-Defined in: [adapters/SheetsAdapter.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L23)
+Defined in: [adapters/SheetsAdapter.ts:23](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L23)
 
 Abstract base class defining the contract for sheets adapter implementations.
 
@@ -24,7 +24,7 @@ const data = await adapter.readSheet<MyRow>();
 
 > **new SheetsAdapter**(`config`): `SheetsAdapter`
 
-Defined in: [adapters/SheetsAdapter.ts:39](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L39)
+Defined in: [adapters/SheetsAdapter.ts:39](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L39)
 
 #### Parameters
 
@@ -45,7 +45,7 @@ and optional default sheet name.
 
 > `protected` **\_connected**: `boolean` = `false`
 
-Defined in: [adapters/SheetsAdapter.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L33)
+Defined in: [adapters/SheetsAdapter.ts:33](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L33)
 
 Whether the adapter has been successfully connected.
 
@@ -58,7 +58,7 @@ Checked in [ensureConnected](#ensureconnected) before every data operation.
 
 > `protected` **config**: [`SheetConfig`](../interfaces/SheetConfig.md)
 
-Defined in: [adapters/SheetsAdapter.ts:25](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L25)
+Defined in: [adapters/SheetsAdapter.ts:25](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L25)
 
 The spreadsheet configuration for this adapter instance.
 
@@ -68,7 +68,7 @@ The spreadsheet configuration for this adapter instance.
 
 > `abstract` **appendRow**(`row`, `sheetName?`): `Promise`\<`void`>\>
 
-Defined in: [adapters/SheetsAdapter.ts:151](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L151)
+Defined in: [adapters/SheetsAdapter.ts:151](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L151)
 
 Appends a new row after the last existing row in the sheet.
 
@@ -97,7 +97,7 @@ sheet from [SheetConfig](../interfaces/SheetConfig.md) is used.
 
 > `abstract` **connect**(): `Promise`\<`void`>\>
 
-Defined in: [adapters/SheetsAdapter.ts:49](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L49)
+Defined in: [adapters/SheetsAdapter.ts:49](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L49)
 
 Establishes a connection with the underlying spreadsheet API.
 
@@ -114,7 +114,7 @@ initialize authentication and any required API clients.
 
 > `abstract` **createSheet**(`title`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>\>
 
-Defined in: [adapters/SheetsAdapter.ts:89](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L89)
+Defined in: [adapters/SheetsAdapter.ts:89](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L89)
 
 Creates a new sheet (tab) within the spreadsheet.
 
@@ -139,7 +139,7 @@ Metadata for the newly created sheet.
 
 > `abstract` **deleteRow**(`rowIndex`, `sheetName?`): `Promise`\<`void`>\>
 
-Defined in: [adapters/SheetsAdapter.ts:180](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L180)
+Defined in: [adapters/SheetsAdapter.ts:180](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L180)
 
 Deletes a row by its zero-based data index.
 
@@ -171,7 +171,7 @@ sheet from [SheetConfig](../interfaces/SheetConfig.md) is used.
 
 > `abstract` **deleteSheet**(`sheetName`): `Promise`\<`void`>\>
 
-Defined in: [adapters/SheetsAdapter.ts:110](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L110)
+Defined in: [adapters/SheetsAdapter.ts:110](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L110)
 
 Deletes a sheet (tab) from the spreadsheet by its title.
 
@@ -198,7 +198,7 @@ not exist.
 
 > `abstract` **disconnect**(): `Promise`\<`void`>\>
 
-Defined in: [adapters/SheetsAdapter.ts:57](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L57)
+Defined in: [adapters/SheetsAdapter.ts:57](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L57)
 
 Releases resources held by the adapter.
 
@@ -215,7 +215,7 @@ until [connect](#connect) is called again.
 
 > `protected` **ensureConnected**(`methodName`): `void`
 
-Defined in: [adapters/SheetsAdapter.ts:66](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L66)
+Defined in: [adapters/SheetsAdapter.ts:66](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L66)
 
 Guards data-access methods against being called before [connect](#connect).
 
@@ -242,7 +242,7 @@ If the adapter has not been connected.
 
 > `abstract` **ensureSheet**(`sheetName`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>\>
 
-Defined in: [adapters/SheetsAdapter.ts:101](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L101)
+Defined in: [adapters/SheetsAdapter.ts:101](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L101)
 
 Ensures a sheet exists, creating it if missing.
 
@@ -270,7 +270,7 @@ Metadata for the sheet.
 
 > `abstract` **getHeaders**(`sheetName?`): `Promise`\<`string`[]\>
 
-Defined in: [adapters/SheetsAdapter.ts:119](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L119)
+Defined in: [adapters/SheetsAdapter.ts:119](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L119)
 
 Reads the header row (row 1) from the specified sheet.
 
@@ -295,7 +295,7 @@ An array of header cell values.
 
 > `abstract` **getSpreadsheet**(): `Promise`\<[`SpreadsheetInfo`](../interfaces/SpreadsheetInfo.md)>\>
 
-Defined in: [adapters/SheetsAdapter.ts:80](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L80)
+Defined in: [adapters/SheetsAdapter.ts:80](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L80)
 
 Retrieves metadata for the spreadsheet, including its title,
 URL, and contained sheets.
@@ -312,7 +312,7 @@ The spreadsheet metadata including sheet summaries.
 
 > `abstract` **readSheet**\<`T`>\>(`sheetName?`): `Promise`\<`T`[]\>
 
-Defined in: [adapters/SheetsAdapter.ts:140](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L140)
+Defined in: [adapters/SheetsAdapter.ts:140](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L140)
 
 Reads all data rows from the specified sheet, mapped to objects
 using the header row as keys.
@@ -344,7 +344,7 @@ An array of row objects keyed by header values.
 
 > `abstract` **updateRow**(`rowIndex`, `row`, `sheetName?`): `Promise`\<`void`>\>
 
-Defined in: [adapters/SheetsAdapter.ts:164](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L164)
+Defined in: [adapters/SheetsAdapter.ts:164](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L164)
 
 Updates an existing row by its zero-based data index.
 
@@ -382,7 +382,7 @@ sheet from [SheetConfig](../interfaces/SheetConfig.md) is used.
 
 > `abstract` **writeHeaders**(`headers`, `sheetName?`): `Promise`\<`void`>\>
 
-Defined in: [adapters/SheetsAdapter.ts:130](https://github.com/luisdlpr/open-sheets-orm/blob/5a2a5c89c5610683f4e2824d4b521a13ad1211d8/src/adapters/SheetsAdapter.ts#L130)
+Defined in: [adapters/SheetsAdapter.ts:130](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/adapters/SheetsAdapter.ts#L130)
 
 Writes header values to row 1 of the specified sheet.
 
