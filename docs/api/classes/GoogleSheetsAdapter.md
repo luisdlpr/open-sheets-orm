@@ -98,7 +98,7 @@ The spreadsheet configuration for this adapter instance.
 
 ### appendRow()
 
-> **appendRow**(`row`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>\>
+> **appendRow**(`row`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:179](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L179)
 
@@ -131,7 +131,7 @@ name provided at construction time.
 
 ### connect()
 
-> **connect**(): `Promise`\<`void`>>>>>>>>>>\>
+> **connect**(): `Promise`\<`void`>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:62](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L62)
 
@@ -151,7 +151,7 @@ Must be called before any other adapter method.
 
 ### createSheet()
 
-> **createSheet**(`title`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>>>>>>>>>>\>
+> **createSheet**(`title`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:96](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L96)
 
@@ -179,7 +179,7 @@ Metadata for the newly created sheet.
 
 ### deleteRow()
 
-> **deleteRow**(`rowIndex`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>\>
+> **deleteRow**(`rowIndex`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:217](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L217)
 
@@ -212,7 +212,7 @@ name provided at construction time.
 
 ### deleteSheet()
 
-> **deleteSheet**(`sheetName`): `Promise`\<`void`>>>>>>>>>>\>
+> **deleteSheet**(`sheetName`): `Promise`\<`void`>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:117](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L117)
 
@@ -238,7 +238,7 @@ The title of the sheet to delete.
 
 ### disconnect()
 
-> **disconnect**(): `Promise`\<`void`>>>>>>>>>>\>
+> **disconnect**(): `Promise`\<`void`>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:76](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L76)
 
@@ -290,7 +290,7 @@ If the adapter has not been connected.
 
 ### ensureSheet()
 
-> **ensureSheet**(`sheetName`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>>>>>>>>>>\>
+> **ensureSheet**(`sheetName`): `Promise`\<[`SheetInfo`](../interfaces/SheetInfo.md)>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:107](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L107)
 
@@ -347,7 +347,7 @@ An array of header cell values.
 
 ### getSpreadsheet()
 
-> **getSpreadsheet**(): `Promise`\<[`SpreadsheetInfo`](../interfaces/SpreadsheetInfo.md)>>>>>>>>>>\>
+> **getSpreadsheet**(): `Promise`\<[`SpreadsheetInfo`](../interfaces/SpreadsheetInfo.md)>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:85](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L85)
 
@@ -367,7 +367,7 @@ The spreadsheet's title, URL, and contained sheet summaries.
 
 ### readSheet()
 
-> **readSheet**\<`T`>>>>>>>>>>\>(`sheetName?`): `Promise`\<`T`[]\>
+> **readSheet**\<`T`>>>>>>>>>>>\>(`sheetName?`): `Promise`\<`T`[]\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:162](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L162)
 
@@ -403,7 +403,7 @@ An array of row objects keyed by header values.
 
 ### updateRow()
 
-> **updateRow**(`rowIndex`, `row`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>\>
+> **updateRow**(`rowIndex`, `row`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:196](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L196)
 
@@ -442,7 +442,7 @@ name provided at construction time.
 
 ### writeHeaders()
 
-> **writeHeaders**(`headers`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>\>
+> **writeHeaders**(`headers`, `sheetName?`): `Promise`\<`void`>>>>>>>>>>>\>
 
 Defined in: [adapters/GoogleSheetsAdapter.ts:144](https://github.com/luisdlpr/open-sheets-orm/blob/fb9a53e5a13c7a9d7a787ca94047e19ca032cae5/src/adapters/GoogleSheetsAdapter.ts#L144)
 
