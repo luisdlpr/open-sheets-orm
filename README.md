@@ -6,6 +6,8 @@
 
 A type-safe ORM for Google Sheets with a Prisma-inspired developer experience.
 
+**A quick gotcha for the purists:** this is technically clickbait. There's no relational database here, so "ORM" is a stretch. An "Object Sheet Mapper" (OSM) would be more accurate — but let's be honest, nobody would know what that means. We went with ORM because it instantly communicates the dev experience: define a schema, run queries, get typed results. Same vibes, different grid.
+
 ## Features
 
 - **Schema-first approach** — Define your data models with a fluent, type-safe API
