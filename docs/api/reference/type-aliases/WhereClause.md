@@ -1,4 +1,4 @@
-> **WhereClause** = `Record`\<`string`, `unknown`>\>
+> **WhereClause** = `Record`\<`string`, `unknown`>>\>
 
 Defined in: [query/types.ts:10](https://github.com/luisdlpr/open-sheets-orm/blob/b50fe8438de73b0de53dd34a9540e071c2513479/src/query/types.ts#L10)
 
