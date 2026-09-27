@@ -84,6 +84,6 @@
     "vitest": "^4.1.10"
   },
   "dependencies": {
-    "googleapis": "^178.0.0"
+    "googleapis": "^182.0.0"
   }
 }
